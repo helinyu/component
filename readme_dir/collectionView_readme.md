@@ -1,4 +1,3 @@
-
 UITableview 相当于一个简化版的UICollectionView  ， collectionView 还可以自定义布局
 
 1、UICollectionViewDatasource, UICollectionViewDelegate, UICollectionViewLayout
@@ -32,4 +31,54 @@ typedef NS_OPTIONS(NSUInteger, UICollectionViewScrollPosition) {
 };
 
 ```
+```
+typedef NS_ENUM(NSInteger, UICollectionViewReorderingCadence) {
+    UICollectionViewReorderingCadenceImmediate, // 立即
+    UICollectionViewReorderingCadenceFast, // 快速
+    UICollectionViewReorderingCadenceSlow // 慢
+} API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+// 重新排序的节奏会影响在能够重新排序的放置目的地周围拖动时重新排序的容易程度。
+// 重排节奏 ，  默认是UICollectionViewReorderingCadenceImmediate
+// 也就是我们拖拽的时候的效果影响
+@property (nonatomic) UICollectionViewReorderingCadence reorderingCadence API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+// 在iOS11 之后，系统实现了这些功能
+
+/* To enable intra-app drags on iPhone, set this to YES.
+ * You can also force drags to be disabled for this collection view by setting this to NO.
+
+// YES： 允许拖拽在iphone 的App 里面， 
+// ipad 默认是YES， iphone 默认是NO
+@property (nonatomic) BOOL dragInteractionEnabled API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+// 有时间看一下在iOS11 之前是怎么实现这个功能的 ； 
+```
+
+```
+涉及到的协议：
+@protocol UIDataSourceTranslating, UISpringLoadedInteractionContext;
+@protocol UIDragSession, UIDropSession;
+@protocol UICollectionViewDragDelegate, UICollectionViewDropDelegate, UICollectionViewDropCoordinator, UICollectionViewDropItem, UICollectionViewDropPlaceholderContext;
+```
+```
+涉及到类
+# 涉及到的这些类， 要注意了解每个类的使用情况
+@class UICollectionView, UICollectionReusableView, UICollectionViewCell, UICollectionViewLayout, UICollectionViewTransitionLayout, UICollectionViewLayoutAttributes, UITouch, UINib;
+@class UIDragItem, UIDragPreviewParameters, UIDragPreviewTarget;
+@class UICollectionViewDropProposal, UICollectionViewPlaceholder, UICollectionViewDropPlaceholder;
+@class UICollectionViewCellRegistration, UICollectionViewSupplementaryRegistration;
+```
+
+```
+布局转场的block签名， 这个有什么作用
+typedef void (^UICollectionViewLayoutInteractiveTransitionCompletion)(BOOL completed, BOOL finished);
+```
+```
+- (UICollectionViewTransitionLayout *)startInteractiveTransitionToCollectionViewLayout:(UICollectionViewLayout *)layout completion:(nullable UICollectionViewLayoutInteractiveTransitionCompletion)completion API_AVAILABLE(ios(7.0));
+- (void)finishInteractiveTransition API_AVAILABLE(ios(7.0));
+- (void)cancelInteractiveTransition API_AVAILABLE(ios(7.0));
+
+```
+
+https://www.coder.work/article/291688
+
+
 
