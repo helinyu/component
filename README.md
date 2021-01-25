@@ -1,9 +1,9 @@
 # component
 有关iOS在使用中的一些组件
 
-0x00、collectionViewLayout 自定义collectionView的布局
-0）KMCollectionViewWaterLayout 自定义的一个瀑布流的布局
-1）XMGHorizontalFlexbleLayout 一般是一个行中的宽度不确定的布局
-2）XNFastReadAnimatorCollectionViewLayout 有旋转的动画
+<h3>0x00、collectionViewLayout 自定义collectionView的布局\n<h3>
+0）KMCollectionViewWaterLayout 自定义的一个瀑布流的布局 \n
+1）XMGHorizontalFlexbleLayout 一般是一个行中的宽度不确定的布局 \n
+2）XNFastReadAnimatorCollectionViewLayout 有旋转的动画 \n
 
 0x01 
