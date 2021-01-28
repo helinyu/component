@@ -649,3 +649,118 @@ https://github.com/helinyu/component/tree/main/collectionViewLayout/ListView
 
 ```
 
+```
+@property (nonatomic) BOOL allowsSelection;// 是否允许选择， 默认是YES
+@property (nonatomic) BOOL allowsMultipleSelection; // 是否允许多选 ， 默认是NO
+
+```
+
+```
+@property (nonatomic, readonly, nullable) NSArray<NSIndexPath *> *indexPathsForSelectedItems; // 获取已经选择的对象
+- (void)selectItemAtIndexPath:(nullable NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UICollectionViewScrollPosition)scrollPosition; // 代码调用选择
+- (void)deselectItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated; // 代码调用取消选择
+
+```
+
+```
+// 如果返回YES，表示还是在reorder或者有drop placeholder ，也就是还有需要刷新的
+@property (nonatomic, readonly) BOOL hasUncommittedUpdates API_AVAILABLE(ios(11.0));
+```
+
+```
+// 将会丢弃一些没有提交的刷新(eg: placeholders)
+// 丢弃DataSource& delegate 并且请求在需要的时候
+- (void)reloadData; // 也就是提交的改变，并不一定马上就能够刷新
+
+```
+
+```
+// 切换布局
+- (void)setCollectionViewLayout:(UICollectionViewLayout *)layout animated:(BOOL)animated; // transition from one layout to another
+- (void)setCollectionViewLayout:(UICollectionViewLayout *)layout animated:(BOOL)animated completion:(void (^ __nullable)(BOOL finished))completion API_AVAILABLE(ios(7.0));
+
+- (UICollectionViewTransitionLayout *)startInteractiveTransitionToCollectionViewLayout:(UICollectionViewLayout *)layout completion:(nullable UICollectionViewLayoutInteractiveTransitionCompletion)completion API_AVAILABLE(ios(7.0));
+- (void)finishInteractiveTransition API_AVAILABLE(ios(7.0));
+- (void)cancelInteractiveTransition API_AVAILABLE(ios(7.0));
+上面有解释
+
+```
+
+```
+获取当前列表的信息
+@property (nonatomic, readonly) NSInteger numberOfSections;
+- (NSInteger)numberOfItemsInSection:(NSInteger)section;
+
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (nullable UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
+
+- (nullable NSIndexPath *)indexPathForItemAtPoint:(CGPoint)point;
+- (nullable NSIndexPath *)indexPathForCell:(UICollectionViewCell *)cell;
+
+- (nullable UICollectionViewCell *)cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+@property (nonatomic, readonly) NSArray<__kindof UICollectionViewCell *> *visibleCells;
+@property (nonatomic, readonly) NSArray<NSIndexPath *> *indexPathsForVisibleItems;
+
+- (nullable UICollectionReusableView *)supplementaryViewForElementKind:(NSString *)elementKind atIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(9.0));
+- (NSArray<UICollectionReusableView *> *)visibleSupplementaryViewsOfKind:(NSString *)elementKind API_AVAILABLE(ios(9.0));
+- (NSArray<NSIndexPath *> *)indexPathsForVisibleSupplementaryElementsOfKind:(NSString *)elementKind API_AVAILABLE(ios(9.0));
+
+```
+
+```
+// 和列表的交互
+- (void)scrollToItemAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UICollectionViewScrollPosition)scrollPosition animated:(BOOL)animated;
+
+// These methods allow dynamic modification of the current set of items in the collection view
+- (void)insertSections:(NSIndexSet *)sections;
+- (void)deleteSections:(NSIndexSet *)sections;
+- (void)reloadSections:(NSIndexSet *)sections;
+- (void)moveSection:(NSInteger)section toSection:(NSInteger)newSection;
+
+- (void)insertItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
+- (void)deleteItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
+- (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
+- (void)moveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath;
+
+- (void)performBatchUpdates:(void (NS_NOESCAPE ^ _Nullable)(void))updates completion:(void (^ _Nullable)(BOOL finished))completion; // allows multiple insert/delete/reload/move calls to be animated simultaneously. Nestable.
+
+```
+
+```
+// Support for reordering
+// 重排的，启动这个，一般是在编辑的时候回调用这个方法
+- (BOOL)beginInteractiveMovementForItemAtIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(9.0)); // returns NO if reordering was prevented from beginning - otherwise YES
+- (void)updateInteractiveMovementTargetPosition:(CGPoint)targetPosition API_AVAILABLE(ios(9.0));
+- (void)endInteractiveMovement API_AVAILABLE(ios(9.0));
+- (void)cancelInteractiveMovement API_AVAILABLE(ios(9.0));
+
+```
+
+
+```
+// 支持聚焦
+@property (nonatomic) BOOL remembersLastFocusedIndexPath API_AVAILABLE(ios(9.0)); // defaults to NO. If YES, when focusing on a collection view the last focused index path is focused automatically. If the collection view has never been focused, then the preferred focused index path is used.
+
+// When enabled, the collection view ensures that selection is automatically triggered when focus moves to a cell.
+@property (nonatomic) BOOL selectionFollowsFocus API_AVAILABLE(ios(14.0)) API_UNAVAILABLE(watchos, tvos);
+
+// Drag & Drop
+ // 拖拽是否活跃
+@property (nonatomic, readonly) BOOL hasActiveDrag API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+
+// drop 是否活跃
+@property (nonatomic, readonly) BOOL hasActiveDrop API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
+
+
+// 编辑的内容
+ // 是否可以编辑
+@property (nonatomic, getter=isEditing) BOOL editing API_AVAILABLE(ios(14.0), tvos(14.0), watchos(7.0));
+
+ // 是否在编辑的时候允许选择
+@property (nonatomic) BOOL allowsSelectionDuringEditing API_AVAILABLE(ios(14.0), tvos(14.0), watchos(7.0));
+
+// 默认是NO， 是否允许在编辑的时候多选
+@property (nonatomic) BOOL allowsMultipleSelectionDuringEditing API_AVAILABLE(ios(14.0), tvos(14.0), watchos(7.0));
+
+
+```
