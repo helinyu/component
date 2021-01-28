@@ -233,3 +233,8 @@ https://zhang759740844.github.io/2017/07/27/UICollectionView%E5%AE%8C%E5%85%A8%E
 
 https://github.com/zhang759740844/MyOCDemo/tree/develop/UICollectionViewDemo 
 
+
+
+1、 为什么reloadData还是没有刷新？ 这个可以研究一下， 应该和update有关系； 
+
+
