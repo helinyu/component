@@ -764,3 +764,5 @@ https://github.com/helinyu/component/tree/main/collectionViewLayout/ListView
 
 
 ```
+
+> tableView 是CollectionView的更加精简的版本，提供了更多的额封装方法
