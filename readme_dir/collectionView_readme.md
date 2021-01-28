@@ -334,7 +334,6 @@ PS：
 
 ```
 
-
 ```
 // 不知道这个编辑的是什么
 iOS 14特有的特性，那么iOS14之前是怎么实现的？
@@ -488,8 +487,6 @@ API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos)
 
 @end
 
-
-
 ```
 
 ```
@@ -613,15 +610,39 @@ API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos)
 
 @property (nonatomic, readonly, nullable) UIContextMenuInteraction *contextMenuInteraction API_UNAVAILABLE(ios) API_UNAVAILABLE(watchos, tvos); // 交互的上下文
 
-/* Reordering cadence affects how easily reordering occurs while dragging around a reorder-capable drop destination.
- * Default is UICollectionViewReorderingCadenceImmediate.
- */
 @property (nonatomic) UICollectionViewReorderingCadence reorderingCadence API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
-<!--  是否追踪我们的cell移动的时候 -->
+ 是否追踪我们的cell移动的时候, 默认：UICollectionViewReorderingCadenceImmediate
 
-@property (nonatomic, strong, nullable) UIView *backgroundView; // will be automatically resized to track the size of the collection view and placed behind all cells and supplementary views.
-<!-- collectionView 只有有一个背景的Vie -->
+@property (nonatomic, strong, nullable) UIView *backgroundView;
+collectionView 只有有一个背景的View
 
+```
+
+```
+// For each reuse identifier that the collection view will use, register either a class or a nib from which to instantiate a cell.
+// If a nib is registered, it must contain exactly 1 top level object which is a UICollectionViewCell.
+// If a class is registered, it will be instantiated via alloc/initWithFrame:
+
+// 要重用一个cell实例， 必须要先注册
+// nib注册， 它必须包括1级水平对象的collectionViewCell
+// class 注册，将通过 alloc/initWithFrame: 初始化
+
+// 注册cell内容，
+- (void)registerClass:(nullable Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier;
+- (void)registerNib:(nullable UINib *)nib forCellWithReuseIdentifier:(NSString *)identifier;
+
+// xib的注册方式
+- (void)registerClass:(nullable Class)viewClass forSupplementaryViewOfKind:(NSString *)elementKind withReuseIdentifier:(NSString *)identifier;
+- (void)registerNib:(nullable UINib *)nib forSupplementaryViewOfKind:(NSString *)kind withReuseIdentifier:(NSString *)identifier;
+
+// 重用方式
+- (__kindof UICollectionViewCell *)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath;
+- (__kindof UICollectionReusableView *)dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind withReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath;
+
+// ios 14 重用方式 (这个方法是更加的好重用这个内容， 这样子的话， collectionView 就不用我们每次都去deque什么了，直接使用了这个东西)
+// 这个地方， 对iOS 14 之前进行兼容了， 很多tableView的东西，进行处理datasource 方面的内容
+- (__kindof UICollectionViewCell *)dequeueConfiguredReusableCellWithRegistration:(UICollectionViewCellRegistration*)registration forIndexPath:(NSIndexPath*)indexPath item:(id)item API_AVAILABLE(ios(14.0),tvos(14.0));
+- (__kindof UICollectionReusableView *)dequeueConfiguredReusableSupplementaryViewWithRegistration:(UICollectionViewSupplementaryRegistration*)registration forIndexPath:(NSIndexPath *)indexPath API_AVAILABLE(ios(14.0),tvos(14.0));
 
 ```
 
