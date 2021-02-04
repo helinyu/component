@@ -42,16 +42,11 @@ typedef void(^SDInternalCompletionBlock)(UIImage * _Nullable image, NSData * _Nu
 
 @end
 
-/**
- * The SDWebImageManager is the class behind the UIImageView+WebCache category and likes.
- * It ties the asynchronous downloader (SDWebImageDownloader) with the image cache store (SDImageCache).
- * You can use this class directly to benefit from web image downloading with caching in another context than
- * a UIView.
- *
- * Here is a simple example of how to use SDWebImageManager:
- *
- * @code
-
+//   图片管理器
+//  这个类是在类似UIImageView+WebCache 这种分类的底层
+//  绑定了异步下载（SDWebImageDownloader）和图片的缓存（SDImageCache）
+//  你可以直接遍历的将网上的图片下载并缓存在另外一个除了UIView的类上下文中 （也就是我们不是缓存在UIView中）
+/* 使用的基本的例子
 SDWebImageManager *manager = [SDWebImageManager sharedManager];
 [manager loadImageWithURL:imageURL
                   options:0
@@ -61,49 +56,37 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
                         // do something with image
                     }
                 }];
+*/
 
- * @endcode
- */
-//   图片管理器
 @interface SDWebImageManager : NSObject
 
 //  默nil
-@property (weak, nonatomic, nullable) id <SDWebImageManagerDelegate> delegate;
+@property (weak, nonatomic, nullable) id <SDWebImageManagerDelegate> delegate; // 代理
+@property (strong, nonatomic, readonly, nonnull) id<SDImageCache> imageCache; //   图片缓存的管理器
+@property (strong, nonatomic, readonly, nonnull) id<SDImageLoader> imageLoader; // 图片加载器
 
-//   图片缓存的管理器
-@property (strong, nonatomic, readonly, nonnull) id<SDImageCache> imageCache;
-
-//  图片加载器
-@property (strong, nonatomic, readonly, nonnull) id<SDImageLoader> imageLoader;
-
-/**
- The image transformer for manager. It's used for image transform after the image load finished and store the transformed image to cache, see `SDImageTransformer`.
- Defaults to nil, which means no transform is applied.
- @note This will affect all the load requests for this manager if you provide. However, you can pass `SDWebImageContextImageTransformer` in context arg to explicitly use that transformer instead.
- */
+//  图片变换对于管理器， 它被用来变换图片在图片下载完成之后，并且下载变换图片去下载， 查看 SDImageTransformer
+//  默认是nil， 以为没有变换提供
+// 注意： 这个将会影响到所有的加载请求对于这个管理器的提供的下载， 但是， 你能够通过SDWebImageContextImageTransformer 在上下文参数中显示使用转换器
 @property (strong, nonatomic, nullable) id<SDImageTransformer> transformer;
 
-/**
- * The cache filter is used to convert an URL into a cache key each time SDWebImageManager need cache key to use image cache.
- *
- * The following example sets a filter in the application delegate that will remove any query-string from the
- * URL before to use it as a cache key:
- *
- * @code
+//  缓存key的过滤器
+/*
  SDWebImageManager.sharedManager.cacheKeyFilter =[SDWebImageCacheKeyFilter cacheKeyFilterWithBlock:^NSString * _Nullable(NSURL * _Nonnull url) {
     url = [[NSURL alloc] initWithScheme:url.scheme host:url.host path:url.path];
     return [url absoluteString];
  }];
- * @endcode
- */
-@property (nonatomic, strong, nullable) id<SDWebImageCacheKeyFilter> cacheKeyFilter;
+*/ 
+// 缓存过滤器， 是用来转换一个url编程一个缓存key，
+@property (nonatomic, strong, nullable) id<SDWebImageCacheKeyFilter> cacheKeyFilter; // 缓存key的过滤器
 
-/**
- * The cache serializer is used to convert the decoded image, the source downloaded data, to the actual data used for storing to the disk cache. If you return nil, means to generate the data from the image instance, see `SDImageCache`.
- * For example, if you are using WebP images and facing the slow decoding time issue when later retrieving from disk cache again. You can try to encode the decoded image to JPEG/PNG format to disk cache instead of source downloaded data.
- * @note The `image` arg is nonnull, but when you also provide an image transformer and the image is transformed, the `data` arg may be nil, take attention to this case.
- * @note This method is called from a global queue in order to not to block the main thread.
- * @code
+// 用来转化解码图片， 元下载数据，到真实数据被用来存储到硬盘缓存中。如果你返回nil， 意味这从一个图片实例中产生数据， eg：`SDImageCache`
+// 例如： 如果你讲webp图片解码的时候存在耗时的 问题提， 如不过你从缓存中还是需要解码， 那么你可以考虑将解码的图片编码成为jpeg/png 的格式缓存到图片替换下载数据；
+// 注意： image是不空的， 如果将一个图片转换为另外一种格式， 数据可能是编程nil， 注意这个问题
+// 注意：这个方法被从一个全局队列中调用为了不阻塞主线程；
+//  默认的值是nil， 因为我们将下载的数据缓存到磁盘
+// 
+/*
  SDWebImageManager.sharedManager.cacheSerializer = [SDWebImageCacheSerializer cacheSerializerWithBlock:^NSData * _Nullable(UIImage * _Nonnull image, NSData * _Nullable data, NSURL * _Nullable imageURL) {
     SDImageFormat format = [NSData sd_imageFormatForImageData:data];
     switch (format) {
@@ -113,17 +96,15 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
             return data;
     }
 }];
- * @endcode
- * The default value is nil. Means we just store the source downloaded data to disk cache.
- */
-@property (nonatomic, strong, nullable) id<SDWebImageCacheSerializer> cacheSerializer;
+*/ 
+@property (nonatomic, strong, nullable) id<SDWebImageCacheSerializer> cacheSerializer;  // 缓存系列化
 
-/**
- The options processor is used, to have a global control for all the image request options and context option for current manager.
- @note If you use `transformer`, `cacheKeyFilter` or `cacheSerializer` property of manager, the input context option already apply those properties before passed. This options processor is a better replacement for those property in common usage.
- For example, you can control the global options, based on the URL or original context option like the below code.
- 
- @code
+//  选项处理器
+//  选项处理器被使用， 有一个全局控制对于所有图片的选项和上下文的选项对于当前的管理器；
+//  注意： 你使用了 `transformer`, `cacheKeyFilter` or `cacheSerializer` 在管理器中， 
+//  这个输入的上下文选项已经被用于这些属性在传递之前， 这个选项处理器是一个号的替换对于这些属性用于公共使用；
+//  eg： 如果能能够控制全局选项，基于url和原始的额上下文选项， 如下面的例子：
+/*
  SDWebImageManager.sharedManager.optionsProcessor = [SDWebImageOptionsProcessor optionsProcessorWithBlock:^SDWebImageOptionsResult * _Nullable(NSURL * _Nullable url, SDWebImageOptions options, SDWebImageContext * _Nullable context) {
      // Only do animation on `SDAnimatedImageView`
      if (!context[SDWebImageContextAnimatedImageClass]) {
@@ -140,80 +121,32 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
  
      return [[SDWebImageOptionsResult alloc] initWithOptions:options context:context];
  }];
- @endcode
- */
+*/ 
 @property (nonatomic, strong, nullable) id<SDWebImageOptionsProcessor> optionsProcessor;
 
-/**
- * Check one or more operations running
- */
+//   检查一个或更多的操作是否在运行
 @property (nonatomic, assign, readonly, getter=isRunning) BOOL running;
 
-/**
- The default image cache when the manager which is created with no arguments. Such as shared manager or init.
- Defaults to nil. Means using `SDImageCache.sharedImageCache`
- */
+//  默认的缓存对象， 以为这使用SDImageCache.sharedImageCache
 @property (nonatomic, class, nullable) id<SDImageCache> defaultImageCache;
 
-/**
- The default image loader for manager which is created with no arguments. Such as shared manager or init.
- Defaults to nil. Means using `SDWebImageDownloader.sharedDownloader`
- */
+//   默认下载器，意味着使用 SDWebImageDownloader.sharedDownloader
 @property (nonatomic, class, nullable) id<SDImageLoader> defaultImageLoader;
 
-/**
- * Returns global shared manager instance.
- */
+//  返回一个全全局的管理器对象
 @property (nonatomic, class, readonly, nonnull) SDWebImageManager *sharedManager;
 
-/**
- * Allows to specify instance of cache and image loader used with image manager.
- * @return new instance of `SDWebImageManager` with specified cache and loader.
- */
+
+//   允许指定一个缓存对象和一个图片下载器用于图片管理器，  ———— 也就是自定义缓存器和下载器
 - (nonnull instancetype)initWithCache:(nonnull id<SDImageCache>)cache loader:(nonnull id<SDImageLoader>)loader NS_DESIGNATED_INITIALIZER;
 
-/**
- * Downloads the image at the given URL if not present in cache or return the cached version otherwise.
- *
- * @param url            The URL to the image
- * @param options        A mask to specify options to use for this request
- * @param progressBlock  A block called while image is downloading
- *                       @note the progress block is executed on a background queue
- * @param completedBlock A block called when operation has been completed.
- *
- *   This parameter is required.
- * 
- *   This block has no return value and takes the requested UIImage as first parameter and the NSData representation as second parameter.
- *   In case of error the image parameter is nil and the third parameter may contain an NSError.
- *
- *   The forth parameter is an `SDImageCacheType` enum indicating if the image was retrieved from the local cache
- *   or from the memory cache or from the network.
- *
- *   The fifth parameter is set to NO when the SDWebImageProgressiveLoad option is used and the image is
- *   downloading. This block is thus called repeatedly with a partial image. When image is fully downloaded, the
- *   block is called a last time with the full image and the last parameter set to YES.
- *
- *   The last parameter is the original image URL
- *
- * @return Returns an instance of SDWebImageCombinedOperation, which you can cancel the loading process.
- */
+//  同归一个url下载图片如果这个图片还没有缓存，否则返回缓存的版本
+// url: 图片url， options：指定请求的选项 ， progressBlock 进度的回调   completedBlock：完成的回调  context：包括不同的选项去执行指定的变化和进度， 查看SDWebImageContextOption 这个额外的对象是options 枚举没有的
+//  completedBlock
 - (nullable SDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
                                                    options:(SDWebImageOptions)options
                                                   progress:(nullable SDImageLoaderProgressBlock)progressBlock
                                                  completed:(nonnull SDInternalCompletionBlock)completedBlock;
-
-/**
- * Downloads the image at the given URL if not present in cache or return the cached version otherwise.
- *
- * @param url            The URL to the image
- * @param options        A mask to specify options to use for this request
- * @param context        A context contains different options to perform specify changes or processes, see `SDWebImageContextOption`. This hold the extra objects which `options` enum can not hold.
- * @param progressBlock  A block called while image is downloading
- *                       @note the progress block is executed on a background queue
- * @param completedBlock A block called when operation has been completed.
- *
- * @return Returns an instance of SDWebImageCombinedOperation, which you can cancel the loading process.
- */
 - (nullable SDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
                                                    options:(SDWebImageOptions)options
                                                    context:(nullable SDWebImageContext *)context
@@ -229,17 +162,11 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
 //   移除失败的黑名单中所有的url
 - (void)removeAllFailedURLs;
 
-/**
- * Return the cache key for a given URL, does not considerate transformer or thumbnail.
- * @note This method does not have context option, only use the url and manager level cacheKeyFilter to generate the cache key.
- */
-//  
+//  通过url获取缓存的key，不考虑变换或者缩略图
 - (nullable NSString *)cacheKeyForURL:(nullable NSURL *)url;
 
-/**
- * Return the cache key for a given URL and context option.
- * @note The context option like `.thumbnailPixelSize` and `.imageTransformer` will effect the generated cache key, using this if you have those context associated.
-*/
+//  返回一个缓存的key通过给出的url和上下文选项
+//  注意：像缩略像素大小和 图片变换将会影响产生缓存key； 使用这个会涉及到上下文关联
 - (nullable NSString *)cacheKeyForURL:(nullable NSURL *)url context:(nullable SDWebImageContext *)context;
 
 @end
@@ -248,14 +175,6 @@ SDWebImageManager *manager = [SDWebImageManager sharedManager];
 ___________________________________________________________________________________________________
 .m 文件
 ___________________________________________________________________________________________________
-
-/*
- * This file is part of the SDWebImage package.
- * (c) Olivier Poitrey <rs@dailymotion.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
 
 #import "SDWebImageManager.h"
 #import "SDImageCache.h"
@@ -363,6 +282,12 @@ static id<SDImageLoader> _defaultImageLoader;
     return key;
 }
 
+
+//  获取缓存的key通过url和上下文
+//  1）如果在上下文中有缓存过滤器， 就使用上下文中的key，
+//  2）如果上下文中没有缓存过滤器的key， 就使用我们cacheKeyFilter （缓存key过滤器）
+//  3）判断缩略图的变换， 如果缩略图有， 就拼接上缩略图组合成为一个新的key（缩略图是变换中的一个特殊的key）
+//  4）如果还有一些变换的key， 那么就拼接这个变换的key
 - (nullable NSString *)cacheKeyForURL:(nullable NSURL *)url context:(nullable SDWebImageContext *)context {
     if (!url) {
         return @"";
@@ -370,8 +295,8 @@ static id<SDImageLoader> _defaultImageLoader;
     
     NSString *key;
     // Cache Key Filter
-    id<SDWebImageCacheKeyFilter> cacheKeyFilter = self.cacheKeyFilter;
-    if (context[SDWebImageContextCacheKeyFilter]) {
+    id<SDWebImageCacheKeyFilter> cacheKeyFilter = self.cacheKeyFilter;  // 缓存过滤器 ， 应该是一个拦截的效果
+    if (context[SDWebImageContextCacheKeyFilter]) {//  上下呢是针对拦截器更急个性化的设置cachekey
         cacheKeyFilter = context[SDWebImageContextCacheKeyFilter];
     }
     if (cacheKeyFilter) {
@@ -380,7 +305,7 @@ static id<SDImageLoader> _defaultImageLoader;
         key = url.absoluteString;
     }
     
-    // Thumbnail Key Appending
+    // Thumbnail Key Appending , 应该是拼接上缩略图的内容了
     NSValue *thumbnailSizeValue = context[SDWebImageContextImageThumbnailPixelSize];
     if (thumbnailSizeValue != nil) {
         CGSize thumbnailSize = CGSizeZero;
@@ -390,15 +315,15 @@ static id<SDImageLoader> _defaultImageLoader;
         thumbnailSize = thumbnailSizeValue.CGSizeValue;
 #endif
         BOOL preserveAspectRatio = YES;
-        NSNumber *preserveAspectRatioValue = context[SDWebImageContextImagePreserveAspectRatio];
+        NSNumber *preserveAspectRatioValue = context[SDWebImageContextImagePreserveAspectRatio]; // 图片保持的比例大小
         if (preserveAspectRatioValue != nil) {
             preserveAspectRatio = preserveAspectRatioValue.boolValue;
         }
-        key = SDThumbnailedKeyForKey(key, thumbnailSize, preserveAspectRatio);
+        key = SDThumbnailedKeyForKey(key, thumbnailSize, preserveAspectRatio); // 获取缩略图的cachekey
     }
     
     // Transformer Key Appending
-    id<SDImageTransformer> transformer = self.transformer;
+    id<SDImageTransformer> transformer = self.transformer; // 这个有变换的凭借
     if (context[SDWebImageContextImageTransformer]) {
         transformer = context[SDWebImageContextImageTransformer];
         if (![transformer conformsToProtocol:@protocol(SDImageTransformer)]) {
@@ -415,18 +340,17 @@ static id<SDImageLoader> _defaultImageLoader;
 - (SDWebImageCombinedOperation *)loadImageWithURL:(NSURL *)url options:(SDWebImageOptions)options progress:(SDImageLoaderProgressBlock)progressBlock completed:(SDInternalCompletionBlock)completedBlock {
     return [self loadImageWithURL:url options:options context:nil progress:progressBlock completed:completedBlock];
 }
-
 - (SDWebImageCombinedOperation *)loadImageWithURL:(nullable NSURL *)url
                                           options:(SDWebImageOptions)options
                                           context:(nullable SDWebImageContext *)context
                                          progress:(nullable SDImageLoaderProgressBlock)progressBlock
                                         completed:(nonnull SDInternalCompletionBlock)completedBlock {
-    // Invoking this method without a completedBlock is pointless
+    // Invoking this method without a completedBlock is pointless 也就是我们这个方法使用，就是要有回调回去的内容
     NSAssert(completedBlock != nil, @"If you mean to prefetch the image, use -[SDWebImagePrefetcher prefetchURLs] instead");
 
     // Very common mistake is to send the URL using NSString object instead of NSURL. For some strange reason, Xcode won't
     // throw any warning for this type mismatch. Here we failsafe this error by allowing URLs to be passed as NSString.
-    if ([url isKindOfClass:NSString.class]) {
+    if ([url isKindOfClass:NSString.class]) { // 因为xcode中没有报错如果使用string替换掉url， 这里是错误返券处理
         url = [NSURL URLWithString:(NSString *)url];
     }
 
@@ -434,6 +358,7 @@ static id<SDImageLoader> _defaultImageLoader;
     if (![url isKindOfClass:NSURL.class]) {
         url = nil;
     }
+    //  上面是安全处理
 
     SDWebImageCombinedOperation *operation = [SDWebImageCombinedOperation new];
     operation.manager = self;
@@ -445,6 +370,7 @@ static id<SDImageLoader> _defaultImageLoader;
         SD_UNLOCK(_failedURLsLock);
     }
 
+//  判断这种错误的代码情况， 1、 没有长度、2、在失败的url黑名单里面， 并且没有尝试失败的重试的策略， 就直接回调错误的处理
     if (url.absoluteString.length == 0 || (!(options & SDWebImageRetryFailed) && isFailedUrl)) {
         NSString *description = isFailedUrl ? @"Image url is blacklisted" : @"Image url is nil";
         NSInteger code = isFailedUrl ? SDWebImageErrorBlackListed : SDWebImageErrorInvalidURL;
@@ -453,13 +379,13 @@ static id<SDImageLoader> _defaultImageLoader;
     }
 
     SD_LOCK(_runningOperationsLock);
-    [self.runningOperations addObject:operation];
+    [self.runningOperations addObject:operation]; // 运行的合并的操作
     SD_UNLOCK(_runningOperationsLock);
     
     // Preprocess the options and context arg to decide the final the result for manager
-    SDWebImageOptionsResult *result = [self processedResultForURL:url options:options context:context];
+    SDWebImageOptionsResult *result = [self processedResultForURL:url options:options context:context]; // 获取选项的结果
     
-    // Start the entry to load image from cache
+    // Start the entry to load image from cache 调用缓存策略和执行操作
     [self callCacheProcessForOperation:operation url:url options:result.options context:result.context progress:progressBlock completed:completedBlock];
 
     return operation;
@@ -497,7 +423,8 @@ static id<SDImageLoader> _defaultImageLoader;
 
 #pragma mark - Private
 
-// Query normal cache process
+// Query normal cache process 调用常规的缓存进程
+//  缓存的操作
 - (void)callCacheProcessForOperation:(nonnull SDWebImageCombinedOperation *)operation
                                  url:(nonnull NSURL *)url
                              options:(SDWebImageOptions)options
@@ -505,23 +432,24 @@ static id<SDImageLoader> _defaultImageLoader;
                             progress:(nullable SDImageLoaderProgressBlock)progressBlock
                            completed:(nullable SDInternalCompletionBlock)completedBlock {
     // Grab the image cache to use
-    id<SDImageCache> imageCache;
+    id<SDImageCache> imageCache;//获取下载对象
     if ([context[SDWebImageContextImageCache] conformsToProtocol:@protocol(SDImageCache)]) {
         imageCache = context[SDWebImageContextImageCache];
     } else {
         imageCache = self.imageCache;
     }
     
-    // Get the query cache type
+    // Get the query cache type  缓存类型
     SDImageCacheType queryCacheType = SDImageCacheTypeAll;
     if (context[SDWebImageContextQueryCacheType]) {
         queryCacheType = [context[SDWebImageContextQueryCacheType] integerValue];
     }
     
     // Check whether we should query cache
-    BOOL shouldQueryCache = !SD_OPTIONS_CONTAINS(options, SDWebImageFromLoaderOnly);
+    BOOL shouldQueryCache = !SD_OPTIONS_CONTAINS(options, SDWebImageFromLoaderOnly); // 是否需要查询缓存
     if (shouldQueryCache) {
         NSString *key = [self cacheKeyForURL:url context:context];
+        //  这个缓存是如何进行处理的？
         @weakify(operation);
         operation.cacheOperation = [imageCache queryImageForKey:key options:options context:context cacheType:queryCacheType completion:^(UIImage * _Nullable cachedImage, NSData * _Nullable cachedData, SDImageCacheType cacheType) {
             @strongify(operation);
@@ -540,7 +468,7 @@ static id<SDImageLoader> _defaultImageLoader;
             [self callDownloadProcessForOperation:operation url:url options:options context:context cachedImage:cachedImage cachedData:cachedData cacheType:cacheType progress:progressBlock completed:completedBlock];
         }];
     } else {
-        // Continue download process
+        // Continue download process ， 如果不能够缓存，还是下载
         [self callDownloadProcessForOperation:operation url:url options:options context:context cachedImage:nil cachedData:nil cacheType:SDImageCacheTypeNone progress:progressBlock completed:completedBlock];
     }
 }
@@ -608,7 +536,7 @@ static id<SDImageLoader> _defaultImageLoader;
     }
 }
 
-// Download process
+//  下载的的操作
 - (void)callDownloadProcessForOperation:(nonnull SDWebImageCombinedOperation *)operation
                                     url:(nonnull NSURL *)url
                                 options:(SDWebImageOptions)options
@@ -758,6 +686,7 @@ static id<SDImageLoader> _defaultImageLoader;
 }
 
 // Transform process
+//  有关的图片变换的操作
 - (void)callTransformProcessForOperation:(nonnull SDWebImageCombinedOperation *)operation
                                      url:(nonnull NSURL *)url
                                  options:(SDWebImageOptions)options
@@ -812,6 +741,7 @@ static id<SDImageLoader> _defaultImageLoader;
 
 #pragma mark - Helper
 
+//  移除运行中的操作
 - (void)safelyRemoveOperationFromRunning:(nullable SDWebImageCombinedOperation*)operation {
     if (!operation) {
         return;
@@ -821,6 +751,7 @@ static id<SDImageLoader> _defaultImageLoader;
     SD_UNLOCK(_runningOperationsLock);
 }
 
+//  存储图片
 - (void)storeImage:(nullable UIImage *)image
          imageData:(nullable NSData *)data
             forKey:(nullable NSString *)key
@@ -897,21 +828,26 @@ static id<SDImageLoader> _defaultImageLoader;
     return shouldBlockFailedURL;
 }
 
+//  解析选项的结果 ， 另外的一个类里面， 这个是可以去处理的
+//  其实就是多种类型的选项组合
 - (SDWebImageOptionsResult *)processedResultForURL:(NSURL *)url options:(SDWebImageOptions)options context:(SDWebImageContext *)context {
     SDWebImageOptionsResult *result;
     SDWebImageMutableContext *mutableContext = [SDWebImageMutableContext dictionary];
     
     // Image Transformer from manager
+    //  图片变换
     if (!context[SDWebImageContextImageTransformer]) {
         id<SDImageTransformer> transformer = self.transformer;
         [mutableContext setValue:transformer forKey:SDWebImageContextImageTransformer];
     }
     // Cache key filter from manager
+    //  缓存key  过滤器
     if (!context[SDWebImageContextCacheKeyFilter]) {
         id<SDWebImageCacheKeyFilter> cacheKeyFilter = self.cacheKeyFilter;
         [mutableContext setValue:cacheKeyFilter forKey:SDWebImageContextCacheKeyFilter];
     }
     // Cache serializer from manager
+    //  系列化
     if (!context[SDWebImageContextCacheSerializer]) {
         id<SDWebImageCacheSerializer> cacheSerializer = self.cacheSerializer;
         [mutableContext setValue:cacheSerializer forKey:SDWebImageContextCacheSerializer];
@@ -941,6 +877,7 @@ static id<SDImageLoader> _defaultImageLoader;
 
 @implementation SDWebImageCombinedOperation
 
+//  取消操作
 - (void)cancel {
     @synchronized(self) {
         if (self.isCancelled) {
