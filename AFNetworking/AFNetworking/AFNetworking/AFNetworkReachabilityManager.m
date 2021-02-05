@@ -223,6 +223,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
         return strongSelf;
     };
 
+//     这里设置的，就是网络方面的回调
     SCNetworkReachabilityContext context = {0, (__bridge void *)callback, AFNetworkReachabilityRetainCallback, AFNetworkReachabilityReleaseCallback, NULL};
     SCNetworkReachabilitySetCallback(self.networkReachability, AFNetworkReachabilityCallback, &context);
     SCNetworkReachabilityScheduleWithRunLoop(self.networkReachability, CFRunLoopGetMain(), kCFRunLoopCommonModes);

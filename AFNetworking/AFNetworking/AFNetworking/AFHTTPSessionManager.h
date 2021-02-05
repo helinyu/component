@@ -27,6 +27,8 @@
 
 #import "AFURLSessionManager.h"
 
+// 对URLSession Manger 的基本的封装
+
 /**
  `AFHTTPSessionManager` is a subclass of `AFURLSessionManager` with convenience methods for making HTTP requests. When a `baseURL` is provided, requests made with the `GET` / `POST` / et al. convenience methods can be made with relative paths.
 

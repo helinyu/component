@@ -24,6 +24,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+// 响应的系列化
 /**
  Recursively removes `NSNull` values from a JSON object.
 */

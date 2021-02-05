@@ -33,6 +33,8 @@ typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+// 处理可达的内容
+
 /**
  `AFNetworkReachabilityManager` monitors the reachability of domains, and addresses for both WWAN and WiFi network interfaces.
 

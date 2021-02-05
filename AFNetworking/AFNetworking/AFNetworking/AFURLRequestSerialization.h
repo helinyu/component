@@ -30,6 +30,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+// 请求的系列化， 有关请求方面的内容
+
 /**
  Returns a percent-escaped string following RFC 3986 for a query string key or value.
  RFC 3986 states that the following characters are "reserved" characters.

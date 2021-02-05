@@ -34,7 +34,7 @@
     #define AF_API_UNAVAILABLE(...)
 #endif // API_UNAVAILABLE
 
-#if __has_warning("-Wunguarded-availability-new")
+#if __has_warning("-Wunguarded-availability-new") // 允许new，为什么需要这个？
     #define AF_CAN_USE_AT_AVAILABLE 1
 #else
     #define AF_CAN_USE_AT_AVAILABLE 0

@@ -31,12 +31,9 @@
 #endif
 
 /**
- `AFURLSessionManager` creates and manages an `NSURLSession` object based on a specified `NSURLSessionConfiguration` object, which conforms to `<NSURLSessionTaskDelegate>`, `<NSURLSessionDataDelegate>`, `<NSURLSessionDownloadDelegate>`, and `<NSURLSessionDelegate>`.
-
- ## Subclassing Notes
-
- This is the base class for `AFHTTPSessionManager`, which adds functionality specific to making HTTP requests. If you are looking to extend `AFURLSessionManager` specifically for HTTP, consider subclassing `AFHTTPSessionManager` instead.
-
+ AFURLSessionManager 创建和管理一个NSURLSession对象， 基于NSURLSessionConfiguration 对象， 对应`<NSURLSessionTaskDelegate>`, `<NSURLSessionDataDelegate>`, `<NSURLSessionDownloadDelegate>`, and `<NSURLSessionDelegate>` 这几个代理
+ AFHTTPSessionManager 是AFURLSessionManager 子类， 做http请求
+ 
  ## NSURLSession & NSURLSessionTask Delegate Methods
 
  `AFURLSessionManager` implements the following delegate methods:
@@ -68,22 +65,21 @@
  - `URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:`
  - `URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:`
 
- If any of these methods are overridden in a subclass, they _must_ call the `super` implementation first.
 
- ## Network Reachability Monitoring
+ ## Network Reachability Monitoring （网络可达的控制）
+网络可达的状态改变控制通过reachabilityManager 属性，
+ 应用鞥能够选择一个控制网络可达的状态 为了阻止或者悬挂一些超出范围的请求
+ ：AFNetworkReachabilityManager 有细节
 
- Network reachability status and change monitoring is available through the `reachabilityManager` property. Applications may choose to monitor network reachability conditions in order to prevent or suspend any outbound requests. See `AFNetworkReachabilityManager` for more details.
 
- ## NSCoding Caveats
+ —— 编码注意事项：
+  编码管理器没有包括block属性， 确定设置代理回调当使用-initWithCoder: 或者NSKeyedUnarchiver
 
- - Encoded managers do not include any block properties. Be sure to set delegate callback blocks when using `-initWithCoder:` or `NSKeyedUnarchiver`.
+—— 拷贝注意事项：
+ -copy` 和 `-copyWithZone: 返回一个新的管理器返回有一个新的NSURLSession ， 通过一个原始的配置创建一个NSURLSession
+ 拷贝操作没有包括代理回调的blocks， 因为他们经常捕获到self的应用，  这样可能会有副作用支出原始的回话管理器，当拷贝的时候；
+注意： 对于后台session的管理器， 必须拥有在它们被使用的的时候，这个能够被完成通过创建一个应用端或者单例的实例
 
- ## NSCopying Caveats
-
- - `-copy` and `-copyWithZone:` return a new manager with a new `NSURLSession` created from the configuration of the original.
- - Operation copies do not include any delegate callback blocks, as they often strongly captures a reference to `self`, which would otherwise have the unintuitive side-effect of pointing to the _original_ session manager when copied.
-
- @warning Managers for background sessions must be owned for the duration of their use. This can be accomplished by creating an application-wide or shared singleton instance.
  */
 
 NS_ASSUME_NONNULL_BEGIN
@@ -213,27 +209,14 @@ NS_ASSUME_NONNULL_BEGIN
 // 下载的进度
 - (nullable NSProgress *)downloadProgressForTask:(NSURLSessionTask *)task;
 
-///-----------------------------------------
-/// @name Setting Session Delegate Callbacks
-///-----------------------------------------
 
-/**
- Sets a block to be executed when the managed session becomes invalid, as handled by the `NSURLSessionDelegate` method `URLSession:didBecomeInvalidWithError:`.
+// ———————————————— 设置session的代理回调 ——————————————————
 
- @param block A block object to be executed when the managed session becomes invalid. The block has no return value, and takes two arguments: the session, and the error related to the cause of invalidation.
- */
+// didBecomeInvalidWithError 请求回话变成了无效的block回调
 - (void)setSessionDidBecomeInvalidBlock:(nullable void (^)(NSURLSession *session, NSError *error))block;
 
-/**
- Sets a block to be executed when a connection level authentication challenge has occurred, as handled by the `NSURLSessionDelegate` method `URLSession:didReceiveChallenge:completionHandler:`.
 
- @param block A block object to be executed when a connection level authentication challenge has occurred. The block returns the disposition of the authentication challenge, and takes three arguments: the session, the authentication challenge, and a pointer to the credential that should be used to resolve the challenge.
-
- @warning Implementing a session authentication challenge handler yourself totally bypasses AFNetworking's security policy defined in `AFSecurityPolicy`. Make sure you fully understand the implications before implementing a custom session authentication challenge handler. If you do not want to bypass AFNetworking's security policy, use `-setAuthenticationChallengeHandler:` instead.
-
- @see -securityPolicy
- @see -setAuthenticationChallengeHandler:
- */
+// 设置验证的回调
 - (void)setSessionDidReceiveAuthenticationChallengeBlock:(nullable NSURLSessionAuthChallengeDisposition (^)(NSURLSession *session, NSURLAuthenticationChallenge *challenge, NSURLCredential * _Nullable __autoreleasing * _Nullable credential))block;
 
 // —————————— 设置任务代理回调 ————————————
@@ -263,156 +246,91 @@ NS_ASSUME_NONNULL_BEGIN
  
  @see -securityPolicy
  */
+
+// 设置了认证的回调 ， 可以去看securityPolicy 这个东西
 - (void)setAuthenticationChallengeHandler:(id (^)(NSURLSession *session, NSURLSessionTask *task, NSURLAuthenticationChallenge *challenge, void (^completionHandler)(NSURLSessionAuthChallengeDisposition , NSURLCredential * _Nullable)))authenticationChallengeHandler;
 
-/**
- Sets a block to be executed periodically to track upload progress, as handled by the `NSURLSessionTaskDelegate` method `URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`.
-
- @param block A block object to be called when an undetermined number of bytes have been uploaded to the server. This block has no return value and takes five arguments: the session, the task, the number of bytes written since the last time the upload progress block was called, the total bytes written, and the total bytes expected to be written during the request, as initially determined by the length of the HTTP body. This block may be called multiple times, and will execute on the main thread.
- */
+// 上传进度的回调的block， 其中的 NSURLSessionTaskDelegate` method `URLSession:task:didSendBodyData:totalBytesSent:totalBytesExpectedToSend:`.
+// 有关的参数， 就是对应的信息了
 - (void)setTaskDidSendBodyDataBlock:(nullable void (^)(NSURLSession *session, NSURLSessionTask *task, int64_t bytesSent, int64_t totalBytesSent, int64_t totalBytesExpectedToSend))block;
 
-/**
- Sets a block to be executed as the last message related to a specific task, as handled by the `NSURLSessionTaskDelegate` method `URLSession:task:didCompleteWithError:`.
-
- @param block A block object to be executed when a session task is completed. The block has no return value, and takes three arguments: the session, the task, and any error that occurred in the process of executing the task.
- */
-//
+// 设置一个block指定在最新的信息关联到指定的任务， 通过NSURLSessionTaskDelegate 的URLSession:task:didCompleteWithError: 方法
+// block ， 当一个session task 任务完成的时候回呗执行， block没有返回值， 有三个参数， session，task， 或者error在执行任务中产生
 - (void)setTaskDidCompleteBlock:(nullable void (^)(NSURLSession *session, NSURLSessionTask *task, NSError * _Nullable error))block;
 
-/**
- Sets a block to be executed when metrics are finalized related to a specific task, as handled by the `NSURLSessionTaskDelegate` method `URLSession:task:didFinishCollectingMetrics:`.
-
- @param block A block object to be executed when a session task is completed. The block has no return value, and takes three arguments: the session, the task, and any metrics that were collected in the process of executing the task.
- */
+// 检测网络的回调
 #if AF_CAN_INCLUDE_SESSION_TASK_METRICS
 - (void)setTaskDidFinishCollectingMetricsBlock:(nullable void (^)(NSURLSession *session, NSURLSessionTask *task, NSURLSessionTaskMetrics * _Nullable metrics))block AF_API_AVAILABLE(ios(10), macosx(10.12), watchos(3), tvos(10));
 #endif
-///-------------------------------------------
-/// @name Setting Data Task Delegate Callbacks
-///-------------------------------------------
 
-/**
- Sets a block to be executed when a data task has received a response, as handled by the `NSURLSessionDataDelegate` method `URLSession:dataTask:didReceiveResponse:completionHandler:`.
+// ———————————— data task delegate callback 数据任务的代理回调 ——————————————
 
- @param block A block object to be executed when a data task has received a response. The block returns the disposition of the session response, and takes three arguments: the session, the data task, and the received response.
- */
+// 接收到响应的回调
 - (void)setDataTaskDidReceiveResponseBlock:(nullable NSURLSessionResponseDisposition (^)(NSURLSession *session, NSURLSessionDataTask *dataTask, NSURLResponse *response))block;
 
-/**
- Sets a block to be executed when a data task has become a download task, as handled by the `NSURLSessionDataDelegate` method `URLSession:dataTask:didBecomeDownloadTask:`.
-
- @param block A block object to be executed when a data task has become a download task. The block has no return value, and takes three arguments: the session, the data task, and the download task it has become.
- */
+// 下载的数据的回调
 - (void)setDataTaskDidBecomeDownloadTaskBlock:(nullable void (^)(NSURLSession *session, NSURLSessionDataTask *dataTask, NSURLSessionDownloadTask *downloadTask))block;
 
-/**
- Sets a block to be executed when a data task receives data, as handled by the `NSURLSessionDataDelegate` method `URLSession:dataTask:didReceiveData:`.
-
- @param block A block object to be called when an undetermined number of bytes have been downloaded from the server. This block has no return value and takes three arguments: the session, the data task, and the data received. This block may be called multiple times, and will execute on the session manager operation queue.
- */
+// 接收到数据 ， NSData格式的数据
 - (void)setDataTaskDidReceiveDataBlock:(nullable void (^)(NSURLSession *session, NSURLSessionDataTask *dataTask, NSData *data))block;
 
-/**
- Sets a block to be executed to determine the caching behavior of a data task, as handled by the `NSURLSessionDataDelegate` method `URLSession:dataTask:willCacheResponse:completionHandler:`.
-
- @param block A block object to be executed to determine the caching behavior of a data task. The block returns the response to cache, and takes three arguments: the session, the data task, and the proposed cached URL response.
- */
+// 数据任务将会缓存的回调
 - (void)setDataTaskWillCacheResponseBlock:(nullable NSCachedURLResponse * (^)(NSURLSession *session, NSURLSessionDataTask *dataTask, NSCachedURLResponse *proposedResponse))block;
 
-/**
- Sets a block to be executed once all messages enqueued for a session have been delivered, as handled by the `NSURLSessionDelegate` method `URLSessionDidFinishEventsForBackgroundURLSession:`.
-
- @param block A block object to be executed once all messages enqueued for a session have been delivered. The block has no return value and takes a single argument: the session.
- */
+// 后台回话完成的回调
 - (void)setDidFinishEventsForBackgroundURLSessionBlock:(nullable void (^)(NSURLSession *session))block AF_API_UNAVAILABLE(macos);
 
 // ——————————————————————— 设置下子任务代理的回调 ——————————————————
-/**
- Sets a block to be executed when a download task has completed a download, as handled by the `NSURLSessionDownloadDelegate` method `URLSession:downloadTask:didFinishDownloadingToURL:`.
 
- @param block A block object to be executed when a download task has completed. The block returns the URL the download should be moved to, and takes three arguments: the session, the download task, and the temporary location of the downloaded file. If the file manager encounters an error while attempting to move the temporary file to the destination, an `AFURLSessionDownloadTaskDidFailToMoveFileNotification` will be posted, with the download task as its object, and the user info of the error.
- */
+// 下载完成的回调
 - (void)setDownloadTaskDidFinishDownloadingBlock:(nullable NSURL * _Nullable  (^)(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, NSURL *location))block;
 
-/**
- Sets a block to be executed periodically to track download progress, as handled by the `NSURLSessionDownloadDelegate` method `URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:`.
-
- @param block A block object to be called when an undetermined number of bytes have been downloaded from the server. This block has no return value and takes five arguments: the session, the download task, the number of bytes read since the last time the download progress block was called, the total bytes read, and the total bytes expected to be read during the request, as initially determined by the expected content size of the `NSHTTPURLResponse` object. This block may be called multiple times, and will execute on the session manager operation queue.
- */
+// 下数据的回调， `NSURLSessionDownloadDelegate` method `URLSession:downloadTask:didWriteData:totalBytesWritten:totalBytesExpectedToWrite:`.
+// 应该是将数据写到本地的进度的回调
 - (void)setDownloadTaskDidWriteDataBlock:(nullable void (^)(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t bytesWritten, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite))block;
 
-/**
- Sets a block to be executed when a download task has been resumed, as handled by the `NSURLSessionDownloadDelegate` method `URLSession:downloadTask:didResumeAtOffset:expectedTotalBytes:`.
-
- @param block A block object to be executed when a download task has been resumed. The block has no return value and takes four arguments: the session, the download task, the file offset of the resumed download, and the total number of bytes expected to be downloaded.
- */
+// 下载的重新继续下载的回调
 - (void)setDownloadTaskDidResumeBlock:(nullable void (^)(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t fileOffset, int64_t expectedTotalBytes))block;
 
 @end
 
-///--------------------
-/// @name Notifications
-///--------------------
+// ———————————— 通知 ————————————————————————————
 
-/**
- Posted when a task resumes.
- */
+// 当一个任务继续的时候的通知
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidResumeNotification;
 
-/**
- Posted when a task finishes executing. Includes a userInfo dictionary with additional information about the task.
- */
+// 当一个任务已经完成的通知， 包括userInfo 带有关于任务的信息
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteNotification;
 
-/**
- Posted when a task suspends its execution.
- */
+// 当一个任务悬挂的时候
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidSuspendNotification;
 
-/**
- Posted when a session is invalidated.
- */
+// post 一个无效的session
 FOUNDATION_EXPORT NSString * const AFURLSessionDidInvalidateNotification;
 
-/**
- Posted when a session download task finished moving the temporary download file to a specified destination successfully.
- */
+// 一个下载的任务完成了将一个下载的临时文件移除到目标地址成功
 FOUNDATION_EXPORT NSString * const AFURLSessionDownloadTaskDidMoveFileSuccessfullyNotification;
 
-/**
- Posted when a session download task encountered an error when moving the temporary download file to a specified destination.
- */
+// 当一个下载任务出现错误， 将一个下载的临时文件指定到一个指定的目的地
 FOUNDATION_EXPORT NSString * const AFURLSessionDownloadTaskDidFailToMoveFileNotification;
 
-/**
- The raw response data of the task. Included in the userInfo dictionary of the `AFNetworkingTaskDidCompleteNotification` if response data exists for the task.
- */
+// 原生的数据任务， 在的AFNetworkingTaskDidCompleteNotification 的字典里面
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteResponseDataKey;
 
-/**
- The serialized response object of the task. Included in the userInfo dictionary of the `AFNetworkingTaskDidCompleteNotification` if the response was serialized.
- */
+
+//响应数据的任务，在AFNetworkingTaskDidCompleteNotification 通知的userInfo 的字典里面；
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteSerializedResponseKey;
 
-/**
- The response serializer used to serialize the response. Included in the userInfo dictionary of the `AFNetworkingTaskDidCompleteNotification` if the task has an associated response serializer.
- */
+//AFNetworkingTaskDidCompleteNotification 通知的userINfo 中包含响应的系列化
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteResponseSerializerKey;
 
-/**
- The file path associated with the download task. Included in the userInfo dictionary of the `AFNetworkingTaskDidCompleteNotification` if an the response data has been stored directly to disk.
- */
+// asset的路径的key， 包括userInfo 中的AFNetworkingTaskDidCompleteNotification， 如果一个响应数据已经被直接存储到磁盘中
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteAssetPathKey;
 
-/**
- Any error associated with the task, or the serialization of the response. Included in the userInfo dictionary of the `AFNetworkingTaskDidCompleteNotification` if an error exists.
- */
+//一个错误关联的任务，AFNetworkingTaskDidCompleteNotification 通知中的userInfo
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteErrorKey;
 
-/**
- The session task metrics taken from the download task. Included in the userInfo dictionary of the `AFNetworkingTaskDidCompleteSessionTaskMetrics`
- */
+// 下载任务的回话检测， 通知的userInfo 中的有这个key
 FOUNDATION_EXPORT NSString * const AFNetworkingTaskDidCompleteSessionTaskMetrics;
 
 NS_ASSUME_NONNULL_END
