@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-TestVC-TestVCUITests/Pods-TestVC-TestVCUITests-frameworks.sh
+${BUILT_PRODUCTS_DIR}/MMKV/MMKV.framework
+${BUILT_PRODUCTS_DIR}/MMKVCore/MMKVCore.framework
