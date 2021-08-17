@@ -7,8 +7,10 @@
 
 #import "ViewController.h"
 #import <MMKV/MMKV.h>
+#import "SeconViewController.h"
 
 @interface ViewController ()
+
 
 @end
 
@@ -17,23 +19,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    uint32_t value = 10;
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = self.view.bounds;
+    btn.backgroundColor = [UIColor redColor];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(onTap) forControlEvents:UIControlEventTouchUpInside];
     
-    uint8_t val = static_cast<uint8_t>(value);
-    NSLog(@"lt :value :%d, val:%d",value, val);
-
-//    [[MMKV defaultMMKV] setBool:YES forKey:@"yes"];
-//    [[MMKV defaultMMKV] getBoolForKey:@"yes"];
-    [[MMKV defaultMMKV] setInt32:10 forKey:@"123"];
-    [[MMKV defaultMMKV] setInt64:10 forKey:@"12"];
-    NSInteger val1 = [[MMKV defaultMMKV] getUInt32ForKey:@"123"];
-    NSLog(@"val 1:%d",val1);
-//
-//
-//    [[MMKV defaultMMKV] setData:[NSData new] forKey:@"data"];
-//    [[MMKV defaultMMKV] setString:@"lll" forKey:@"11key"];
-//    [[MMKV defaultMMKV] setDate:[NSDate new] forKey:@"date"];
 }
 
+- (void)onTap {
+    SeconViewController *vc = [SeconViewController new];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 @end

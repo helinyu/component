@@ -7,6 +7,17 @@ target 'TestVC' do
 
   # Pods for TestVC
   pod 'MMKV'
+
+  pod 'SDWebImage'#,'~>3.8.2'
+  pod 'SDWebImage/WebP'
+  pod 'SDWebImage/GIF'
+  
+#  pod 'SDWebImageYYPlugin'
+  
+  pod 'YYWebImage'
+
+  pod 'LookinServer', :configurations => ['Debug']
+  
   target 'TestVCTests' do
     inherit! :search_paths
     # Pods for testing
