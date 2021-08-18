@@ -155,7 +155,7 @@
     LOCK(self.runningOperationsLock);
     [self.runningOperations addObject:operation];
     UNLOCK(self.runningOperationsLock);
-    NSString *key = [self cacheKeyForURL:url];
+    NSString *key = [self cacheKeyForURL:url]; // 获取url对应的key
     
     SDImageCacheOptions cacheOptions = 0;
     if (options & SDWebImageQueryDataWhenInMemory) cacheOptions |= SDImageCacheQueryDataWhenInMemory;

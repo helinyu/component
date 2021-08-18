@@ -185,6 +185,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
             shouldScaleDown = [scaleDownLargeImagesOption boolValue];
         }
     }
+    
     if (!shouldScaleDown) {
         return [self sd_decompressedImageWithImage:image];
     } else {
@@ -192,17 +193,19 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
         if (scaledDownImage && !CGSizeEqualToSize(scaledDownImage.size, image.size)) {
             // if the image is scaled down, need to modify the data pointer as well
             SDImageFormat format = [NSData sd_imageFormatForImageData:*data];
-            NSData *imageData = [self encodedDataWithImage:scaledDownImage format:format];
+            NSData *imageData = [self encodedDataWithImage:scaledDownImage format:format]; // 这个过程中的data和image是什么关系？
             if (imageData) {
-                *data = imageData;
+                *data = imageData; // 并且是编码给这个data对象？
             }
         }
         return scaledDownImage;
     }
 #endif
+//     SDWebImage 这个类， 获取图片的时候，都是需要进行一次编码的
 }
 
 #if SD_UIKIT || SD_WATCH
+// 基本图片的解码
 - (nullable UIImage *)sd_decompressedImageWithImage:(nullable UIImage *)image {
     if (![[self class] shouldDecodeImage:image]) {
         return image;
@@ -409,7 +412,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
         // Handle failure.
         return nil;
     }
-    
+
     NSMutableDictionary *properties = [NSMutableDictionary dictionary];
 #if SD_UIKIT || SD_WATCH
     NSInteger exifOrientation = [SDWebImageCoderHelper exifOrientationFromImageOrientation:image.imageOrientation];
