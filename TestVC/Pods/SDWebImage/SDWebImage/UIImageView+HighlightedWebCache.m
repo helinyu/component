@@ -41,7 +41,7 @@
                              options:options
                         operationKey:@"UIImageViewImageOperationHighlighted"
                        setImageBlock:^(UIImage *image, NSData *imageData) {
-                           weakSelf.highlightedImage = image;
+                           weakSelf.highlightedImage = image; // 高亮的时候设置图片，如果不是高亮的时候，是不是默认设置为image的内容
                        }
                             progress:progressBlock
                            completed:completedBlock];

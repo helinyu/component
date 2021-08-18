@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SeconViewController : UIViewController
+@interface SecondViewController : UIViewController
 
 @end
 

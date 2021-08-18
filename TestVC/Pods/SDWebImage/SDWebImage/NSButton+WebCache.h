@@ -128,7 +128,7 @@
                   progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                  completed:(nullable SDExternalCompletionBlock)completedBlock;
 
-#pragma mark - Alternate Image
+#pragma mark - Alternate Image  这个应该是按钮独有的特性
 
 /**
  * Get the current alternateImage URL.

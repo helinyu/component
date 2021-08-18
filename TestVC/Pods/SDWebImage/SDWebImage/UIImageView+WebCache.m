@@ -51,11 +51,13 @@
                            completed:completedBlock];
 }
 
+// 优先级： last image > placeholder  > actual image
 - (void)sd_setImageWithPreviousCachedImageWithURL:(nullable NSURL *)url
                                  placeholderImage:(nullable UIImage *)placeholder
                                           options:(SDWebImageOptions)options
                                          progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                                         completed:(nullable SDExternalCompletionBlock)completedBlock {
+//    这个可以看一下缓存的内容
     NSString *key = [[SDWebImageManager sharedManager] cacheKeyForURL:url];
     UIImage *lastPreviousCachedImage = [[SDImageCache sharedImageCache] imageFromCacheForKey:key];
     
@@ -66,6 +68,7 @@
 
 #pragma mark - Animation of multiple images
 
+// 多个图片进行设置有关的动画效果
 - (void)sd_setAnimationImagesWithURLs:(nonnull NSArray<NSURL *> *)arrayOfURLs {
     [self sd_cancelCurrentAnimationImagesLoad];
     NSPointerArray *operationsArray = [self sd_animationOperationArray];
@@ -100,7 +103,7 @@
             });
         }];
         @synchronized (self) {
-            [operationsArray addPointer:(__bridge void *)(operation)];
+            [operationsArray addPointer:(__bridge void *)(operation)]; // 在count索引出设置值
         }
     }];
 }
@@ -121,6 +124,7 @@ static char animationLoadOperationKey;
     }
 }
 
+// 取消前面图片的下载， 将操作取消， 然后就是数据置空的操作
 - (void)sd_cancelCurrentAnimationImagesLoad {
     NSPointerArray *operationsArray = [self sd_animationOperationArray];
     if (operationsArray) {

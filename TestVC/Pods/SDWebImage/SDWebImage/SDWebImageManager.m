@@ -13,6 +13,7 @@
 #define LOCK(lock) dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
 #define UNLOCK(lock) dispatch_semaphore_signal(lock);
 
+// 为什么要有这样的一个东西呢？ 合并的操作
 @interface SDWebImageCombinedOperation : NSObject <SDWebImageOperation>
 
 @property (assign, nonatomic, getter = isCancelled) BOOL cancelled;
@@ -22,6 +23,7 @@
 
 @end
 
+
 @interface SDWebImageManager ()
 
 @property (strong, nonatomic, readwrite, nonnull) SDImageCache *imageCache;
@@ -29,7 +31,7 @@
 @property (strong, nonatomic, nonnull) NSMutableSet<NSURL *> *failedURLs;
 @property (strong, nonatomic, nonnull) dispatch_semaphore_t failedURLsLock; // a lock to keep the access to `failedURLs` thread-safe
 @property (strong, nonatomic, nonnull) NSMutableSet<SDWebImageCombinedOperation *> *runningOperations;
-@property (strong, nonatomic, nonnull) dispatch_semaphore_t runningOperationsLock; // a lock to keep the access to `runningOperations` thread-safe
+@property (strong, nonatomic, nonnull) dispatch_semaphore_t runningOperationsLock; // a lock to keep the access to `runningOperations`  thread-safe ， 使用起来有点类似使用了互斥锁的内容
 
 @end
 
@@ -45,19 +47,19 @@
 }
 
 - (nonnull instancetype)init {
-    SDImageCache *cache = [SDImageCache sharedImageCache];
-    SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader];
-    return [self initWithCache:cache downloader:downloader];
+    SDImageCache *cache = [SDImageCache sharedImageCache]; // 默认的缓存
+    SDWebImageDownloader *downloader = [SDWebImageDownloader sharedDownloader]; // 默认的下载器
+    return [self initWithCache:cache downloader:downloader]; //初始化这样的一个管理器
 }
 
 - (nonnull instancetype)initWithCache:(nonnull SDImageCache *)cache downloader:(nonnull SDWebImageDownloader *)downloader {
     if ((self = [super init])) {
         _imageCache = cache;
         _imageDownloader = downloader;
-        _failedURLs = [NSMutableSet new];
-        _failedURLsLock = dispatch_semaphore_create(1);
-        _runningOperations = [NSMutableSet new];
-        _runningOperationsLock = dispatch_semaphore_create(1);
+        _failedURLs = [NSMutableSet new]; // 失败的url
+        _failedURLsLock = dispatch_semaphore_create(1); // 失败的锁
+        _runningOperations = [NSMutableSet new]; // 云心中的操作
+        _runningOperationsLock = dispatch_semaphore_create(1); // 运行的锁
     }
     return self;
 }
@@ -67,6 +69,7 @@
         return @"";
     }
 
+//     缓存， 看看有没有对应的过滤内容
     if (self.cacheKeyFilter) {
         return self.cacheKeyFilter(url);
     } else {
@@ -74,6 +77,7 @@
     }
 }
 
+// 获取缓存的内容
 - (nullable UIImage *)scaledImageForKey:(nullable NSString *)key image:(nullable UIImage *)image {
     return SDScaledImageForKey(key, image);
 }
@@ -132,6 +136,7 @@
         url = nil;
     }
 
+//     操作的内容
     SDWebImageCombinedOperation *operation = [SDWebImageCombinedOperation new];
     operation.manager = self;
 
@@ -157,7 +162,7 @@
     if (options & SDWebImageQueryDiskSync) cacheOptions |= SDImageCacheQueryDiskSync;
     if (options & SDWebImageScaleDownLargeImages) cacheOptions |= SDImageCacheScaleDownLargeImages;
     
-    __weak SDWebImageCombinedOperation *weakOperation = operation;
+    __weak SDWebImageCombinedOperation *weakOperation = operation; // 从内存或者磁盘上获取的缓存
     operation.cacheOperation = [self.imageCache queryCacheOperationForKey:key options:cacheOptions done:^(UIImage *cachedImage, NSData *cachedData, SDImageCacheType cacheType) {
         __strong __typeof(weakOperation) strongOperation = weakOperation;
         if (!strongOperation || strongOperation.isCancelled) {
@@ -169,6 +174,7 @@
         BOOL shouldDownload = (!(options & SDWebImageFromCacheOnly))
             && (!cachedImage || options & SDWebImageRefreshCached)
             && (![self.delegate respondsToSelector:@selector(imageManager:shouldDownloadImageForURL:)] || [self.delegate imageManager:self shouldDownloadImageForURL:url]);
+        
         if (shouldDownload) {
             if (cachedImage && options & SDWebImageRefreshCached) {
                 // If image was found in the cache but SDWebImageRefreshCached is provided, notify about the cached image
@@ -349,7 +355,6 @@
 }
 
 @end
-
 
 @implementation SDWebImageCombinedOperation
 

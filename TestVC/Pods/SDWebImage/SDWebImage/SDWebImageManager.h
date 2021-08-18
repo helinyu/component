@@ -73,7 +73,7 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageOptions) {
      * By default, placeholder images are loaded while the image is loading. This flag will delay the loading
      * of the placeholder image until after the image has finished loading.
      */
-    SDWebImageDelayPlaceholder = 1 << 9,
+    SDWebImageDelayPlaceholder = 1 << 9, // 延迟设置展位图， 加载图片完成之后才设置值
 
     /**
      * We usually don't call transformDownloadedImage delegate method on animated images,
@@ -87,7 +87,7 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageOptions) {
      * have the hand before setting the image (apply a filter or add it with cross-fade animation for instance)
      * Use this flag if you want to manually set the image in the completion when success
      */
-    SDWebImageAvoidAutoSetImage = 1 << 11,
+    SDWebImageAvoidAutoSetImage = 1 << 11, // 拒绝默认设置图片
     
     /**
      * By default, images are decoded respecting their original size. On iOS, this flag will scale down the

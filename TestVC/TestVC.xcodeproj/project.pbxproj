@@ -10,7 +10,7 @@
 		042B54DBE916E24854E374CC /* Pods_TestVCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5EC2816AEDE1ED7730B8830 /* Pods_TestVCTests.framework */; };
 		0F27E8EDE77462DB528F562C /* Pods_TestVC_TestVCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA1F205837650F6CD0AE8FB /* Pods_TestVC_TestVCUITests.framework */; };
 		3452FD2B34F89EA14602E1C4 /* Pods_TestVC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF93E68E22E92680134246B4 /* Pods_TestVC.framework */; };
-		D42B53F826CBB13E002C3C9D /* SeconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B53F726CBB13E002C3C9D /* SeconViewController.m */; };
+		D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B53F726CBB13E002C3C9D /* SecondViewController.m */; };
 		D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80C026B24E2200880F06 /* AppDelegate.m */; };
 		D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80C326B24E2200880F06 /* SceneDelegate.m */; };
 		D47C80C726B24E2200880F06 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D47C80C626B24E2200880F06 /* ViewController.mm */; };
@@ -20,6 +20,8 @@
 		D47C80D226B24E2300880F06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80D126B24E2300880F06 /* main.m */; };
 		D47C80DC26B24E2300880F06 /* TestVCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80DB26B24E2300880F06 /* TestVCTests.m */; };
 		D47C80E726B24E2300880F06 /* TestVCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80E626B24E2300880F06 /* TestVCUITests.m */; };
+		D4BDA75026CCA69100858872 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA74F26CCA69100858872 /* rock.gif */; };
+		D4BDA75426CD095300858872 /* XNPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA75326CD095300858872 /* XNPerson.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,8 +48,8 @@
 		BBA1F205837650F6CD0AE8FB /* Pods_TestVC_TestVCUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestVC_TestVCUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88B21B7E7FFB9DA290BA6A8 /* Pods-TestVCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVCTests.release.xcconfig"; path = "Target Support Files/Pods-TestVCTests/Pods-TestVCTests.release.xcconfig"; sourceTree = "<group>"; };
 		D1CDCF0445AADAED3784DFDB /* Pods-TestVC-TestVCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC-TestVCUITests.release.xcconfig"; path = "Target Support Files/Pods-TestVC-TestVCUITests/Pods-TestVC-TestVCUITests.release.xcconfig"; sourceTree = "<group>"; };
-		D42B53F626CBB13E002C3C9D /* SeconViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SeconViewController.h; sourceTree = "<group>"; };
-		D42B53F726CBB13E002C3C9D /* SeconViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SeconViewController.m; sourceTree = "<group>"; };
+		D42B53F626CBB13E002C3C9D /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		D42B53F726CBB13E002C3C9D /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		D47C80BC26B24E2200880F06 /* TestVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47C80BF26B24E2200880F06 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D47C80C026B24E2200880F06 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -66,6 +68,9 @@
 		D47C80E226B24E2300880F06 /* TestVCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestVCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47C80E626B24E2300880F06 /* TestVCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVCUITests.m; sourceTree = "<group>"; };
 		D47C80E826B24E2300880F06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4BDA74F26CCA69100858872 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
+		D4BDA75226CD095300858872 /* XNPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNPerson.h; sourceTree = "<group>"; };
+		D4BDA75326CD095300858872 /* XNPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNPerson.m; sourceTree = "<group>"; };
 		D4F125833029E5FD62B40A83 /* Pods-TestVC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.debug.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.debug.xcconfig"; sourceTree = "<group>"; };
 		DCA1C06F05FC8EA70E6BC63F /* Pods-TestVCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVCTests.debug.xcconfig"; path = "Target Support Files/Pods-TestVCTests/Pods-TestVCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BF267CDC07013A829C31EC /* Pods-TestVC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.release.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.release.xcconfig"; sourceTree = "<group>"; };
@@ -143,12 +148,15 @@
 				D47C80C326B24E2200880F06 /* SceneDelegate.m */,
 				D47C80C526B24E2200880F06 /* ViewController.h */,
 				D47C80C626B24E2200880F06 /* ViewController.mm */,
-				D42B53F626CBB13E002C3C9D /* SeconViewController.h */,
-				D42B53F726CBB13E002C3C9D /* SeconViewController.m */,
+				D42B53F626CBB13E002C3C9D /* SecondViewController.h */,
+				D42B53F726CBB13E002C3C9D /* SecondViewController.m */,
+				D4BDA75226CD095300858872 /* XNPerson.h */,
+				D4BDA75326CD095300858872 /* XNPerson.m */,
 				D47C80C826B24E2200880F06 /* Main.storyboard */,
 				D47C80CB26B24E2300880F06 /* Assets.xcassets */,
 				D47C80CD26B24E2300880F06 /* LaunchScreen.storyboard */,
 				D47C80D026B24E2300880F06 /* Info.plist */,
+				D4BDA74F26CCA69100858872 /* rock.gif */,
 				D47C80D126B24E2300880F06 /* main.m */,
 			);
 			path = TestVC;
@@ -292,6 +300,7 @@
 				D47C80CF26B24E2300880F06 /* LaunchScreen.storyboard in Resources */,
 				D47C80CC26B24E2300880F06 /* Assets.xcassets in Resources */,
 				D47C80CA26B24E2200880F06 /* Main.storyboard in Resources */,
+				D4BDA75026CCA69100858872 /* rock.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,7 +430,8 @@
 			files = (
 				D47C80C726B24E2200880F06 /* ViewController.mm in Sources */,
 				D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */,
-				D42B53F826CBB13E002C3C9D /* SeconViewController.m in Sources */,
+				D4BDA75426CD095300858872 /* XNPerson.m in Sources */,
+				D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */,
 				D47C80D226B24E2300880F06 /* main.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,
 			);

@@ -24,7 +24,7 @@
 
 // iOS and tvOS are very similar, UIKit exists on both platforms
 // Note: watchOS also has UIKit, but it's very limited
-#if TARGET_OS_IOS || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV // 定义了iOS 和tvos
     #define SD_UIKIT 1
 #else
     #define SD_UIKIT 0

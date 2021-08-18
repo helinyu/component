@@ -23,13 +23,13 @@ inline UIImage *SDScaledImageForKey(NSString * _Nullable key, UIImage * _Nullabl
     }
     
 #if SD_MAC
-    return image;
+    return image; // map 上应该是没有缓存的
 #elif SD_UIKIT || SD_WATCH
-    if ((image.images).count > 0) {
+    if ((image.images).count > 0) { // 多张图片的处理
         NSMutableArray<UIImage *> *scaledImages = [NSMutableArray array];
 
-        for (UIImage *tempImage in image.images) {
-            [scaledImages addObject:SDScaledImageForKey(key, tempImage)];
+        for (UIImage *tempImage in image.images) { // 一个对象里面有多张图片
+            [scaledImages addObject:SDScaledImageForKey(key, tempImage)]; // 递归的内容，看看里面的里面的里面
         }
         
         UIImage *animatedImage = [UIImage animatedImageWithImages:scaledImages duration:image.duration];

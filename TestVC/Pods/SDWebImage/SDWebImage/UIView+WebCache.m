@@ -105,11 +105,12 @@ static char TAG_ACTIVITY_SHOW;
         self.sd_imageProgress.totalUnitCount = 0;
         self.sd_imageProgress.completedUnitCount = 0;
         
-        SDWebImageManager *manager = [context objectForKey:SDWebImageExternalCustomManagerKey];
+        SDWebImageManager *manager = [context objectForKey:SDWebImageExternalCustomManagerKey]; // 自定义的mamanger
         if (!manager) {
             manager = [SDWebImageManager sharedManager];
         }
         
+//         进度的block
         __weak __typeof(self)wself = self;
         SDWebImageDownloaderProgressBlock combinedProgressBlock = ^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
             wself.sd_imageProgress.totalUnitCount = expectedSize;
@@ -118,6 +119,9 @@ static char TAG_ACTIVITY_SHOW;
                 progressBlock(receivedSize, expectedSize, targetURL);
             }
         };
+        
+#warning -- 最为主要的方法，下载
+//         开始下载，
         id <SDWebImageOperation> operation = [manager loadImageWithURL:url options:options progress:combinedProgressBlock completed:^(UIImage *image, NSData *data, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             __strong __typeof (wself) sself = wself;
             if (!sself) { return; }
@@ -129,9 +133,11 @@ static char TAG_ACTIVITY_SHOW;
                 sself.sd_imageProgress.totalUnitCount = SDWebImageProgressUnitCountUnknown;
                 sself.sd_imageProgress.completedUnitCount = SDWebImageProgressUnitCountUnknown;
             }
-            BOOL shouldCallCompletedBlock = finished || (options & SDWebImageAvoidAutoSetImage);
+            BOOL shouldCallCompletedBlock = finished || (options & SDWebImageAvoidAutoSetImage); // 回调完成block
             BOOL shouldNotSetImage = ((image && (options & SDWebImageAvoidAutoSetImage)) ||
-                                      (!image && !(options & SDWebImageDelayPlaceholder)));
+                                      (!image && !(options & SDWebImageDelayPlaceholder))); // 不要设置图片，
+            // 什么情况下不设置图片呢？
+            
             SDWebImageNoParamsBlock callCompletedBlockClojure = ^{
                 if (!sself) { return; }
                 if (!shouldNotSetImage) {
@@ -146,7 +152,7 @@ static char TAG_ACTIVITY_SHOW;
             // OR
             // case 1b: we got no image and the SDWebImageDelayPlaceholder is not set
             if (shouldNotSetImage) {
-                dispatch_main_async_safe(callCompletedBlockClojure);
+                dispatch_main_async_safe(callCompletedBlockClojure); // 这个不设置图片
                 return;
             }
             
@@ -156,7 +162,7 @@ static char TAG_ACTIVITY_SHOW;
                 // case 2a: we got an image and the SDWebImageAvoidAutoSetImage is not set
                 targetImage = image;
                 targetData = data;
-            } else if (options & SDWebImageDelayPlaceholder) {
+            } else if (options & SDWebImageDelayPlaceholder) { // 延迟设置这张占位图？ 为什么要有这个需求？
                 // case 2b: we got no image and the SDWebImageDelayPlaceholder flag is set
                 targetImage = placeholder;
                 targetData = nil;
@@ -165,7 +171,7 @@ static char TAG_ACTIVITY_SHOW;
 #if SD_UIKIT || SD_MAC
             // check whether we should use the image transition
             SDWebImageTransition *transition = nil;
-            if (finished && (options & SDWebImageForceTransition || cacheType == SDImageCacheTypeNone)) {
+            if (finished && (options & SDWebImageForceTransition || cacheType == SDImageCacheTypeNone)) { // 这个不太理解呀！
                 transition = sself.sd_imageTransition;
             }
 #endif
@@ -173,14 +179,14 @@ static char TAG_ACTIVITY_SHOW;
                 if (group) {
                     dispatch_group_enter(group);
                 }
-#if SD_UIKIT || SD_MAC
+#if SD_UIKIT || SD_MAC // 这里就设置了图片
                 [sself sd_setImage:targetImage imageData:targetData basedOnClassOrViaCustomSetImageBlock:setImageBlock transition:transition cacheType:cacheType imageURL:imageURL];
 #else
                 [sself sd_setImage:targetImage imageData:targetData basedOnClassOrViaCustomSetImageBlock:setImageBlock cacheType:cacheType imageURL:imageURL];
 #endif
                 if (group) {
                     // compatible code for FLAnimatedImage, because we assume completedBlock called after image was set. This will be removed in 5.x
-                    BOOL shouldUseGroup = [objc_getAssociatedObject(group, &SDWebImageInternalSetImageGroupKey) boolValue];
+                    BOOL shouldUseGroup = [objc_getAssociatedObject(group, &SDWebImageInternalSetImageGroupKey) boolValue]; // 已经使用了group， 也就是5.x 这个将会移除掉这个呢绒
                     if (shouldUseGroup) {
                         dispatch_group_notify(group, dispatch_get_main_queue(), callCompletedBlockClojure);
                     } else {
@@ -211,13 +217,13 @@ static char TAG_ACTIVITY_SHOW;
 
 - (void)sd_setImage:(UIImage *)image imageData:(NSData *)imageData basedOnClassOrViaCustomSetImageBlock:(SDInternalSetImageBlock)setImageBlock cacheType:(SDImageCacheType)cacheType imageURL:(NSURL *)imageURL {
 #if SD_UIKIT || SD_MAC
-    [self sd_setImage:image imageData:imageData basedOnClassOrViaCustomSetImageBlock:setImageBlock transition:nil cacheType:cacheType imageURL:imageURL];
+    [self sd_setImage:image imageData:imageData basedOnClassOrViaCustomSetImageBlock:setImageBlock transition:nil cacheType:cacheType imageURL:imageURL]; // 应该是会走这里的
 #else
     // watchOS does not support view transition. Simplify the logic
-    if (setImageBlock) {
+    if (setImageBlock) { // 如果是有这个的话，就不设置
         setImageBlock(image, imageData, cacheType, imageURL);
     } else if ([self isKindOfClass:[UIImageView class]]) {
-        UIImageView *imageView = (UIImageView *)self;
+        UIImageView *imageView = (UIImageView *)self; // 如果没有，就设置这个这张图片的内容
         [imageView setImage:image];
     }
 #endif
@@ -244,7 +250,7 @@ static char TAG_ACTIVITY_SHOW;
     }
 #endif
     
-    if (transition) {
+    if (transition) { // 转场的效果
 #if SD_UIKIT
         [UIView transitionWithView:view duration:0 options:0 animations:^{
             // 0 duration to let UIKit render placeholder and prepares block

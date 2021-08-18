@@ -20,7 +20,7 @@
 /**
  The duration of current frame to be displayed. The number is seconds but not milliseconds. You should not set this to zero.
  */
-@property (nonatomic, readonly, assign) NSTimeInterval duration;
+@property (nonatomic, readonly, assign) NSTimeInterval duration; // 显示的时间
 
 /**
  Create a frame instance with specify image and duration

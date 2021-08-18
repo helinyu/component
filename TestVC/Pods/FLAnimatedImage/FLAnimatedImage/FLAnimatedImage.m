@@ -661,7 +661,8 @@ static NSHashTable *allAnimatedImagesWeak; // 不持有对象
 // On success, the returned object is a new `UIImage` instance with the same content as the one passed in.
 // On failure, the returned object is the unchanged passed in one; the data will not be predrawn in memory though and an error will be logged.
 // First inspired by & good Karma to: https://gist.github.com/steipete/1144242
-// 解码图片的数据
+// 解码图片的数据 , 为什么这个是解码呢？ 这个不是转化对应的数据么？
+// 难道bitmap这个就是一个对应的渲染的吗？
 + (UIImage *)predrawnImageFromImage:(UIImage *)imageToPredraw
 {
     // Always use a device RGB color space for simplicity and predictability what will be going on.

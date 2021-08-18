@@ -5,24 +5,28 @@
 //  Created by xn on 2021/8/17.
 //
 
-#import "SeconViewController.h"
+#import "SecondViewController.h"
 #import "FLAnimatedImageView.h"
-//#import "UIView+WebCache.h"
+#import "SecondViewController.h"
+
 #import <SDWebImage/UIView+WebCache.h>
 #import <SDWebImage/FLAnimatedImageView+WebCache.h>
-#import "SeconViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/NSData+ImageContentType.h>
+
 #import <YYImage/YYImage.h>
 #import <YYWebImage.h>
 
-@interface SeconViewController ()
+@interface SecondViewController ()
 
 @property (nonatomic, strong) FLAnimatedImageView *imgview_fl;
 @property (nonatomic, strong) YYAnimatedImageView *imgview_yy;
 @property (nonatomic, strong) UIImageView *imgView_sy;
+@property (nonatomic, strong) UIImageView *imgView_sd;
 
 @end
 
-@implementation SeconViewController
+@implementation SecondViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,14 +35,47 @@
     
 //    [self testYY];
 //    [self testFl];
-    [self testsy];
+//    [self testsy];
+    [self testSD];
+}
+
+- (void)testBtn {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+}
+
+- (void)testSD {
+    self.imgView_sd = [UIImageView new];
+    [self.view addSubview:self.imgView_sd];
+    self.imgView_sd.frame = CGRectMake(0.f, 0.f, UIScreen.mainScreen.bounds.size.width, 200.f);
+    self.imgView_sd.contentMode = UIViewContentModeScaleAspectFit;
+    
+    NSURL *url1 = [[NSBundle mainBundle] URLForResource:@"rock" withExtension:@"gif"];
+    NSData *data1 = [NSData dataWithContentsOfURL:url1];
+    UIImage *placeImg = [UIImage imageWithData:data1];
+    
+    self.imgView_sd.highlighted = NO;
+    self.imgView_sd.highlightedImage = placeImg;
+    
+//    _imgView_sy = [UIImageView new];
+//    [self.view addSubview:_imgView_sy];
+//    _imgView_sy.frame = CGRectMake(0.f, 220.f, UIScreen.mainScreen.bounds.size.width, 200.f);
+//    _imgView_sy.contentMode = UIViewContentModeScaleAspectFit;
+//
+//    _imgView_sy.highlighted = NO;
+//    _imgView_sy.highlightedImage = placeImg;
+//    _imgView_sy.image = placeImg;
+    
+    NSURL *imgUrl = [NSURL URLWithString:@"https://cloud.githubusercontent.com/assets/1567433/10417835/1c97e436-7052-11e5-8fb5-69373072a5a0.gif"];
+    [self.imgView_sd sd_setImageWithURL:imgUrl placeholderImage:nil options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL) {
+        NSLog(@"lt receivedSize:%ld , expectedSize: %ld , targetURL:%@",(long)receivedSize, (long)expectedSize, targetURL);
+    } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+        NSLog(@"lt image:%@ , error: %@ , cacheType:%ld , NSURL:%@",image, error, (long)cacheType, imageURL);
+    }];
 }
 
 - (void)testsy {
 //    animationImages
-    
-    UIImage *img = [UIImage new];
-    
     
     _imgView_sy = [UIImageView new];
     [self.view addSubview:_imgView_sy];
@@ -47,15 +84,16 @@
     NSURL *imgUrl = [NSURL URLWithString:@"https://cloud.githubusercontent.com/assets/1567433/10417835/1c97e436-7052-11e5-8fb5-69373072a5a0.gif"];
     [[[NSURLSession sharedSession] dataTaskWithURL:imgUrl completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            FLAnimatedImage *aniImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:data];
+//            FLAnimatedImage *aniImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:data];
+            FLAnimatedImage *aniImage = [[FLAnimatedImage alloc] initWithAnimatedGIFData:data optimalFrameCacheSize:3 predrawingEnabled:YES];
             
             NSMutableArray *imgs = [NSMutableArray new];
             for (NSInteger index =0; index <aniImage.frameCount; index++) {
-                [imgs addObject:[aniImage imageAtIndex:index]];
+                UIImage *img = [aniImage imageAtIndex:index];
+                [imgs addObject:img];
             }
             self->_imgView_sy.animationImages = imgs;
             [self->_imgView_sy startAnimating];
-            
             self.imgView_sy.image = imgs.firstObject;
         });
     }] resume];

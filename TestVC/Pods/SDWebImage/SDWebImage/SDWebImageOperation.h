@@ -10,6 +10,6 @@
 
 @protocol SDWebImageOperation <NSObject>
 
-- (void)cancel;
+- (void)cancel; // 取消操作的接口
 
 @end
