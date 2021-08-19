@@ -1,0 +1,188 @@
+(lldb) po element0
+    t =    77.36s Requesting snapshot of accessibility hierarchy for app with pid 1517
+    t =    77.78s Find: Descendants matching type Table
+    t =    77.79s Find: Element at index 0
+    t =    77.82s Requesting snapshot of accessibility hierarchy for app with pid 1517
+    t =    77.96s Find: Descendants matching type Table
+    t =    77.96s Find: Element at index 0
+    t =    77.96s Requesting snapshot of accessibility hierarchy for app with pid 1517
+    t =    78.09s Find: Descendants matching type Table
+    t =    78.09s Requesting snapshot of accessibility hierarchy for app with pid 1517
+
+Attributes: Table, {{0.0, 0.0}, {375.0, 618.0}}
+Element subtree:
+ →Table, 0x2802f6840, {{0.0, 0.0}, {375.0, 618.0}}
+    
+ Image, 0x2802f6920, {{0.0, -514.5}, {375.0, 258.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_mine_header_Bg.png'
+    Other, 0x2802f6a00, {{23.0, -453.5}, {50.0, 50.0}}
+      Image, 0x2802f6ae0, {{8.0, -468.5}, {80.0, 80.0}}
+      Image, 0x2802f6bc0, {{23.0, -453.5}, {50.0, 50.0}}
+   
+    Button, 0x2802f6ca0, {{87.0, -450.5}, {149.5, 22.0}}, label: '飒漫居民_txuri5'
+    Other, 0x2802ccee0, {{240.5, -451.5}, {45.0, 20.0}}
+      Image, 0x2802ccfc0, {{240.5, -451.5}, {45.0, 20.0}}
+      Other, 0x2802cd0a0, {{240.5, -451.5}, {45.0, 20.0}}
+      StaticText, 0x2802cd180, {{264.5, -444.0}, {17.0, 10.0}}, label: 'LV.1'
+    Button, 0x2802cd260, {{87.0, -423.5}, {74.0, 20.0}}, label: '查看个人主页'
+      StaticText, 0x2802cd340, {{87.0, -421.0}, {74.0, 15.0}}, label: '查看个人主页'
+    
+    CollectionView, 0x2802cd420, {{0.0, -380.5}, {375.0, 50.0}}
+      Cell, 0x2802cd500, {{12.0, -380.5}, {78.0, 50.0}}
+        Other, 0x2802cd5e0, {{12.0, -380.5}, {78.0, 50.0}}
+          Button, 0x2802cd6c0, {{12.0, -380.5}, {78.0, 50.0}}, Disabled
+            StaticText, 0x2802cd7a0, {{12.0, -380.5}, {0.0, 0.0}}
+            StaticText, 0x2802cd880, {{32.0, -377.5}, {38.5, 24.0}}, label: '206'
+            StaticText, 0x2802cd960, {{38.5, -350.5}, {25.0, 14.5}}, label: '宝石'
+      Cell, 0x2802f6d80, {{102.0, -380.5}, {78.0, 50.0}}
+        Other, 0x2802f6e60, {{102.0, -380.5}, {78.0, 50.0}}
+          Button, 0x2802f6f40, {{102.0, -380.5}, {78.0, 50.0}}, Disabled
+            StaticText, 0x2802f7020, {{102.0, -380.5}, {0.0, 0.0}}
+            StaticText, 0x2802f7100, {{118.5, -377.5}, {45.5, 24.0}}, label: '1916'
+            StaticText, 0x2802f71e0, {{128.5, -350.5}, {25.0, 14.5}}, label: '金币'
+      Cell, 0x2802f72c0, {{192.0, -380.5}, {78.0, 50.0}}
+        Other, 0x2802f73a0, {{192.0, -380.5}, {78.0, 50.0}}
+          Button, 0x2802f7480, {{192.0, -380.5}, {78.0, 50.0}}, Disabled
+            StaticText, 0x2802f7560, {{192.0, -380.5}, {0.0, 0.0}}
+            StaticText, 0x2802f7640, {{224.5, -377.5}, {13.5, 24.0}}, label: '0'
+            StaticText, 0x2802f7720, {{212.5, -350.5}, {37.0, 14.5}}, label: '阅读券'
+      Cell, 0x2802f7800, {{282.0, -380.5}, {78.0, 50.0}}
+        Other, 0x2802f78e0, {{282.0, -380.5}, {78.0, 50.0}}
+          Button, 0x2802f79c0, {{282.0, -380.5}, {78.0, 50.0}}, Disabled
+            StaticText, 0x2802f7aa0, {{282.0, -380.5}, {0.0, 0.0}}
+            StaticText, 0x2802f7b80, {{308.5, -377.5}, {25.5, 24.0}}, label: '20'
+            StaticText, 0x2802f7c60, {{308.5, -350.5}, {25.0, 14.5}}, label: '月票'
+    
+    Other, 0x2802f7d40, {{342.0, -380.5}, {30.0, 50.0}}, label: '垂直滚动条, 1页', value: 0%
+    Other, 0x2802f7e20, {{15.0, -309.0}, {345.0, 40.0}}
+      Image, 0x2802f7f00, {{15.0, -309.0}, {345.0, 40.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_mine_header_vip.png'
+      StaticText, 0x2802ea920, {{31.5, -299.0}, {69.5, 20.5}}, label: '白金会员'
+      StaticText, 0x2802eaa00, {{111.5, -295.5}, {90.0, 13.5}}, label: '免费畅读会员漫画'
+      Button, 0x2802eaae0, {{268.0, -301.0}, {71.0, 24.0}}, label: '立即查看', Disabled
+        StaticText, 0x2802eabc0, {{278.5, -296.5}, {50.0, 15.0}}, label: '立即查看'
+ 
+    Other, 0x2802eaca0, {{0.0, -269.0}, {375.0, 25.0}}
+    
+    Cell, 0x2802ead80, {{0.0, -256.5}, {375.0, 179.5}}
+      StaticText, 0x2802eae60, {{112.5, -205.0}, {53.5, 16.0}}, label: '我的钱包'
+      StaticText, 0x2802eaf40, {{209.5, -205.0}, {53.5, 16.0}}, label: '任务中心'
+      StaticText, 0x2802eb020, {{320.0, -205.0}, {27.0, 16.0}}, label: '消息'
+      StaticText, 0x2802eb100, {{21.5, -133.0}, {40.0, 16.0}}, label: '抢先看'
+      StaticText, 0x2802eb1e0, {{112.5, -133.0}, {53.5, 16.0}}, label: '福利中心'
+      StaticText, 0x2802eb2c0, {{209.5, -133.0}, {53.5, 16.0}}, label: '个性装扮'
+      StaticText, 0x2802eb3a0, {{307.0, -133.0}, {53.5, 16.0}}, label: '离线缓存'
+      StaticText, 0x2802eb480, {{28.0, -205.0}, {27.0, 16.0}}, label: '签到'
+
+    Cell, 0x2802eb560, {{0.0, -77.0}, {375.0, 157.0}}
+     Other, 0x2802eb640, {{0.0, -77.0}, {375.0, 145.0}}
+      Other, 0x2802eb720, {{15.0, -62.0}, {345.0, 115.0}}
+        CollectionView, 0x2802eb800, {{15.0, -62.0}, {345.0, 115.0}}
+          Cell, 0x2802eb8e0, {{15.0, -62.0}, {345.0, 115.0}}
+            Other, 0x2802eb9c0, {{15.0, -62.0}, {345.0, 115.0}}
+              Image, 0x2802ebaa0, {{15.0, -62.0}, {345.0, 115.0}}
+          Other, 0x2802ebb80, {{327.0, -57.0}, {30.0, 110.0}}, label: '垂直滚动条, 200页', value: 0%
+        Other, 0x2802ebd40, {{315.0, 33.0}, {22.0, 20.0}}
+    
+    Cell, 0x2802ebc60, {{0.0, 80.0}, {375.0, 224.0}}
+      Table, 0x2802ebe20, {{0.0, 80.0}, {375.0, 212.0}}
+        Cell, 0x2802ebf00, {{0.0, 86.0}, {375.0, 50.0}}
+          Image, 0x2802ea680, {{16.5, 98.5}, {25.0, 25.0}}
+          StaticText, 0x2802ea760, {{47.0, 102.0}, {76.5, 18.0}}, label: '在线抓娃娃'
+          StaticText, 0x2802ea840, {{346.0, 111.0}, {0.0, 0.0}}
+          Image, 0x2802ea5a0, {{352.0, 106.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+        Cell, 0x2802ecc40, {{0.0, 136.0}, {375.0, 50.0}}
+          Image, 0x2802ec380, {{16.5, 148.5}, {25.0, 25.0}}
+          StaticText, 0x2802ec460, {{47.0, 152.0}, {61.5, 18.0}}, label: '阅读历史'
+          StaticText, 0x2802ec2a0, {{346.0, 161.0}, {0.0, 0.0}}
+          Image, 0x2802ec540, {{352.0, 156.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+        Cell, 0x2802ec620, {{0.0, 186.0}, {375.0, 50.0}}
+          Image, 0x2802ec700, {{16.5, 198.5}, {25.0, 25.0}}
+          StaticText, 0x2802ec7e0, {{47.0, 202.0}, {76.5, 18.0}}, label: '飒漫孵化室'
+          StaticText, 0x2802ec8c0, {{244.0, 203.0}, {93.0, 16.0}}, label: '来福利池找惊喜'
+          Image, 0x2802ec9a0, {{338.5, 207.0}, {8.5, 8.5}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_mine_unread.png'
+          Image, 0x2802eca80, {{352.0, 206.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+        Cell, 0x2802ea4c0, {{0.0, 236.0}, {375.0, 50.0}}
+          Image, 0x2802e8d20, {{16.5, 248.5}, {25.0, 25.0}}
+          StaticText, 0x2802f9880, {{47.0, 252.0}, {76.5, 18.0}}, label: '推荐给好友'
+          StaticText, 0x2802f9960, {{346.0, 261.0}, {0.0, 0.0}}
+          Image, 0x2802f9a40, {{352.0, 256.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+
+    Cell, 0x2802f9b20, {{0.0, 304.0}, {375.0, 274.0}}
+      Table, 0x2802f9c00, {{0.0, 304.0}, {375.0, 262.0}}
+        Cell, 0x2802f9ce0, {{0.0, 310.0}, {375.0, 50.0}}
+          Image, 0x2802f9dc0, {{16.5, 322.5}, {25.0, 25.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_mine_star.png'
+          StaticText, 0x2802f95e0, {{47.0, 326.0}, {61.5, 18.0}}, label: '五星好评'
+          StaticText, 0x2802f97a0, {{253.0, 327.0}, {93.0, 16.0}}, label: '殿下，快翻我牌'
+          Image, 0x2802f96c0, {{352.0, 330.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+        Cell, 0x2802f9500, {{0.0, 360.0}, {375.0, 50.0}}
+          Image, 0x2802c3b80, {{16.5, 372.5}, {25.0, 25.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_user_center_shop.png'
+          StaticText, 0x2802c3c60, {{47.0, 376.0}, {61.5, 18.0}}, label: '飒漫商城'
+          StaticText, 0x2802c3d40, {{346.0, 385.0}, {0.0, 0.0}}
+          Image, 0x2802c3e20, {{352.0, 380.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+        Cell, 0x2802c3f00, {{0.0, 410.0}, {375.0, 50.0}}
+          Image, 0x2802c4000, {{16.5, 422.5}, {25.0, 25.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_mine_jianyi.png'
+          StaticText, 0x2802c40e0, {{47.0, 426.0}, {76.5, 18.0}}, label: '帮助与反馈'
+          StaticText, 0x2802c41c0, {{346.0, 435.0}, {0.0, 0.0}}
+          Image, 0x2802c42a0, {{352.0, 430.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+        Cell, 0x2802d8000, {{0.0, 460.0}, {375.0, 50.0}}
+          Image, 0x2802d80e0, {{16.5, 472.5}, {25.0, 25.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_mine_set.png'
+          StaticText, 0x2802d81c0, {{47.0, 476.0}, {31.0, 18.0}}, label: '设置'
+          StaticText, 0x2802d82a0, {{346.0, 485.0}, {0.0, 0.0}}
+          Image, 0x2802d8380, {{352.0, 480.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+        Cell, 0x2802d5dc0, {{0.0, 510.0}, {375.0, 50.0}}
+          Image, 0x2802d5ea0, {{16.5, 522.5}, {25.0, 25.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_mine_star.png'
+          StaticText, 0x2802d5f80, {{47.0, 526.0}, {71.5, 18.0}}, label: 'demo测试'
+          StaticText, 0x2802d6060, {{346.0, 535.0}, {0.0, 0.0}}
+          Image, 0x2802d6140, {{352.0, 530.0}, {7.0, 10.0}}, identifier: '/private/var/containers/Bundle/Application/06F7D9CC-E3B4-4904-AE1F-393E1FD2B8F5/xndm_proj.app/Default/icon_right_arrow.png'
+  
+    StaticText, 0x2802d6220, {{264.5, -444.0}, {17.0, 10.0}}, label: 'LV.1'
+    StaticText, 0x2802d6300, {{31.5, -299.0}, {69.5, 20.5}}, label: '白金会员'
+    StaticText, 0x2802d63e0, {{111.5, -295.5}, {90.0, 13.5}}, label: '免费畅读会员漫画'
+    Button, 0x2802d64c0, {{268.0, -301.0}, {71.0, 24.0}}, label: '立即查看', Disabled
+      StaticText, 0x2802d65a0, {{278.5, -296.5}, {50.0, 15.0}}, label: '立即查看'
+  
+      Button, 0x2802d6680, {{12.0, -380.5}, {78.0, 50.0}}, Disabled
+      StaticText, 0x2802d6760, {{12.0, -380.5}, {0.0, 0.0}}
+      StaticText, 0x2802d6840, {{32.0, -377.5}, {38.5, 24.0}}, label: '206'
+      StaticText, 0x2802d6920, {{38.5, -350.5}, {25.0, 14.5}}, label: '宝石'
+    Button, 0x2802d6a00, {{102.0, -380.5}, {78.0, 50.0}}, Disabled
+      StaticText, 0x2802d6ae0, {{102.0, -380.5}, {0.0, 0.0}}
+      StaticText, 0x2802d6bc0, {{118.5, -377.5}, {45.5, 24.0}}, label: '1916'
+      StaticText, 0x2802d6ca0, {{128.5, -350.5}, {25.0, 14.5}}, label: '金币'
+    Button, 0x2802d6d80, {{192.0, -380.5}, {78.0, 50.0}}, Disabled
+      StaticText, 0x2802d6e60, {{192.0, -380.5}, {0.0, 0.0}}
+      StaticText, 0x2802d6f40, {{224.5, -377.5}, {13.5, 24.0}}, label: '0'
+      StaticText, 0x2802d7020, {{212.5, -350.5}, {37.0, 14.5}}, label: '阅读券'
+    Button, 0x2802d7100, {{282.0, -380.5}, {78.0, 50.0}}, Disabled
+      StaticText, 0x2802d71e0, {{282.0, -380.5}, {0.0, 0.0}}
+      StaticText, 0x2802d72c0, {{308.5, -377.5}, {25.5, 24.0}}, label: '20'
+      StaticText, 0x2802d73a0, {{308.5, -350.5}, {25.0, 14.5}}, label: '月票'
+Path to element:
+ →Application, 0x2802ccb60, pid: 1517, label: '飒漫画'
+  ↳Window (Main), 0x2802f1ea0, {{0.0, 0.0}, {375.0, 667.0}}
+   ↳Other, 0x2802ccc40, {{0.0, 0.0}, {375.0, 667.0}}
+    ↳Other, 0x2802ccd20, {{0.0, 0.0}, {375.0, 667.0}}
+     ↳Other, 0x2802cce00, {{0.0, 0.0}, {375.0, 667.0}}
+      ↳Other, 0x2802f63e0, {{0.0, 0.0}, {375.0, 667.0}}
+       ↳Other, 0x2802f64c0, {{0.0, 0.0}, {375.0, 667.0}}
+        ↳Other, 0x2802f1f80, {{0.0, 0.0}, {375.0, 667.0}}
+         ↳Other, 0x2802f65a0, {{0.0, 0.0}, {375.0, 667.0}}
+          ↳Other, 0x2802f6680, {{0.0, 0.0}, {375.0, 667.0}}
+           ↳Other, 0x2802f6760, {{0.0, 0.0}, {375.0, 618.0}}
+            ↳Table, 0x2802f6840, {{0.0, 0.0}, {375.0, 618.0}}
+Query chain:
+ →Find: Target Application 'com.comic.ismh'
+  Output: {
+    Application, pid: 1517, label: '飒漫画'
+  }
+  ↪︎Find: Descendants matching type Table
+    Output: {
+      Table, {{0.0, 0.0}, {375.0, 618.0}}
+      Table, {{0.0, 80.0}, {375.0, 212.0}}
+      Table, {{0.0, 304.0}, {375.0, 262.0}}
+    }
+    ↪︎Find: Element at index 0
+      Output: {
+        Table, {{0.0, 0.0}, {375.0, 618.0}}
+      }
+
+(lldb) 
