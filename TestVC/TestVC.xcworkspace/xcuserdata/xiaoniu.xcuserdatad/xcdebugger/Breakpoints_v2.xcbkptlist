@@ -32,10 +32,10 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "205"
                   endingLineNumber = "205"
-                  offsetFromSymbolStart = "1147">
+                  offsetFromSymbolStart = "1550">
                </Location>
                <Location
-                  uuid = "33BB3154-C9D8-4F05-B787-6FD255D0283B - b047f5529cd71066"
+                  uuid = "33BB3154-C9D8-4F05-B787-6FD255D0283B - b047f5529cd71047"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -45,8 +45,8 @@
                   urlString = "file:///Users/xiaoniu/ios_workspace/component/TestVC/Pods/SDWebImage/SDWebImage/SDWebImageManager.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "206"
-                  endingLineNumber = "206"
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
                   offsetFromSymbolStart = "152">
                </Location>
             </Locations>
@@ -129,6 +129,22 @@
             startingLineNumber = "393"
             endingLineNumber = "393"
             landmarkName = "-encodedDataWithImage:format:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE1FAC95-C519-469E-AEE5-E59CA9DC9EEC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "TestVCUITests/TestVCUITests.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "-testPush"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

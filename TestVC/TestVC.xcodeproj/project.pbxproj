@@ -22,6 +22,7 @@
 		D47C80E726B24E2300880F06 /* TestVCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80E626B24E2300880F06 /* TestVCUITests.m */; };
 		D4BDA75026CCA69100858872 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA74F26CCA69100858872 /* rock.gif */; };
 		D4BDA75426CD095300858872 /* XNPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA75326CD095300858872 /* XNPerson.m */; };
+		D4C469A426CF44ED0056B708 /* TestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C469A326CF44ED0056B708 /* TestUITests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		D4BDA74F26CCA69100858872 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
 		D4BDA75226CD095300858872 /* XNPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNPerson.h; sourceTree = "<group>"; };
 		D4BDA75326CD095300858872 /* XNPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNPerson.m; sourceTree = "<group>"; };
+		D4C469A326CF44ED0056B708 /* TestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestUITests.m; sourceTree = "<group>"; };
 		D4F125833029E5FD62B40A83 /* Pods-TestVC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.debug.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.debug.xcconfig"; sourceTree = "<group>"; };
 		DCA1C06F05FC8EA70E6BC63F /* Pods-TestVCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVCTests.debug.xcconfig"; path = "Target Support Files/Pods-TestVCTests/Pods-TestVCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BF267CDC07013A829C31EC /* Pods-TestVC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.release.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.release.xcconfig"; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				D47C80E626B24E2300880F06 /* TestVCUITests.m */,
+				D4C469A326CF44ED0056B708 /* TestUITests.m */,
 				D47C80E826B24E2300880F06 /* Info.plist */,
 			);
 			path = TestVCUITests;
@@ -450,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D47C80E726B24E2300880F06 /* TestVCUITests.m in Sources */,
+				D4C469A426CF44ED0056B708 /* TestUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
