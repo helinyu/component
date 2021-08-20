@@ -41,29 +41,24 @@ XCT_EXPORT XCUIGestureVelocity const XCUIGestureVelocityFast;
 @class XCUIElementQuery;
 @class XCUICoordinate;
 
-/*!
- * @class XCUIElement (/seealso XCUIElementAttributes)
- * Elements are objects encapsulating the information needed to dynamically locate a user interface
- * element in an application. Elements are described in terms of queries /seealso XCUIElementQuery.
- */
 @interface XCUIElement : NSObject <XCUIElementAttributes, XCUIElementTypeQueryProvider>
 
 + (instancetype)new XCT_UNAVAILABLE("Use XCUIElementQuery to create XCUIElement instances.");
 - (instancetype)init XCT_UNAVAILABLE("Use XCUIElementQuery to create XCUIElement instances.");
 
-/*! Test to determine if the element exists. */
+//  空间是否存在
 @property (readonly) BOOL exists;
 
-/*! Waits the specified amount of time for the element's exist property to be true and returns false if the timeout expires without the element coming into existence. */
+//  等待时间存在
 - (BOOL)waitForExistenceWithTimeout:(NSTimeInterval)timeout XCT_WARN_UNUSED;
 
-/*! Whether or not a hit point can be computed for the element for the purpose of synthesizing events. */
+//  是否实现了事件的实现
 @property (readonly, getter = isHittable) BOOL hittable;
 
-/*! Returns a query for all descendants of the element matching the specified type. */
+//  获取父元素
 - (XCUIElementQuery *)descendantsMatchingType:(XCUIElementType)type;
 
-/*! Returns a query for direct children of the element matching the specified type. */
+//  获取子元素
 - (XCUIElementQuery *)childrenMatchingType:(XCUIElementType)type;
 
 #if !TARGET_OS_TV
@@ -89,11 +84,7 @@ XCT_EXPORT XCUIGestureVelocity const XCUIGestureVelocityFast;
 
 #pragma mark - Event Synthesis
 
-/*!
- * @category Events
- * Events that can be synthesized relative to an XCUIElement object. When an event API is called, the element
- * will be resolved. If zero or multiple matches are found, an error will be raised.
- */
+
 @interface XCUIElement (XCUIElementKeyboardEvents)
 
 /*!
@@ -103,6 +94,7 @@ XCT_EXPORT XCUIGestureVelocity const XCUIGestureVelocityFast;
  * This API discards any modifiers set in the current context by +performWithKeyModifiers:block: so that
  * it strictly interprets the provided text. To input keys with modifier flags, use  -typeKey:modifierFlags:.
  */
+// 
 - (void)typeText:(NSString *)text;
 
 #if TARGET_OS_OSX || TARGET_OS_MACCATALYST
@@ -128,9 +120,7 @@ XCT_EXPORT XCUIGestureVelocity const XCUIGestureVelocityFast;
 
 @interface XCUIElement (XCUIElementTouchEvents)
 
-/*!
- * Sends a tap event to a hittable point computed for the element.
- */
+//  元素的实践
 - (void)tap API_UNAVAILABLE(tvos);
 
 /*!
@@ -295,6 +285,7 @@ XCT_EXPORT XCUIGestureVelocity const XCUIGestureVelocityFast;
 /*!
  * Scroll the view the specified pixels, x and y.
  */
+//  移动的距离， 这个需要进一步去查看有关 scrollView上的内容
 - (void)scrollByDeltaX:(CGFloat)deltaX deltaY:(CGFloat)deltaY;
 
 @end

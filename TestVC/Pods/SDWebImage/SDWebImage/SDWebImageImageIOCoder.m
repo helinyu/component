@@ -187,7 +187,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     }
     
     if (!shouldScaleDown) {
-        return [self sd_decompressedImageWithImage:image];
+        return [self sd_decompressedImageWithImage:image]; // 解压，解码？
     } else {
         UIImage *scaledDownImage = [self sd_decompressedAndScaledDownImageWithImage:image];
         if (scaledDownImage && !CGSizeEqualToSize(scaledDownImage.size, image.size)) {
@@ -389,6 +389,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     }
 }
 
+// 编码
 - (NSData *)encodedDataWithImage:(UIImage *)image format:(SDImageFormat)format {
     if (!image) {
         return nil;
@@ -448,6 +449,8 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     return YES;
 }
 
+
+// 是否可以解码？
 + (BOOL)canDecodeFromHEICFormat {
     static BOOL canDecode = NO;
     static dispatch_once_t onceToken;

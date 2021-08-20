@@ -23,6 +23,9 @@
 		D4BDA75026CCA69100858872 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA74F26CCA69100858872 /* rock.gif */; };
 		D4BDA75426CD095300858872 /* XNPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA75326CD095300858872 /* XNPerson.m */; };
 		D4C469A426CF44ED0056B708 /* TestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C469A326CF44ED0056B708 /* TestUITests.m */; };
+		D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */; };
+		D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */; };
+		D4C46A7326CFAEB00056B708 /* Flowers_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7126CFAEB00056B708 /* Flowers_2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,10 @@
 		D4BDA75226CD095300858872 /* XNPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNPerson.h; sourceTree = "<group>"; };
 		D4BDA75326CD095300858872 /* XNPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNPerson.m; sourceTree = "<group>"; };
 		D4C469A326CF44ED0056B708 /* TestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestUITests.m; sourceTree = "<group>"; };
+		D4C46A6A26CF9FAF0056B708 /* ImageIOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageIOViewController.h; sourceTree = "<group>"; };
+		D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageIOViewController.m; sourceTree = "<group>"; };
+		D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rainbow_1.png; sourceTree = "<group>"; };
+		D4C46A7126CFAEB00056B708 /* Flowers_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flowers_2.png; sourceTree = "<group>"; };
 		D4F125833029E5FD62B40A83 /* Pods-TestVC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.debug.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.debug.xcconfig"; sourceTree = "<group>"; };
 		DCA1C06F05FC8EA70E6BC63F /* Pods-TestVCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVCTests.debug.xcconfig"; path = "Target Support Files/Pods-TestVCTests/Pods-TestVCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BF267CDC07013A829C31EC /* Pods-TestVC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.release.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.release.xcconfig"; sourceTree = "<group>"; };
@@ -152,9 +159,13 @@
 				D47C80C626B24E2200880F06 /* ViewController.mm */,
 				D42B53F626CBB13E002C3C9D /* SecondViewController.h */,
 				D42B53F726CBB13E002C3C9D /* SecondViewController.m */,
+				D4C46A6A26CF9FAF0056B708 /* ImageIOViewController.h */,
+				D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */,
 				D4BDA75226CD095300858872 /* XNPerson.h */,
 				D4BDA75326CD095300858872 /* XNPerson.m */,
 				D47C80C826B24E2200880F06 /* Main.storyboard */,
+				D4C46A7126CFAEB00056B708 /* Flowers_2.png */,
+				D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */,
 				D47C80CB26B24E2300880F06 /* Assets.xcassets */,
 				D47C80CD26B24E2300880F06 /* LaunchScreen.storyboard */,
 				D47C80D026B24E2300880F06 /* Info.plist */,
@@ -301,7 +312,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D47C80CF26B24E2300880F06 /* LaunchScreen.storyboard in Resources */,
+				D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */,
 				D47C80CC26B24E2300880F06 /* Assets.xcassets in Resources */,
+				D4C46A7326CFAEB00056B708 /* Flowers_2.png in Resources */,
 				D47C80CA26B24E2200880F06 /* Main.storyboard in Resources */,
 				D4BDA75026CCA69100858872 /* rock.gif in Resources */,
 			);
@@ -433,6 +446,7 @@
 			files = (
 				D47C80C726B24E2200880F06 /* ViewController.mm in Sources */,
 				D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */,
+				D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */,
 				D4BDA75426CD095300858872 /* XNPerson.m in Sources */,
 				D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */,
 				D47C80D226B24E2300880F06 /* main.m in Sources */,

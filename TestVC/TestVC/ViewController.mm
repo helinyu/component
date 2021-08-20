@@ -9,6 +9,7 @@
 #import <MMKV/MMKV.h>
 #import "SecondViewController.h"
 #import "XNPerson.h"
+#import "ImageIOViewController.h"
 
 @interface ViewController ()
 
@@ -23,6 +24,11 @@
 
 @implementation ViewController
 
+- (void)onTap2 {
+    ImageIOViewController *vc = [ImageIOViewController new];
+    [self presentViewController:vc  animated:YES completion:nil];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -35,6 +41,15 @@
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.frame = CGRectMake(0.f, 120,100, 100);
+        btn.backgroundColor = [UIColor redColor];
+        [self.view addSubview:btn];
+        [btn addTarget:self action:@selector(onTap2) forControlEvents:UIControlEventTouchUpInside];
+        
+    }
+    
+    {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0.f, 220,100, 100);
         btn.backgroundColor = [UIColor redColor];
         [self.view addSubview:btn];
         [btn addTarget:self action:@selector(onTap1) forControlEvents:UIControlEventTouchUpInside];
@@ -60,6 +75,10 @@
         [self.pointArr addPointer:(void *)person];
         [self.pointArr addPointer:nil];
 //        [self.arr addObject:self.person];
+    }
+    
+    {
+
     }
 }
 

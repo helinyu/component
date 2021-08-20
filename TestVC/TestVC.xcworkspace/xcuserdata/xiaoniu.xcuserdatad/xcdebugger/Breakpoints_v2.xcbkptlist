@@ -32,10 +32,10 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "205"
                   endingLineNumber = "205"
-                  offsetFromSymbolStart = "1550">
+                  offsetFromSymbolStart = "1147">
                </Location>
                <Location
-                  uuid = "33BB3154-C9D8-4F05-B787-6FD255D0283B - b047f5529cd71047"
+                  uuid = "33BB3154-C9D8-4F05-B787-6FD255D0283B - b047f5529cd71066"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -45,8 +45,8 @@
                   urlString = "file:///Users/xiaoniu/ios_workspace/component/TestVC/Pods/SDWebImage/SDWebImage/SDWebImageManager.m"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "205"
-                  endingLineNumber = "205"
+                  startingLineNumber = "206"
+                  endingLineNumber = "206"
                   offsetFromSymbolStart = "152">
                </Location>
             </Locations>
@@ -126,8 +126,8 @@
             filePath = "Pods/SDWebImage/SDWebImage/SDWebImageImageIOCoder.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "-encodedDataWithImage:format:"
             landmarkType = "7">
          </BreakpointContent>
@@ -145,6 +145,22 @@
             startingLineNumber = "38"
             endingLineNumber = "38"
             landmarkName = "-testPush"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0AB823FF-5DDE-4562-96BE-3791172C9FB3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Pods/SDWebImage/SDWebImage/SDWebImageImageIOCoder.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "-sd_decompressedImageWithImage:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
