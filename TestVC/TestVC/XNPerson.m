@@ -9,4 +9,13 @@
 
 @implementation XNPerson
 
+- (id)copyWithZone:(NSZone *)zone {
+    XNPerson *cpy = [XNPerson allocWithZone:zone];
+    if (cpy) {
+        cpy.name = self.name;
+        cpy.age = self.age;
+    }
+    return cpy;
+}
+
 @end

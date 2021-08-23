@@ -32,6 +32,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    {
+//        NSMutableArray *arr = [NSMutableArray new];
+        XNPerson *p = [XNPerson new];
+//        [arr addObject:p];
+        NSArray *arr = @[p];
+        
+        NSArray *copy = [arr copy];
+        
+        NSLog(@"%p , %p ",p, copy);
+    }
+    
+    NSString *str =@"";
+    str =[str stringByAppendingFormat:@"%@",@"你好"];
+    NSLog(@"str :%@",str);
+
+    
    { UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.f, 10,100, 100);
     btn.backgroundColor = [UIColor redColor];

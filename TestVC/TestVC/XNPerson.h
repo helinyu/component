@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface XNPerson : NSObject
+@interface XNPerson : NSObject<NSCopying>
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) NSInteger age;
