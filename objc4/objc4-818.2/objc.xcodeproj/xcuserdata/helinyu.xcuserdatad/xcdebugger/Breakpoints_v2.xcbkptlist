@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "87673C35-91EA-4D16-BC67-3B14E58C5830"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B2919571-62D5-45E9-940E-4B500F9AAC2D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "KCObjcBuild/main.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "main(argc, argv)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "02EFCF32-4A0A-4663-A58A-38FC07C85BCE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "runtime/NSObject.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "2547"
+            endingLineNumber = "2547"
+            landmarkName = "+alloc"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A6668A4A-0D23-4C84-B103-EBD5F893F216"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "runtime/NSObject.mm"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1940"
+            endingLineNumber = "1940"
+            landmarkName = "callAlloc(cls, checkNil)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  uuid = "A6668A4A-0D23-4C84-B103-EBD5F893F216 - 4e54929ba4196306"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "_objc_rootAlloc"
+                  moduleName = "libobjc.A.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/helinyu/ios_workspace/component/objc4/objc4-818.2/runtime/NSObject.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1940"
+                  endingLineNumber = "1940"
+                  offsetFromSymbolStart = "183">
+               </Location>
+               <Location
+                  uuid = "A6668A4A-0D23-4C84-B103-EBD5F893F216 - 8d5a40ba215bb70e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "objc_alloc"
+                  moduleName = "libobjc.A.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/helinyu/ios_workspace/component/objc4/objc4-818.2/runtime/NSObject.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1940"
+                  endingLineNumber = "1940"
+                  offsetFromSymbolStart = "183">
+               </Location>
+               <Location
+                  uuid = "A6668A4A-0D23-4C84-B103-EBD5F893F216 - 461b22f3ae22c74e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "objc_allocWithZone"
+                  moduleName = "libobjc.A.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/helinyu/ios_workspace/component/objc4/objc4-818.2/runtime/NSObject.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1940"
+                  endingLineNumber = "1940"
+                  offsetFromSymbolStart = "183">
+               </Location>
+               <Location
+                  uuid = "A6668A4A-0D23-4C84-B103-EBD5F893F216 - f5cd7365939a5a36"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "objc_alloc_init"
+                  moduleName = "libobjc.A.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/helinyu/ios_workspace/component/objc4/objc4-818.2/runtime/NSObject.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1940"
+                  endingLineNumber = "1940"
+                  offsetFromSymbolStart = "183">
+               </Location>
+               <Location
+                  uuid = "A6668A4A-0D23-4C84-B103-EBD5F893F216 - b121153f240d9f19"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "objc_opt_new"
+                  moduleName = "libobjc.A.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/helinyu/ios_workspace/component/objc4/objc4-818.2/runtime/NSObject.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1940"
+                  endingLineNumber = "1940"
+                  offsetFromSymbolStart = "242">
+               </Location>
+               <Location
+                  uuid = "A6668A4A-0D23-4C84-B103-EBD5F893F216 - 75257de7d1b42a48"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[NSObject new]"
+                  moduleName = "libobjc.A.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/helinyu/ios_workspace/component/objc4/objc4-818.2/runtime/NSObject.mm"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "1940"
+                  endingLineNumber = "1940"
+                  offsetFromSymbolStart = "187">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
