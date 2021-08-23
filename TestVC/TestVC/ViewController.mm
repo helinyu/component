@@ -10,6 +10,8 @@
 #import "SecondViewController.h"
 #import "XNPerson.h"
 #import "ImageIOViewController.h"
+#import <libkern/OSAtomic.h>
+#import "XNLockModel.h"
 
 @interface ViewController ()
 
@@ -27,10 +29,26 @@
 - (void)onTap2 {
     ImageIOViewController *vc = [ImageIOViewController new];
     [self presentViewController:vc  animated:YES completion:nil];
+    
+    
+    //  OSSpinLock自旋锁的初始化
+    OSSpinLock _lock = OS_SPINLOCK_INIT;
+
+    //  锁定
+    OSSpinLockLock(&_lock);
+
+    // 解锁
+    OSSpinLockUnlock(&_lock);
+
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    {
+        XNLockModel *item = [XNLockModel new];
+        return;
+    }
     
     {
 //        NSMutableArray *arr = [NSMutableArray new];
