@@ -13,6 +13,8 @@
 #import <libkern/OSAtomic.h>
 #import "XNLockModel.h"
 
+#import "XNThirdViewController.h"
+
 @interface ViewController ()
 
 @property (nonatomic, strong) NSPointerArray *pointArr;
@@ -44,26 +46,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    {
-        XNLockModel *item = [XNLockModel new];
-        return;
-    }
-    
-    {
-//        NSMutableArray *arr = [NSMutableArray new];
-        XNPerson *p = [XNPerson new];
-//        [arr addObject:p];
-        NSArray *arr = @[p];
-        
-        NSArray *copy = [arr copy];
-        
-        NSLog(@"%p , %p ",p, copy);
-    }
-    
-    NSString *str =@"";
-    str =[str stringByAppendingFormat:@"%@",@"你好"];
-    NSLog(@"str :%@",str);
 
     
    { UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -83,7 +65,7 @@
     
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0.f, 220,100, 100);
+        btn.frame = CGRectMake(0.f, 230,100, 100);
         btn.backgroundColor = [UIColor redColor];
         [self.view addSubview:btn];
         [btn addTarget:self action:@selector(onTap1) forControlEvents:UIControlEventTouchUpInside];
@@ -102,6 +84,14 @@
     }
     
     {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0.f, 340,100, 100);
+        btn.backgroundColor = [UIColor blueColor];
+        [self.view addSubview:btn];
+        [btn addTarget:self action:@selector(onTap3) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    {
         XNPerson *person = [XNPerson new];
 //        self.person = person;
         self.person.name= @"helinyu";
@@ -116,9 +106,14 @@
     }
 }
 
+- (void)onTap3 {
+    XNThirdViewController *vc = [XNThirdViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)onTap {
     SecondViewController *vc = [SecondViewController new];
-    [self presentViewController:vc animated:YES completion:nil];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)onTap1 {

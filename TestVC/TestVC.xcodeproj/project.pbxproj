@@ -24,6 +24,10 @@
 		D47C80E726B24E2300880F06 /* TestVCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80E626B24E2300880F06 /* TestVCUITests.m */; };
 		D4BDA75026CCA69100858872 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA74F26CCA69100858872 /* rock.gif */; };
 		D4BDA75426CD095300858872 /* XNPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA75326CD095300858872 /* XNPerson.m */; };
+		D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223626D4905B0079FAD3 /* NSTimer+Extra.m */; };
+		D4C3223A26D497F60079FAD3 /* NSTimer+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223826D497F60079FAD3 /* NSTimer+YYAdd.m */; };
+		D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223C26D4C38B0079FAD3 /* HWWeakTimer.m */; };
+		D4C3224026D4D16A0079FAD3 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223F26D4D16A0079FAD3 /* YYWeakProxy.m */; };
 		D4C469A426CF44ED0056B708 /* TestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C469A326CF44ED0056B708 /* TestUITests.m */; };
 		D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */; };
 		D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */; };
@@ -81,6 +85,14 @@
 		D4BDA74F26CCA69100858872 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
 		D4BDA75226CD095300858872 /* XNPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNPerson.h; sourceTree = "<group>"; };
 		D4BDA75326CD095300858872 /* XNPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNPerson.m; sourceTree = "<group>"; };
+		D4C3223526D4905B0079FAD3 /* NSTimer+Extra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Extra.h"; sourceTree = "<group>"; };
+		D4C3223626D4905B0079FAD3 /* NSTimer+Extra.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Extra.m"; sourceTree = "<group>"; };
+		D4C3223826D497F60079FAD3 /* NSTimer+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+YYAdd.m"; sourceTree = "<group>"; };
+		D4C3223926D497F60079FAD3 /* NSTimer+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+YYAdd.h"; sourceTree = "<group>"; };
+		D4C3223B26D4C38A0079FAD3 /* HWWeakTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWWeakTimer.h; sourceTree = "<group>"; };
+		D4C3223C26D4C38B0079FAD3 /* HWWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWWeakTimer.m; sourceTree = "<group>"; };
+		D4C3223E26D4D16A0079FAD3 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
+		D4C3223F26D4D16A0079FAD3 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
 		D4C469A326CF44ED0056B708 /* TestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestUITests.m; sourceTree = "<group>"; };
 		D4C46A6A26CF9FAF0056B708 /* ImageIOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageIOViewController.h; sourceTree = "<group>"; };
 		D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageIOViewController.m; sourceTree = "<group>"; };
@@ -171,7 +183,15 @@
 				D45B668026D3BB1900964C86 /* XNThirdViewController.m */,
 				D45B667C26D3BA6C00964C86 /* XNLockModel.h */,
 				D45B667D26D3BA6C00964C86 /* XNLockModel.m */,
+				D4C3223B26D4C38A0079FAD3 /* HWWeakTimer.h */,
+				D4C3223C26D4C38B0079FAD3 /* HWWeakTimer.m */,
+				D4C3223E26D4D16A0079FAD3 /* YYWeakProxy.h */,
+				D4C3223F26D4D16A0079FAD3 /* YYWeakProxy.m */,
 				D4BDA75226CD095300858872 /* XNPerson.h */,
+				D4C3223526D4905B0079FAD3 /* NSTimer+Extra.h */,
+				D4C3223626D4905B0079FAD3 /* NSTimer+Extra.m */,
+				D4C3223926D497F60079FAD3 /* NSTimer+YYAdd.h */,
+				D4C3223826D497F60079FAD3 /* NSTimer+YYAdd.m */,
 				D4BDA75326CD095300858872 /* XNPerson.m */,
 				D47C80C826B24E2200880F06 /* Main.storyboard */,
 				D4C46A7126CFAEB00056B708 /* Flowers_2.png */,
@@ -454,15 +474,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */,
 				D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */,
 				D47C80C726B24E2200880F06 /* ViewController.mm in Sources */,
 				D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */,
+				D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */,
 				D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */,
 				D45B668126D3BB1900964C86 /* XNThirdViewController.m in Sources */,
+				D4C3224026D4D16A0079FAD3 /* YYWeakProxy.m in Sources */,
 				D4BDA75426CD095300858872 /* XNPerson.m in Sources */,
 				D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */,
 				D47C80D226B24E2300880F06 /* main.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,
+				D4C3223A26D497F60079FAD3 /* NSTimer+YYAdd.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

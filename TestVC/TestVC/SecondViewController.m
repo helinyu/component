@@ -34,9 +34,9 @@
     self.view.backgroundColor = [UIColor blueColor];
     
 //    [self testYY];
-//    [self testFl];
+    [self testFl];
 //    [self testsy];
-    [self testSD];
+//    [self testSD];
 }
 
 - (void)testBtn {
