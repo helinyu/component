@@ -15,6 +15,10 @@
 #import <Shimmer/FBShimmeringView.h>
 
 @interface XNThirdViewController ()<UITextViewDelegate>
+{
+    NSThread *_thread;
+    BOOL _stop;
+}
 
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) CADisplayLink *displayLink;
@@ -29,8 +33,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//
-//    self.view.backgroundColor = [UIColor redColor];
+
+    self.view.backgroundColor = [UIColor redColor];
 //
 //    UITextView *tv = [UITextView new];
 //    [self.view addSubview:tv];
@@ -40,8 +44,76 @@
 //    self.tv = tv;
 //
 //    [self startPolling];
-    [self testShimmering];
+//    [self testShimmering];
+    
+//    [self testRunloop];
+    [self testRunloopAlive];
+}
 
+- (void)testRunloopAlive {
+//    NSThread *th = [[NSThread alloc] initWithTarget:self selector:@selector(testThread) object:nil];
+    NSRunLoop *main =  [NSRunLoop mainRunLoop];
+    NSRunLoop *current = [NSRunLoop currentRunLoop];
+    __block NSRunLoop *main1;
+    __block NSRunLoop *current1;
+    dispatch_async(dispatch_queue_create("skinReadImageQueue", DISPATCH_QUEUE_CONCURRENT), ^{
+        self->_thread = [NSThread currentThread];
+        NSLog(@"lt - %p, %p , %p , %p",main,current,main1, current1);
+        NSLog(@"lt - %p, %p , %p , %p",main,current,main1, current1);
+        [self testThread];
+    });
+
+}
+
+// 上一次的执行，启动下一次的runloop
+- (void)testThread{
+    NSLog(@"test thread");
+
+// 注释与否来触发触摸时间，这个对象是否还会在该线程中调用
+    // 向runloop里面添加事件source/timer/observer
+    [[NSRunLoop currentRunLoop] addPort:[NSPort port] forMode:NSDefaultRunLoopMode];
+    [[NSRunLoop currentRunLoop] run];
+    while (!_stop) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
+    }
+    
+    
+}
+- (void)testAnother{
+    NSLog(@"test another");
+    NSRunLoop * main1 = [NSRunLoop mainRunLoop];
+    NSRunLoop * current1 = [NSRunLoop currentRunLoop];
+    NSLog(@"lt - %p , %p",main1, current1);
+    NSLog(@"lt - %p , %p",main1, current1);
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self performSelector:@selector(testAnother) onThread:_thread withObject:nil waitUntilDone:NO];
+}
+
+// 销毁线程的runloop
+- (void)stop{
+//     当前的线程stop掉
+    _stop = YES;
+    CFRunLoopStop(CFRunLoopGetCurrent());
+}
+- (void)stopRunloop{
+    [self performSelector:@selector(stop) onThread:_thread withObject:nil waitUntilDone:NO];
+}
+
+
+- (void)testRunloop {
+    
+    NSRunLoop *main =  [NSRunLoop mainRunLoop];
+    NSRunLoop *current = [NSRunLoop currentRunLoop];
+    __block NSRunLoop *main1;
+    __block NSRunLoop *current1;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        main1 = [NSRunLoop mainRunLoop];
+        current1 = [NSRunLoop currentRunLoop];
+    });
+    NSLog(@"lt - %p, %p , %p , %p",main,current,main1, current1);
+    NSLog(@"lt - %p, %p , %p , %p",main,current,main1, current1);
 }
 
 - (void)testShimmering {
