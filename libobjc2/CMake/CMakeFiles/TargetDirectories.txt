@@ -1,4 +1,0 @@
-/Users/xiaoniu/Desktop/libobjc2/CMake/CMakeFiles/rebuild_cache.dir
-/Users/xiaoniu/Desktop/libobjc2/CMake/CMakeFiles/edit_cache.dir
-/Users/xiaoniu/Desktop/libobjc2/CMake/CMakeFiles/test_cxx_stdlib.dir
-/Users/xiaoniu/Desktop/libobjc2/CMake/CMakeFiles/test_cxx_runtime.dir

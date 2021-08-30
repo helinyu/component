@@ -1,0 +1,349 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXFileReference section */
+		D4BC044226DC8AE60070993C /* alias_table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = alias_table.c; sourceTree = "<group>"; };
+		D4BC044326DC8AE60070993C /* loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = loader.c; sourceTree = "<group>"; };
+		D4BC044426DC8AE60070993C /* legacy_malloc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = legacy_malloc.c; sourceTree = "<group>"; };
+		D4BC044526DC8AE60070993C /* protocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = protocol.h; sourceTree = "<group>"; };
+		D4BC044626DC8AE60070993C /* safewindows.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = safewindows.h; sourceTree = "<group>"; };
+		D4BC044726DC8AE60070993C /* sendmsg2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sendmsg2.c; sourceTree = "<group>"; };
+		D4BC044826DC8AE60070993C /* spinlock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spinlock.h; sourceTree = "<group>"; };
+		D4BC044926DC8AE60070993C /* selector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = selector.h; sourceTree = "<group>"; };
+		D4BC044A26DC8AE60070993C /* block_trampolines.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = block_trampolines.S; sourceTree = "<group>"; };
+		D4BC044B26DC8AE60070993C /* runtime.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = runtime.c; sourceTree = "<group>"; };
+		D4BC044C26DC8AE60070993C /* unwind.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unwind.h; sourceTree = "<group>"; };
+		D4BC044E26DC8AE60070993C /* category_loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = category_loader.c; sourceTree = "<group>"; };
+		D4BC044F26DC8AE60070993C /* dtable.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dtable.c; sourceTree = "<group>"; };
+		D4BC045026DC8AE60070993C /* INSTALL */ = {isa = PBXFileReference; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
+		D4BC045126DC8AE60070993C /* ANNOUNCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE; sourceTree = "<group>"; };
+		D4BC045226DC8AE60070993C /* pool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pool.h; sourceTree = "<group>"; };
+		D4BC045326DC8AE60070993C /* legacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = legacy.h; sourceTree = "<group>"; };
+		D4BC045426DC8AE60070993C /* ANNOUNCE.2.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.2.0; sourceTree = "<group>"; };
+		D4BC045526DC8AE60070993C /* blocks_runtime.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blocks_runtime.h; sourceTree = "<group>"; };
+		D4BC045626DC8AE60070993C /* objc_msgSend.arm.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = objc_msgSend.arm.S; sourceTree = "<group>"; };
+		D4BC045826DC8AE60070993C /* eh_trampoline.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = eh_trampoline.s; sourceTree = "<group>"; };
+		D4BC045926DC8AE60070993C /* sarray2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sarray2.c; sourceTree = "<group>"; };
+		D4BC045B26DC8AE60070993C /* alias.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alias.h; sourceTree = "<group>"; };
+		D4BC045C26DC8AE60070993C /* NSBlocks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSBlocks.m; sourceTree = "<group>"; };
+		D4BC045D26DC8AE60070993C /* ANNOUNCE.2.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ANNOUNCE.2.1; sourceTree = "<group>"; };
+		D4BC045E26DC8AE60070993C /* Test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Test; sourceTree = "<group>"; };
+		D4BC046026DC8AE60070993C /* eh_personality.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = eh_personality.c; sourceTree = "<group>"; };
+		D4BC046126DC8AE60070993C /* ivar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ivar.h; sourceTree = "<group>"; };
+		D4BC046426DC8AE60070993C /* mutation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mutation.m; sourceTree = "<group>"; };
+		D4BC046526DC8AE60070993C /* Block_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Block_private.h; sourceTree = "<group>"; };
+		D4BC046626DC8AE60070993C /* ANNOUNCE.1.8.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ANNOUNCE.1.8.1; sourceTree = "<group>"; };
+		D4BC046726DC8AE60070993C /* Makefile */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		D4BC046826DC8AE60070993C /* lock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = lock.h; sourceTree = "<group>"; };
+		D4BC046926DC8AE60070993C /* objcxx_eh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = objcxx_eh.h; sourceTree = "<group>"; };
+		D4BC046A26DC8AE60070993C /* method.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = method.h; sourceTree = "<group>"; };
+		D4BC046B26DC8AE60070993C /* objc_msgSend.aarch64.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = objc_msgSend.aarch64.S; sourceTree = "<group>"; };
+		D4BC046C26DC8AE60070993C /* objc_msgSend.x86-32.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = "objc_msgSend.x86-32.S"; sourceTree = "<group>"; };
+		D4BC046D26DC8AE60070993C /* libobjc.pc.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = libobjc.pc.in; sourceTree = "<group>"; };
+		D4BC046E26DC8AE60070993C /* ANNOUNCE.1.6.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ANNOUNCE.1.6.1; sourceTree = "<group>"; };
+		D4BC047026DC8AE60070993C /* unwind-itanium.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "unwind-itanium.h"; sourceTree = "<group>"; };
+		D4BC047126DC8AE60070993C /* string_hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = string_hash.h; sourceTree = "<group>"; };
+		D4BC047226DC8AE60070993C /* properties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = properties.m; sourceTree = "<group>"; };
+		D4BC047326DC8AE60070993C /* type_encoding_cases.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type_encoding_cases.h; sourceTree = "<group>"; };
+		D4BC047426DC8AE60070993C /* gc_boehm.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gc_boehm.c; sourceTree = "<group>"; };
+		D4BC047526DC8AE60070993C /* ANNOUNCE.1.9 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.9; sourceTree = "<group>"; };
+		D4BC047726DC8AE60070993C /* ANNOUNCE.1.0 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.0; sourceTree = "<group>"; };
+		D4BC047926DC8AE60070993C /* ANNOUNCE.1.7 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.7; sourceTree = "<group>"; };
+		D4BC047A26DC8AE60070993C /* eh_trampoline.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = eh_trampoline.cc; sourceTree = "<group>"; };
+		D4BC047B26DC8AE60070993C /* ANNOUNCE.1.6 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.6; sourceTree = "<group>"; };
+		D4BC047C26DC8AE60070993C /* arc.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = arc.mm; sourceTree = "<group>"; };
+		D4BC047D26DC8AE60070993C /* .gitmodules */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitmodules; sourceTree = "<group>"; };
+		D4BC047E26DC8AE60070993C /* ANNOUNCE.1.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = ANNOUNCE.1.1; sourceTree = "<group>"; };
+		D4BC047F26DC8AE60070993C /* ANNOUNCE.1.8 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.8; sourceTree = "<group>"; };
+		D4BC048026DC8AE60070993C /* unwind-arm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "unwind-arm.h"; sourceTree = "<group>"; };
+		D4BC048126DC8AE60070993C /* class_table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = class_table.c; sourceTree = "<group>"; };
+		D4BC048226DC8AE60070993C /* hash_table.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hash_table.h; sourceTree = "<group>"; };
+		D4BC048326DC8AE60070993C /* asmconstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = asmconstants.h; sourceTree = "<group>"; };
+		D4BC048426DC8AE60070993C /* azure-pipelines.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = "azure-pipelines.yml"; sourceTree = "<group>"; };
+		D4BC048526DC8AE60070993C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D4BC048626DC8AE60070993C /* dtable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dtable.h; sourceTree = "<group>"; };
+		D4BC048726DC8AE60070993C /* selector_table.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = selector_table.c; sourceTree = "<group>"; };
+		D4BC048826DC8AE60070993C /* caps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = caps.c; sourceTree = "<group>"; };
+		D4BC048926DC8AE60070993C /* nsobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nsobject.h; sourceTree = "<group>"; };
+		D4BC048A26DC8AE60070993C /* statics_loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = statics_loader.c; sourceTree = "<group>"; };
+		D4BC048B26DC8AE60070993C /* buffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		D4BC048C26DC8AE60070993C /* block_to_imp.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = block_to_imp.c; sourceTree = "<group>"; };
+		D4BC048D26DC8AE60070993C /* abi_version.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = abi_version.c; sourceTree = "<group>"; };
+		D4BC048E26DC8AE60070993C /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		D4BC048F26DC8AE60070993C /* third_party */ = {isa = PBXFileReference; lastKnownFileType = folder; path = third_party; sourceTree = "<group>"; };
+		D4BC049026DC8AE60070993C /* loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = loader.h; sourceTree = "<group>"; };
+		D4BC049126DC8AE60070993C /* gc_ops.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gc_ops.h; sourceTree = "<group>"; };
+		D4BC049226DC8AE60070993C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		D4BC049326DC8AE60070993C /* CPackConfig.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = CPackConfig.cmake; sourceTree = "<group>"; };
+		D4BC049426DC8AE60070993C /* protocol.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = protocol.c; sourceTree = "<group>"; };
+		D4BC049526DC8AE60070993C /* common.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = common.S; sourceTree = "<group>"; };
+		D4BC049626DC8AE60070993C /* ivar.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ivar.c; sourceTree = "<group>"; };
+		D4BC049726DC8AE60070993C /* CPackSourceConfig.cmake */ = {isa = PBXFileReference; lastKnownFileType = text; path = CPackSourceConfig.cmake; sourceTree = "<group>"; };
+		D4BC049826DC8AE60070993C /* encoding2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = encoding2.c; sourceTree = "<group>"; };
+		D4BC049926DC8AE60070993C /* eh_win32_msvc.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = eh_win32_msvc.cc; sourceTree = "<group>"; };
+		D4BC049A26DC8AE60070993C /* objcxx_eh.cc */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = objcxx_eh.cc; sourceTree = "<group>"; };
+		D4BC049B26DC8AE60070993C /* dwarf_eh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dwarf_eh.h; sourceTree = "<group>"; };
+		D4BC049C26DC8AE60070993C /* hooks.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hooks.c; sourceTree = "<group>"; };
+		D4BC049D26DC8AE60070993C /* sarray2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sarray2.h; sourceTree = "<group>"; };
+		D4BC049E26DC8AE60070993C /* class.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = class.h; sourceTree = "<group>"; };
+		D4BC049F26DC8AE60070993C /* category.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = category.h; sourceTree = "<group>"; };
+		D4BC04A026DC8AE60070993C /* legacy.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = legacy.c; sourceTree = "<group>"; };
+		D4BC04A126DC8AE60070993C /* Block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Block.h; sourceTree = "<group>"; };
+		D4BC04A226DC8AE60070993C /* .cirrus.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .cirrus.yml; sourceTree = "<group>"; };
+		D4BC04A326DC8AE60070993C /* API */ = {isa = PBXFileReference; lastKnownFileType = text; path = API; sourceTree = "<group>"; };
+		D4BC04A426DC8AE60070993C /* blocks_runtime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = blocks_runtime.m; sourceTree = "<group>"; };
+		D4BC04A526DC8AE60070993C /* CMakeCache.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeCache.txt; sourceTree = "<group>"; };
+		D4BC04A626DC8AE60070993C /* gc_none.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gc_none.c; sourceTree = "<group>"; };
+		D4BC04A726DC8AE60070993C /* module.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = module.h; sourceTree = "<group>"; };
+		D4BC04A826DC8AE60070993C /* visibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = visibility.h; sourceTree = "<group>"; };
+		D4BC04A926DC8AE60070993C /* Protocol2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Protocol2.m; sourceTree = "<group>"; };
+		D4BC04AA26DC8AE60070993C /* libobjc.pc */ = {isa = PBXFileReference; lastKnownFileType = text; path = libobjc.pc; sourceTree = "<group>"; };
+		D4BC04AB26DC8AE60070993C /* objc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = objc; sourceTree = "<group>"; };
+		D4BC04AC26DC8AE60070993C /* objc_msgSend.mips.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = objc_msgSend.mips.S; sourceTree = "<group>"; };
+		D4BC04AD26DC8AE60070993C /* objc_msgSend.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = objc_msgSend.S; sourceTree = "<group>"; };
+		D4BC04AE26DC8AE60070993C /* ANNOUNCE.1.4 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.4; sourceTree = "<group>"; };
+		D4BC04AF26DC8AE60070993C /* ANNOUNCE.1.3 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.3; sourceTree = "<group>"; };
+		D4BC04B026DC8AE60070993C /* objc_msgSend.x86-64.S */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = "objc_msgSend.x86-64.S"; sourceTree = "<group>"; };
+		D4BC04B126DC8AE60070993C /* ANNOUNCE.1.2 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.2; sourceTree = "<group>"; };
+		D4BC04B226DC8AE60070993C /* associate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = associate.m; sourceTree = "<group>"; };
+		D4BC04B326DC8AE60070993C /* ANNOUNCE.1.5 */ = {isa = PBXFileReference; lastKnownFileType = text; path = ANNOUNCE.1.5; sourceTree = "<group>"; };
+		D4BC04B426DC8AE60070993C /* properties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = properties.h; sourceTree = "<group>"; };
+		D4BC04B526DC8AE60070993C /* constant_string.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constant_string.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		D4BC043C26DC8AE60070993C = {
+			isa = PBXGroup;
+			children = (
+				D4BC044226DC8AE60070993C /* alias_table.c */,
+				D4BC044326DC8AE60070993C /* loader.c */,
+				D4BC044426DC8AE60070993C /* legacy_malloc.c */,
+				D4BC044526DC8AE60070993C /* protocol.h */,
+				D4BC044626DC8AE60070993C /* safewindows.h */,
+				D4BC044726DC8AE60070993C /* sendmsg2.c */,
+				D4BC044826DC8AE60070993C /* spinlock.h */,
+				D4BC044926DC8AE60070993C /* selector.h */,
+				D4BC044A26DC8AE60070993C /* block_trampolines.S */,
+				D4BC044B26DC8AE60070993C /* runtime.c */,
+				D4BC044C26DC8AE60070993C /* unwind.h */,
+				D4BC044E26DC8AE60070993C /* category_loader.c */,
+				D4BC044F26DC8AE60070993C /* dtable.c */,
+				D4BC045026DC8AE60070993C /* INSTALL */,
+				D4BC045126DC8AE60070993C /* ANNOUNCE */,
+				D4BC045226DC8AE60070993C /* pool.h */,
+				D4BC045326DC8AE60070993C /* legacy.h */,
+				D4BC045426DC8AE60070993C /* ANNOUNCE.2.0 */,
+				D4BC045526DC8AE60070993C /* blocks_runtime.h */,
+				D4BC045626DC8AE60070993C /* objc_msgSend.arm.S */,
+				D4BC045826DC8AE60070993C /* eh_trampoline.s */,
+				D4BC045926DC8AE60070993C /* sarray2.c */,
+				D4BC045B26DC8AE60070993C /* alias.h */,
+				D4BC045C26DC8AE60070993C /* NSBlocks.m */,
+				D4BC045D26DC8AE60070993C /* ANNOUNCE.2.1 */,
+				D4BC045E26DC8AE60070993C /* Test */,
+				D4BC046026DC8AE60070993C /* eh_personality.c */,
+				D4BC046126DC8AE60070993C /* ivar.h */,
+				D4BC046426DC8AE60070993C /* mutation.m */,
+				D4BC046526DC8AE60070993C /* Block_private.h */,
+				D4BC046626DC8AE60070993C /* ANNOUNCE.1.8.1 */,
+				D4BC046726DC8AE60070993C /* Makefile */,
+				D4BC046826DC8AE60070993C /* lock.h */,
+				D4BC046926DC8AE60070993C /* objcxx_eh.h */,
+				D4BC046A26DC8AE60070993C /* method.h */,
+				D4BC046B26DC8AE60070993C /* objc_msgSend.aarch64.S */,
+				D4BC046C26DC8AE60070993C /* objc_msgSend.x86-32.S */,
+				D4BC046D26DC8AE60070993C /* libobjc.pc.in */,
+				D4BC046E26DC8AE60070993C /* ANNOUNCE.1.6.1 */,
+				D4BC047026DC8AE60070993C /* unwind-itanium.h */,
+				D4BC047126DC8AE60070993C /* string_hash.h */,
+				D4BC047226DC8AE60070993C /* properties.m */,
+				D4BC047326DC8AE60070993C /* type_encoding_cases.h */,
+				D4BC047426DC8AE60070993C /* gc_boehm.c */,
+				D4BC047526DC8AE60070993C /* ANNOUNCE.1.9 */,
+				D4BC047726DC8AE60070993C /* ANNOUNCE.1.0 */,
+				D4BC047926DC8AE60070993C /* ANNOUNCE.1.7 */,
+				D4BC047A26DC8AE60070993C /* eh_trampoline.cc */,
+				D4BC047B26DC8AE60070993C /* ANNOUNCE.1.6 */,
+				D4BC047C26DC8AE60070993C /* arc.mm */,
+				D4BC047D26DC8AE60070993C /* .gitmodules */,
+				D4BC047E26DC8AE60070993C /* ANNOUNCE.1.1 */,
+				D4BC047F26DC8AE60070993C /* ANNOUNCE.1.8 */,
+				D4BC048026DC8AE60070993C /* unwind-arm.h */,
+				D4BC048126DC8AE60070993C /* class_table.c */,
+				D4BC048226DC8AE60070993C /* hash_table.h */,
+				D4BC048326DC8AE60070993C /* asmconstants.h */,
+				D4BC048426DC8AE60070993C /* azure-pipelines.yml */,
+				D4BC048526DC8AE60070993C /* README.md */,
+				D4BC048626DC8AE60070993C /* dtable.h */,
+				D4BC048726DC8AE60070993C /* selector_table.c */,
+				D4BC048826DC8AE60070993C /* caps.c */,
+				D4BC048926DC8AE60070993C /* nsobject.h */,
+				D4BC048A26DC8AE60070993C /* statics_loader.c */,
+				D4BC048B26DC8AE60070993C /* buffer.h */,
+				D4BC048C26DC8AE60070993C /* block_to_imp.c */,
+				D4BC048D26DC8AE60070993C /* abi_version.c */,
+				D4BC048E26DC8AE60070993C /* COPYING */,
+				D4BC048F26DC8AE60070993C /* third_party */,
+				D4BC049026DC8AE60070993C /* loader.h */,
+				D4BC049126DC8AE60070993C /* gc_ops.h */,
+				D4BC049226DC8AE60070993C /* .gitignore */,
+				D4BC049326DC8AE60070993C /* CPackConfig.cmake */,
+				D4BC049426DC8AE60070993C /* protocol.c */,
+				D4BC049526DC8AE60070993C /* common.S */,
+				D4BC049626DC8AE60070993C /* ivar.c */,
+				D4BC049726DC8AE60070993C /* CPackSourceConfig.cmake */,
+				D4BC049826DC8AE60070993C /* encoding2.c */,
+				D4BC049926DC8AE60070993C /* eh_win32_msvc.cc */,
+				D4BC049A26DC8AE60070993C /* objcxx_eh.cc */,
+				D4BC049B26DC8AE60070993C /* dwarf_eh.h */,
+				D4BC049C26DC8AE60070993C /* hooks.c */,
+				D4BC049D26DC8AE60070993C /* sarray2.h */,
+				D4BC049E26DC8AE60070993C /* class.h */,
+				D4BC049F26DC8AE60070993C /* category.h */,
+				D4BC04A026DC8AE60070993C /* legacy.c */,
+				D4BC04A126DC8AE60070993C /* Block.h */,
+				D4BC04A226DC8AE60070993C /* .cirrus.yml */,
+				D4BC04A326DC8AE60070993C /* API */,
+				D4BC04A426DC8AE60070993C /* blocks_runtime.m */,
+				D4BC04A526DC8AE60070993C /* CMakeCache.txt */,
+				D4BC04A626DC8AE60070993C /* gc_none.c */,
+				D4BC04A726DC8AE60070993C /* module.h */,
+				D4BC04A826DC8AE60070993C /* visibility.h */,
+				D4BC04A926DC8AE60070993C /* Protocol2.m */,
+				D4BC04AA26DC8AE60070993C /* libobjc.pc */,
+				D4BC04AB26DC8AE60070993C /* objc */,
+				D4BC04AC26DC8AE60070993C /* objc_msgSend.mips.S */,
+				D4BC04AD26DC8AE60070993C /* objc_msgSend.S */,
+				D4BC04AE26DC8AE60070993C /* ANNOUNCE.1.4 */,
+				D4BC04AF26DC8AE60070993C /* ANNOUNCE.1.3 */,
+				D4BC04B026DC8AE60070993C /* objc_msgSend.x86-64.S */,
+				D4BC04B126DC8AE60070993C /* ANNOUNCE.1.2 */,
+				D4BC04B226DC8AE60070993C /* associate.m */,
+				D4BC04B326DC8AE60070993C /* ANNOUNCE.1.5 */,
+				D4BC04B426DC8AE60070993C /* properties.h */,
+				D4BC04B526DC8AE60070993C /* constant_string.h */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		D4BC044126DC8AE60070993C /* libobjc2 */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = D4BC04B626DC8AE60070993C /* Build configuration list for PBXLegacyTarget "libobjc2" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/xiaoniu/ios_workspace/component/libobjc2;
+			dependencies = (
+			);
+			name = libobjc2;
+			passBuildSettingsInEnvironment = 1;
+			productName = libobjc2;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		D4BC043D26DC8AE60070993C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = D4BC044026DC8AE60070993C /* Build configuration list for PBXProject "libobjc2" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D4BC043C26DC8AE60070993C;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4BC044126DC8AE60070993C /* libobjc2 */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		D4BC043E26DC8AE60070993C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		D4BC043F26DC8AE60070993C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		D4BC04B726DC8AE60070993C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = libobjc2;
+			};
+			name = Debug;
+		};
+		D4BC04B826DC8AE60070993C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = libobjc2;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D4BC044026DC8AE60070993C /* Build configuration list for PBXProject "libobjc2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BC043E26DC8AE60070993C /* Debug */,
+				D4BC043F26DC8AE60070993C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4BC04B626DC8AE60070993C /* Build configuration list for PBXLegacyTarget "libobjc2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4BC04B726DC8AE60070993C /* Debug */,
+				D4BC04B826DC8AE60070993C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4BC043D26DC8AE60070993C /* Project object */;
+}
