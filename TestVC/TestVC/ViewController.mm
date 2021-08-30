@@ -14,6 +14,8 @@
 #import "XNLockModel.h"
 
 #import "XNThirdViewController.h"
+#import "DecoratorViewController.h"
+#import "XNFourthViewController.h"
 
 @interface ViewController ()
 
@@ -49,14 +51,14 @@
 
     
    { UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0.f, 10,100, 100);
+    btn.frame = CGRectMake(0.f, 10,50, 50);
     btn.backgroundColor = [UIColor redColor];
     [self.view addSubview:btn];
     [btn addTarget:self action:@selector(onTap) forControlEvents:UIControlEventTouchUpInside];}
     
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0.f, 120,100, 100);
+        btn.frame = CGRectMake(0.f, 120,50, 50);
         btn.backgroundColor = [UIColor redColor];
         [self.view addSubview:btn];
         [btn addTarget:self action:@selector(onTap2) forControlEvents:UIControlEventTouchUpInside];
@@ -65,7 +67,7 @@
     
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0.f, 230,100, 100);
+        btn.frame = CGRectMake(0.f, 230,50, 50);
         btn.backgroundColor = [UIColor redColor];
         [self.view addSubview:btn];
         [btn addTarget:self action:@selector(onTap1) forControlEvents:UIControlEventTouchUpInside];
@@ -85,10 +87,28 @@
     
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame = CGRectMake(0.f, 340,100, 100);
+        btn.frame = CGRectMake(0.f, 340,50, 50);
         btn.backgroundColor = [UIColor blueColor];
         [self.view addSubview:btn];
         [btn addTarget:self action:@selector(onTap3) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    {
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0.f, 450,50, 50);
+        btn.backgroundColor = [UIColor blueColor];
+        [self.view addSubview:btn];
+        [btn addTarget:self action:@selector(onTap4) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0.f, 550,50,50);
+        btn.backgroundColor = [UIColor blueColor];
+        [self.view addSubview:btn];
+        [btn addTarget:self action:@selector(onTap5) forControlEvents:UIControlEventTouchUpInside];
+//
     }
     
     {
@@ -104,6 +124,16 @@
     {
 
     }
+}
+
+- (void)onTap5 {
+    XNFourthViewController *vc = [XNFourthViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)onTap4 {
+    DecoratorViewController *vc = [DecoratorViewController new];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)onTap3 {

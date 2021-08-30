@@ -54,6 +54,9 @@
 //    NSThread *th = [[NSThread alloc] initWithTarget:self selector:@selector(testThread) object:nil];
     NSRunLoop *main =  [NSRunLoop mainRunLoop];
     NSRunLoop *current = [NSRunLoop currentRunLoop];
+    NSString *string = [current.description substringFromIndex:43];
+    NSData *turnData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *turnDic = [NSJSONSerialization JSONObjectWithData:turnData options:NSJSONReadingMutableLeaves error:nil];
     __block NSRunLoop *main1;
     __block NSRunLoop *current1;
     dispatch_async(dispatch_queue_create("skinReadImageQueue", DISPATCH_QUEUE_CONCURRENT), ^{
@@ -76,7 +79,6 @@
     while (!_stop) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-    
     
 }
 - (void)testAnother{

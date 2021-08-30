@@ -28,6 +28,21 @@
 		D4C3223A26D497F60079FAD3 /* NSTimer+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223826D497F60079FAD3 /* NSTimer+YYAdd.m */; };
 		D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223C26D4C38B0079FAD3 /* HWWeakTimer.m */; };
 		D4C3224026D4D16A0079FAD3 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223F26D4D16A0079FAD3 /* YYWeakProxy.m */; };
+		D4C3270C26D8879D0079FAD3 /* UIImage+ImageComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3270426D8879C0079FAD3 /* UIImage+ImageComponent.m */; };
+		D4C3270D26D8879D0079FAD3 /* ImageTransformFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3270526D8879C0079FAD3 /* ImageTransformFilter.m */; };
+		D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3270926D8879D0079FAD3 /* ImageShadowFilter.m */; };
+		D4C3270F26D8879D0079FAD3 /* ImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3270B26D8879D0079FAD3 /* ImageFilter.m */; };
+		D4C3271726D887AC0079FAD3 /* UIImage+Shadow.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3271226D887AC0079FAD3 /* UIImage+Shadow.m */; };
+		D4C3271826D887AC0079FAD3 /* UIImage+BaseFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3271326D887AC0079FAD3 /* UIImage+BaseFilter.m */; };
+		D4C3271926D887AC0079FAD3 /* UIImage+Transform.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3271626D887AC0079FAD3 /* UIImage+Transform.m */; };
+		D4C3271C26D887BD0079FAD3 /* DecoratorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3271A26D887BD0079FAD3 /* DecoratorViewController.m */; };
+		D4C3271F26D887CA0079FAD3 /* DecoratorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3271D26D887C90079FAD3 /* DecoratorView.m */; };
+		D4C3272126D88A0C0079FAD3 /* Image.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C3272026D88A0C0079FAD3 /* Image.png */; };
+		D4C3272426D8CB460079FAD3 /* LYImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3272326D8CB460079FAD3 /* LYImageBrowserView.m */; };
+		D4C3272726D8CBEB0079FAD3 /* LYImageBrowserShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3272626D8CBEB0079FAD3 /* LYImageBrowserShowView.m */; };
+		D4C3272A26D8CC000079FAD3 /* LYImageBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3272926D8CC000079FAD3 /* LYImageBrowserViewController.m */; };
+		D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3272C26D8CF070079FAD3 /* LYImageBrowserBaseCell.m */; };
+		D4C3273026D8D1CE0079FAD3 /* XNFourthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3272F26D8D1CE0079FAD3 /* XNFourthViewController.m */; };
 		D4C469A426CF44ED0056B708 /* TestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C469A326CF44ED0056B708 /* TestUITests.m */; };
 		D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */; };
 		D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */; };
@@ -93,6 +108,36 @@
 		D4C3223C26D4C38B0079FAD3 /* HWWeakTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWWeakTimer.m; sourceTree = "<group>"; };
 		D4C3223E26D4D16A0079FAD3 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
 		D4C3223F26D4D16A0079FAD3 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
+		D4C3270326D8879C0079FAD3 /* ImageShadowFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageShadowFilter.h; sourceTree = "<group>"; };
+		D4C3270426D8879C0079FAD3 /* UIImage+ImageComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageComponent.m"; sourceTree = "<group>"; };
+		D4C3270526D8879C0079FAD3 /* ImageTransformFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTransformFilter.m; sourceTree = "<group>"; };
+		D4C3270626D8879C0079FAD3 /* ImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFilter.h; sourceTree = "<group>"; };
+		D4C3270726D8879D0079FAD3 /* ImageTransformFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTransformFilter.h; sourceTree = "<group>"; };
+		D4C3270826D8879D0079FAD3 /* UIImage+ImageComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageComponent.h"; sourceTree = "<group>"; };
+		D4C3270926D8879D0079FAD3 /* ImageShadowFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageShadowFilter.m; sourceTree = "<group>"; };
+		D4C3270A26D8879D0079FAD3 /* ImageComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageComponent.h; sourceTree = "<group>"; };
+		D4C3270B26D8879D0079FAD3 /* ImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFilter.m; sourceTree = "<group>"; };
+		D4C3271126D887AC0079FAD3 /* UIImage+Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Transform.h"; sourceTree = "<group>"; };
+		D4C3271226D887AC0079FAD3 /* UIImage+Shadow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Shadow.m"; sourceTree = "<group>"; };
+		D4C3271326D887AC0079FAD3 /* UIImage+BaseFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+BaseFilter.m"; sourceTree = "<group>"; };
+		D4C3271426D887AC0079FAD3 /* UIImage+BaseFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+BaseFilter.h"; sourceTree = "<group>"; };
+		D4C3271526D887AC0079FAD3 /* UIImage+Shadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Shadow.h"; sourceTree = "<group>"; };
+		D4C3271626D887AC0079FAD3 /* UIImage+Transform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Transform.m"; sourceTree = "<group>"; };
+		D4C3271A26D887BD0079FAD3 /* DecoratorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecoratorViewController.m; sourceTree = "<group>"; };
+		D4C3271B26D887BD0079FAD3 /* DecoratorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecoratorViewController.h; sourceTree = "<group>"; };
+		D4C3271D26D887C90079FAD3 /* DecoratorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecoratorView.m; sourceTree = "<group>"; };
+		D4C3271E26D887CA0079FAD3 /* DecoratorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecoratorView.h; sourceTree = "<group>"; };
+		D4C3272026D88A0C0079FAD3 /* Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Image.png; sourceTree = "<group>"; };
+		D4C3272226D8CB460079FAD3 /* LYImageBrowserView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYImageBrowserView.h; sourceTree = "<group>"; };
+		D4C3272326D8CB460079FAD3 /* LYImageBrowserView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYImageBrowserView.m; sourceTree = "<group>"; };
+		D4C3272526D8CBEB0079FAD3 /* LYImageBrowserShowView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYImageBrowserShowView.h; sourceTree = "<group>"; };
+		D4C3272626D8CBEB0079FAD3 /* LYImageBrowserShowView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYImageBrowserShowView.m; sourceTree = "<group>"; };
+		D4C3272826D8CC000079FAD3 /* LYImageBrowserViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYImageBrowserViewController.h; sourceTree = "<group>"; };
+		D4C3272926D8CC000079FAD3 /* LYImageBrowserViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYImageBrowserViewController.m; sourceTree = "<group>"; };
+		D4C3272B26D8CF070079FAD3 /* LYImageBrowserBaseCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LYImageBrowserBaseCell.h; sourceTree = "<group>"; };
+		D4C3272C26D8CF070079FAD3 /* LYImageBrowserBaseCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYImageBrowserBaseCell.m; sourceTree = "<group>"; };
+		D4C3272E26D8D1CE0079FAD3 /* XNFourthViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNFourthViewController.h; sourceTree = "<group>"; };
+		D4C3272F26D8D1CE0079FAD3 /* XNFourthViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNFourthViewController.m; sourceTree = "<group>"; };
 		D4C469A326CF44ED0056B708 /* TestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestUITests.m; sourceTree = "<group>"; };
 		D4C46A6A26CF9FAF0056B708 /* ImageIOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageIOViewController.h; sourceTree = "<group>"; };
 		D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageIOViewController.m; sourceTree = "<group>"; };
@@ -169,6 +214,8 @@
 		D47C80BE26B24E2200880F06 /* TestVC */ = {
 			isa = PBXGroup;
 			children = (
+				D4C326CE26D8875E0079FAD3 /* Descorators */,
+				D4C326CD26D87F310079FAD3 /* LYImageBrowser */,
 				D47C80BF26B24E2200880F06 /* AppDelegate.h */,
 				D47C80C026B24E2200880F06 /* AppDelegate.m */,
 				D47C80C226B24E2200880F06 /* SceneDelegate.h */,
@@ -181,6 +228,9 @@
 				D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */,
 				D45B667F26D3BB1900964C86 /* XNThirdViewController.h */,
 				D45B668026D3BB1900964C86 /* XNThirdViewController.m */,
+				D4C3272E26D8D1CE0079FAD3 /* XNFourthViewController.h */,
+				D4C3272F26D8D1CE0079FAD3 /* XNFourthViewController.m */,
+				D4C3272026D88A0C0079FAD3 /* Image.png */,
 				D45B667C26D3BA6C00964C86 /* XNLockModel.h */,
 				D45B667D26D3BA6C00964C86 /* XNLockModel.m */,
 				D4C3223B26D4C38A0079FAD3 /* HWWeakTimer.h */,
@@ -222,6 +272,63 @@
 				D47C80E826B24E2300880F06 /* Info.plist */,
 			);
 			path = TestVCUITests;
+			sourceTree = "<group>";
+		};
+		D4C326CD26D87F310079FAD3 /* LYImageBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				D4C3272226D8CB460079FAD3 /* LYImageBrowserView.h */,
+				D4C3272326D8CB460079FAD3 /* LYImageBrowserView.m */,
+				D4C3272526D8CBEB0079FAD3 /* LYImageBrowserShowView.h */,
+				D4C3272626D8CBEB0079FAD3 /* LYImageBrowserShowView.m */,
+				D4C3272826D8CC000079FAD3 /* LYImageBrowserViewController.h */,
+				D4C3272926D8CC000079FAD3 /* LYImageBrowserViewController.m */,
+				D4C3272B26D8CF070079FAD3 /* LYImageBrowserBaseCell.h */,
+				D4C3272C26D8CF070079FAD3 /* LYImageBrowserBaseCell.m */,
+			);
+			path = LYImageBrowser;
+			sourceTree = "<group>";
+		};
+		D4C326CE26D8875E0079FAD3 /* Descorators */ = {
+			isa = PBXGroup;
+			children = (
+				D4C3271B26D887BD0079FAD3 /* DecoratorViewController.h */,
+				D4C3271A26D887BD0079FAD3 /* DecoratorViewController.m */,
+				D4C3271E26D887CA0079FAD3 /* DecoratorView.h */,
+				D4C3271D26D887C90079FAD3 /* DecoratorView.m */,
+				D4C3271026D8879F0079FAD3 /* Categories */,
+				D4C3270226D887930079FAD3 /* Subclasses */,
+			);
+			path = Descorators;
+			sourceTree = "<group>";
+		};
+		D4C3270226D887930079FAD3 /* Subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				D4C3270A26D8879D0079FAD3 /* ImageComponent.h */,
+				D4C3270626D8879C0079FAD3 /* ImageFilter.h */,
+				D4C3270B26D8879D0079FAD3 /* ImageFilter.m */,
+				D4C3270326D8879C0079FAD3 /* ImageShadowFilter.h */,
+				D4C3270926D8879D0079FAD3 /* ImageShadowFilter.m */,
+				D4C3270726D8879D0079FAD3 /* ImageTransformFilter.h */,
+				D4C3270526D8879C0079FAD3 /* ImageTransformFilter.m */,
+				D4C3270826D8879D0079FAD3 /* UIImage+ImageComponent.h */,
+				D4C3270426D8879C0079FAD3 /* UIImage+ImageComponent.m */,
+			);
+			path = Subclasses;
+			sourceTree = "<group>";
+		};
+		D4C3271026D8879F0079FAD3 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				D4C3271426D887AC0079FAD3 /* UIImage+BaseFilter.h */,
+				D4C3271326D887AC0079FAD3 /* UIImage+BaseFilter.m */,
+				D4C3271526D887AC0079FAD3 /* UIImage+Shadow.h */,
+				D4C3271226D887AC0079FAD3 /* UIImage+Shadow.m */,
+				D4C3271126D887AC0079FAD3 /* UIImage+Transform.h */,
+				D4C3271626D887AC0079FAD3 /* UIImage+Transform.m */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 		DF0B6BF34ADC4C09F6239026 /* Frameworks */ = {
@@ -341,6 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C3272126D88A0C0079FAD3 /* Image.png in Resources */,
 				D47C80CF26B24E2300880F06 /* LaunchScreen.storyboard in Resources */,
 				D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */,
 				D47C80CC26B24E2300880F06 /* Assets.xcassets in Resources */,
@@ -474,19 +582,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4C3270D26D8879D0079FAD3 /* ImageTransformFilter.m in Sources */,
 				D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */,
+				D4C3271926D887AC0079FAD3 /* UIImage+Transform.m in Sources */,
 				D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */,
 				D47C80C726B24E2200880F06 /* ViewController.mm in Sources */,
 				D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */,
 				D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */,
 				D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */,
 				D45B668126D3BB1900964C86 /* XNThirdViewController.m in Sources */,
+				D4C3270C26D8879D0079FAD3 /* UIImage+ImageComponent.m in Sources */,
 				D4C3224026D4D16A0079FAD3 /* YYWeakProxy.m in Sources */,
+				D4C3272726D8CBEB0079FAD3 /* LYImageBrowserShowView.m in Sources */,
 				D4BDA75426CD095300858872 /* XNPerson.m in Sources */,
+				D4C3271726D887AC0079FAD3 /* UIImage+Shadow.m in Sources */,
 				D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */,
+				D4C3272A26D8CC000079FAD3 /* LYImageBrowserViewController.m in Sources */,
+				D4C3271F26D887CA0079FAD3 /* DecoratorView.m in Sources */,
 				D47C80D226B24E2300880F06 /* main.m in Sources */,
+				D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */,
+				D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,
+				D4C3273026D8D1CE0079FAD3 /* XNFourthViewController.m in Sources */,
+				D4C3270F26D8879D0079FAD3 /* ImageFilter.m in Sources */,
 				D4C3223A26D497F60079FAD3 /* NSTimer+YYAdd.m in Sources */,
+				D4C3272426D8CB460079FAD3 /* LYImageBrowserView.m in Sources */,
+				D4C3271826D887AC0079FAD3 /* UIImage+BaseFilter.m in Sources */,
+				D4C3271C26D887BD0079FAD3 /* DecoratorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
