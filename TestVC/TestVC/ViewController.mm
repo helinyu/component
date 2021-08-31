@@ -75,6 +75,9 @@
     
     
     {
+        dispatch_async(dispatch_queue_create(nil, nil), ^{
+            
+        });
         
         NSArray *arr = @[@1, @2, @3, @4, @5, @6, @7, @8];
         [arr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

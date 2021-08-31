@@ -17,7 +17,7 @@ target 'TestVC' do
   pod 'YYWebImage'
   
   pod 'Shimmer'
-
+  pod 'YYDispatchQueuePool' # 队列池
   pod 'LookinServer', :configurations => ['Debug']
   
   target 'TestVCTests' do

@@ -5,6 +5,7 @@ ${BUILT_PRODUCTS_DIR}/MMKVCore/MMKVCore.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/Shimmer/Shimmer.framework
 ${BUILT_PRODUCTS_DIR}/YYCache/YYCache.framework
+${BUILT_PRODUCTS_DIR}/YYDispatchQueuePool/YYDispatchQueuePool.framework
 ${BUILT_PRODUCTS_DIR}/YYImage/YYImage.framework
 ${BUILT_PRODUCTS_DIR}/YYWebImage/YYWebImage.framework
 ${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework
