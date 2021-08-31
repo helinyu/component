@@ -134,13 +134,16 @@ struct AutoreleasePoolPageData
 #endif
 
 	magic_t const magic;
-	__unsafe_unretained id *next;
+	__unsafe_unretained id *next; // 这个应该也是指向的是当前的autoreleasepoolpage对象
 	pthread_t const thread;
-	AutoreleasePoolPage * const parent;
-	AutoreleasePoolPage *child;
-	uint32_t const depth;
-	uint32_t hiwat;
+	
+    AutoreleasePoolPage * const parent; // 父page
+	AutoreleasePoolPage *child; // 子page
+//     可以看到这个也是一个量表
+	uint32_t const depth; // 表示的是什么深度
+	uint32_t hiwat; //?
 
+//     初始化这个内容
 	AutoreleasePoolPageData(__unsafe_unretained id* _next, pthread_t _thread, AutoreleasePoolPage* _parent, uint32_t _depth, uint32_t _hiwat)
 		: magic(), next(_next), thread(_thread),
 		  parent(_parent), child(nil),

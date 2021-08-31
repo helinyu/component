@@ -7960,6 +7960,7 @@ objc_constructInstance(Class cls, void *bytes)
 * Note: this function has been carefully written so that the fastpath
 * takes no branch.
 **********************************************************************/
+//通过一个类来创建一个对象
 static ALWAYS_INLINE id
 _class_createInstanceFromZone(Class cls, size_t extraBytes, void *zone,
                               int construct_flags = OBJECT_CONSTRUCT_NONE,

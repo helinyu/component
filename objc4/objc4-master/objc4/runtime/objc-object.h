@@ -617,6 +617,7 @@ objc_object::rootTryRetain()
     return rootRetain(true, RRVariant::Fast) ? true : false;
 }
 
+// retain 方法里面的内容处理
 ALWAYS_INLINE id
 objc_object::rootRetain(bool tryRetain, objc_object::RRVariant variant)
 {

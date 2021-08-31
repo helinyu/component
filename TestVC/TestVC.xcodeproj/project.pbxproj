@@ -22,6 +22,7 @@
 		D47C80D226B24E2300880F06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80D126B24E2300880F06 /* main.m */; };
 		D47C80DC26B24E2300880F06 /* TestVCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80DB26B24E2300880F06 /* TestVCTests.m */; };
 		D47C80E726B24E2300880F06 /* TestVCUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80E626B24E2300880F06 /* TestVCUITests.m */; };
+		D4BC0DEA26DCD24D0070993C /* XNAutoreleasePoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BC0DE926DCD24D0070993C /* XNAutoreleasePoolModel.m */; };
 		D4BDA75026CCA69100858872 /* rock.gif in Resources */ = {isa = PBXBuildFile; fileRef = D4BDA74F26CCA69100858872 /* rock.gif */; };
 		D4BDA75426CD095300858872 /* XNPerson.m in Sources */ = {isa = PBXBuildFile; fileRef = D4BDA75326CD095300858872 /* XNPerson.m */; };
 		D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C3223626D4905B0079FAD3 /* NSTimer+Extra.m */; };
@@ -97,6 +98,8 @@
 		D47C80E226B24E2300880F06 /* TestVCUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TestVCUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47C80E626B24E2300880F06 /* TestVCUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVCUITests.m; sourceTree = "<group>"; };
 		D47C80E826B24E2300880F06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D4BC0DE826DCD24D0070993C /* XNAutoreleasePoolModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNAutoreleasePoolModel.h; sourceTree = "<group>"; };
+		D4BC0DE926DCD24D0070993C /* XNAutoreleasePoolModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNAutoreleasePoolModel.m; sourceTree = "<group>"; };
 		D4BDA74F26CCA69100858872 /* rock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = rock.gif; sourceTree = "<group>"; };
 		D4BDA75226CD095300858872 /* XNPerson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNPerson.h; sourceTree = "<group>"; };
 		D4BDA75326CD095300858872 /* XNPerson.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNPerson.m; sourceTree = "<group>"; };
@@ -233,6 +236,8 @@
 				D4C3272026D88A0C0079FAD3 /* Image.png */,
 				D45B667C26D3BA6C00964C86 /* XNLockModel.h */,
 				D45B667D26D3BA6C00964C86 /* XNLockModel.m */,
+				D4BC0DE826DCD24D0070993C /* XNAutoreleasePoolModel.h */,
+				D4BC0DE926DCD24D0070993C /* XNAutoreleasePoolModel.m */,
 				D4C3223B26D4C38A0079FAD3 /* HWWeakTimer.h */,
 				D4C3223C26D4C38B0079FAD3 /* HWWeakTimer.m */,
 				D4C3223E26D4D16A0079FAD3 /* YYWeakProxy.h */,
@@ -600,6 +605,7 @@
 				D4C3272A26D8CC000079FAD3 /* LYImageBrowserViewController.m in Sources */,
 				D4C3271F26D887CA0079FAD3 /* DecoratorView.m in Sources */,
 				D47C80D226B24E2300880F06 /* main.m in Sources */,
+				D4BC0DEA26DCD24D0070993C /* XNAutoreleasePoolModel.m in Sources */,
 				D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */,
 				D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,

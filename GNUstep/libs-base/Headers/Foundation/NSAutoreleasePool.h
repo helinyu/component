@@ -179,6 +179,8 @@ typedef struct autorelease_array_list
  * </deflist>
  */
 GS_EXPORT_CLASS NS_AUTOMATED_REFCOUNT_UNAVAILABLE
+
+//这里使用了链表的方式实现了autoreleasepool ， 该对象将被追加到正在使用的NSAutoreleasePool对象中的数组里
 @interface NSAutoreleasePool : NSObject
 {
 #if	GS_EXPOSE(NSAutoreleasePool) && !__has_feature(objc_arc)
@@ -186,7 +188,8 @@ GS_EXPORT_CLASS NS_AUTOMATED_REFCOUNT_UNAVAILABLE
   NSAutoreleasePool *_parent;
   /* This pointer to our child pool is  necessary for co-existing
      with exceptions. */
-  NSAutoreleasePool *_child;
+  NSAutoreleasePool *_child; // 这里管理的是有关的嵌套，这里看出来，嵌套是没有分支的
+    //     这里管理的是对象
   /* A collection of the objects to be released. */
   struct autorelease_array_list *_released;
   struct autorelease_array_list *_released_head;

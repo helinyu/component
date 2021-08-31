@@ -462,6 +462,7 @@ typedef struct obj_layout_unpadded {
  *	what padding (if any) is required to get the alignment of the
  *	structure correct.
  */
+// 对象的布局
 struct obj_layout {
   char	padding[__BIGGEST_ALIGNMENT__ - ((UNP % __BIGGEST_ALIGNMENT__)
     ? (UNP % __BIGGEST_ALIGNMENT__) : __BIGGEST_ALIGNMENT__)];
@@ -776,6 +777,7 @@ callCXXConstructors(Class aClass, id anObject)
 
 // FIXME rewrite object allocation to use class_createInstance when we
 // are using libobjc2.
+// 有关的分配内存的对象
 inline id
 NSAllocateObject(Class aClass, NSUInteger extraBytes, NSZone *zone)
 {
@@ -795,7 +797,7 @@ NSAllocateObject(Class aClass, NSUInteger extraBytes, NSZone *zone)
     {
       zone = NSDefaultMallocZone();
     }
-  new = NSZoneMalloc(zone, size);
+  new = NSZoneMalloc(zone, size); // 分配内存，然后将内容置0
   if (new != nil)
     {
       memset (new, 0, size);
@@ -1135,6 +1137,7 @@ static id gs_weak_load(id obj)
  * <code>NSDefaultMallocZone()</code> as the zone argument.<br />
  * Returns the created instance.
  */
+//初始化的方法
 + (id) alloc
 {
   return [self allocWithZone: NSDefaultMallocZone()];
@@ -1174,6 +1177,7 @@ static id gs_weak_load(id obj)
  *   functions.
  * </p>
  */
+// 分配内存空间
 + (id) allocWithZone: (NSZone*)z
 {
   return NSAllocateObject(self, 0, z);
@@ -1834,6 +1838,7 @@ static id gs_weak_load(id obj)
  * In GNUstep, the [NSObject+enableDoubleReleaseCheck:] method may be used
  * to turn on checking for retain/release errors in this method.
  */
+//
 - (id) autorelease
 {
   if (double_release_check_enabled)

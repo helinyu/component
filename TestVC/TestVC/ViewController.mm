@@ -17,6 +17,9 @@
 #import "DecoratorViewController.h"
 #import "XNFourthViewController.h"
 
+#import <objc/NSObjCRuntime.h>
+#import <objc/runtime.h>
+
 @interface ViewController ()
 
 @property (nonatomic, strong) NSPointerArray *pointArr;
@@ -25,6 +28,8 @@
 @property (nonatomic, weak) NSString *text;
 
 @property (nonatomic, weak) XNPerson *person;
+
+@property (nonatomic, weak) id obj;
 
 @end
 
@@ -44,13 +49,186 @@
     // 解锁
     OSSpinLockUnlock(&_lock);
 
+    
+    
+}
+
+
+- (void)onSel {
+    
+}
+
+- (void)onMutiThread:(NSNotification *)noti {
+    NSLog(@"lt - muti thread : %@",noti);
+}
+
+- (void)onSingleThread:(NSNotification *)noti {
+    NSLog(@"lt - single thread :%@",noti);
+}
+
+- (void)onWillExitThread:(NSNotification *)noti {
+    NSLog(@"lt - onWillExitThread :%@",noti);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     
-   { UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    {
+        
+        NSArray *arr = @[@1, @2, @3, @4, @5, @6, @7, @8];
+        [arr enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@"lt current thread :%@",[NSThread currentThread]);
+        }];
+        
+        dispatch_apply(arr.count, dispatch_get_global_queue(0, 0), ^(size_t index) {
+            NSLog(@"lt - index:%zd, current thread :%@",index, [NSThread currentThread]);
+        });
+        NSLog(@"done ");
+        return;
+    }
+    
+    {
+        dispatch_queue_t queue = dispatch_get_global_queue(0, 0);
+        dispatch_apply(10, queue, ^(size_t index) {
+            NSLog(@"lt - index:%zd, current thread :%@",index, [NSThread currentThread]);
+        });
+        NSLog(@"done ");
+        return;
+    }
+    
+    {
+        dispatch_queue_t queue = dispatch_queue_create("myqueue", DISPATCH_QUEUE_CONCURRENT);
+        dispatch_async(queue, ^{
+            NSLog(@"异步处理1m, %@",[NSThread currentThread]);
+        });
+        dispatch_async(queue, ^{
+            NSLog(@"异步处理2, %@",[NSThread currentThread]);
+        });
+        dispatch_async(queue, ^{
+            NSLog(@"异步处理3m, %@",[NSThread currentThread]);
+        });
+        dispatch_async(queue, ^{
+            NSLog(@"异步处理4m, %@",[NSThread currentThread]);
+        });
+        dispatch_sync(queue, ^{
+            NSLog(@"异步处理5m, %@",[NSThread currentThread]);
+        });
+        dispatch_sync(queue, ^{
+            NSLog(@"异步处理6m, %@",[NSThread currentThread]);
+        });
+        return;
+    }
+    
+    {
+        dispatch_queue_t serialQueue1 = dispatch_queue_create("com.gcd.setTargetQueue2.serialQueue1", NULL);
+        dispatch_queue_t serialQueue2 = dispatch_queue_create("com.gcd.setTargetQueue2.serialQueue2", NULL);
+        dispatch_queue_t serialQueue3 = dispatch_queue_create("com.gcd.setTargetQueue2.serialQueue3", NULL);
+        dispatch_queue_t serialQueue4 = dispatch_queue_create("com.gcd.setTargetQueue2.serialQueue4", NULL);
+        dispatch_queue_t serialQueue5 = dispatch_queue_create("com.gcd.setTargetQueue2.serialQueue5", NULL);
+
+        //创建目标串行队列 ,也就是将哪些队列放到这个队列里面执行
+        dispatch_queue_t targetSerialQueue = dispatch_queue_create("com.gcd.setTargetQueue2.targetSerialQueue", NULL);
+        
+        //设置执行阶层
+        dispatch_set_target_queue(serialQueue1, targetSerialQueue);
+        dispatch_set_target_queue(serialQueue3, targetSerialQueue);
+        dispatch_set_target_queue(serialQueue2, targetSerialQueue);
+        dispatch_set_target_queue(serialQueue4, targetSerialQueue);
+        dispatch_set_target_queue(serialQueue5, targetSerialQueue);
+        
+ 
+        dispatch_async(serialQueue1, ^{
+            NSLog(@"1");
+        });
+        dispatch_async(serialQueue2, ^{
+            NSLog(@"2");
+        });
+        dispatch_async(serialQueue3, ^{
+            NSLog(@"3");
+        });
+        dispatch_async(serialQueue4, ^{
+            NSLog(@"4");
+        });
+        dispatch_async(serialQueue5, ^{
+            NSLog(@"5");
+        });
+
+
+//        serialQueue > dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0) >
+
+        return;
+    }
+    
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMutiThread:) name:NSWillBecomeMultiThreadedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onSingleThread:) name:NSDidBecomeSingleThreadedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onWillExitThread:) name:NSThreadWillExitNotification object:nil];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            NSLog(@"lt - global , %@",[NSThread currentThread]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"lt - main, %@", [NSThread currentThread]);
+            });
+        });
+        
+        dispatch_async(dispatch_queue_create("test", DISPATCH_QUEUE_CONCURRENT), ^{
+            NSLog(@"lt - test, %@",[NSThread currentThread]);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"lt - main 1, %@",[NSThread currentThread]);
+            });
+        });
+        return;
+    }
+    
+    {
+        [self performSelectorInBackground:@selector(onSel) withObject:nil];// 执行后台线程
+        [self performSelectorOnMainThread:@selector(onSel) withObject:nil waitUntilDone:NO]; // 执行主线程
+    }
+    
+    {
+        const char *text ="hello";
+        void (^blk)(void) = ^(void) {
+            printf("%c \n", text[2]);
+        };
+    }
+    
+    {
+        NSMutableArray *array = [NSMutableArray array];
+        void (^blk)(void) =^(void) {
+            id obj = [NSObject new];
+            [array addObject:obj];
+        };
+//
+//        void (^blk1)(void) = ^(void) {
+//            array = [NSMutableArray new];
+//        };
+    }
+
+    {
+        int dmy = 256;
+        __block int val  = 10;
+        __block const char *fmt = "val = %d \n";
+        void (^blk)(void) = ^{
+            printf(fmt, val);
+        };
+        val = 2;
+        fmt = "These values were changed. val= %d \n";
+        blk();
+        return;
+    }
+    
+    {
+        XNPerson *p = [[XNPerson alloc] init];
+        NSLog(@"lt p ; %p %p",p, &p);
+        
+        @autoreleasepool {
+            
+        }
+        id __unsafe_unretained obj = [NSObject new];
+    }
+    
+   {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0.f, 10,50, 50);
     btn.backgroundColor = [UIColor redColor];
     [self.view addSubview:btn];

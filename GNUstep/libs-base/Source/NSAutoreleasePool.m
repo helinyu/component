@@ -349,35 +349,35 @@ pop_pool_from_cache (struct autorelease_thread_vars *tv)
 
 + (void) addObject: (id)anObj
 {
-  NSThread		*t = GSCurrentThread();
-  NSAutoreleasePool	*pool;
-  NSAssert(nil != t, @"Creating autorelease pool on nonexistent thread!");
-
-  pool = t->_autorelease_vars.current_pool;
-  if (pool == nil && t->_active == NO)
+    NSThread		*t = GSCurrentThread();
+    NSAutoreleasePool	*pool;
+    NSAssert(nil != t, @"Creating autorelease pool on nonexistent thread!");
+    
+    pool = t->_autorelease_vars.current_pool; // 获取当前的pool
+    if (pool == nil && t->_active == NO)
     {
-      // Don't leak while exiting thread.
-      pool = t->_autorelease_vars.current_pool = [self new];
+        // Don't leak while exiting thread.
+        pool = t->_autorelease_vars.current_pool = [self new]; // 创建
     }
-  if (pool != nil)
+    if (pool != nil)
     {
-      (*pool->_addImp)(pool, @selector(addObject:), anObj);
+        (*pool->_addImp)(pool, @selector(addObject:), anObj);
     }
-  else
-    {
-      NSAutoreleasePool	*arp = [NSAutoreleasePool new];
-
-      if (anObj != nil)
-	{
-	  NSLog(@"autorelease called without pool for object (%p) "
-	    @"of class %@ in thread %@", anObj,
-	    NSStringFromClass([anObj class]), [NSThread currentThread]);
-	}
-      else
-	{
-	  NSLog(@"autorelease called without pool for nil object.");
-	}
-      [arp drain];
+    else
+    {// 处理错误的情况 ，没有pool的时候
+        NSAutoreleasePool	*arp = [NSAutoreleasePool new];
+        
+        if (anObj != nil)
+        {
+            NSLog(@"autorelease called without pool for object (%p) "
+                  @"of class %@ in thread %@", anObj,
+                  NSStringFromClass([anObj class]), [NSThread currentThread]);
+        }
+        else
+        {
+            NSLog(@"autorelease called without pool for nil object.");
+        }
+        [arp drain];
     }
 }
 

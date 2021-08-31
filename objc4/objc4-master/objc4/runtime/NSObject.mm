@@ -851,6 +851,7 @@ private:
         return (next - begin() < (end() - begin()) / 2);
     }
 
+//    将对象追加到内部数组中
     id *add(id obj)
     {
         ASSERT(!full());
@@ -904,6 +905,7 @@ private:
 
     void releaseAll() 
     {
+        // 调用内部数据中兑现搞得release实例方法
         releaseUntil(begin());
     }
 
@@ -1140,7 +1142,7 @@ private:
         return page->add(obj);
     }
 
-
+//
     static __attribute__((noinline))
     id *autoreleaseNewPage(id obj)
     {
@@ -1152,6 +1154,10 @@ private:
 public:
     static inline id autorelease(id obj)
     {
+//         相当于NSAutoreleasePool类的addobject类方法
+//        AutoreleasePoolPage *autoreleasePoolPage = 获取正在施工用电额autoreleasePoolPage实例
+//        autoreleasePoolPage->add(obj);  添加进去
+        
         ASSERT(!obj->isTaggedPointerOrNil());
         id *dest __unused = autoreleaseFast(obj);
 #if SUPPORT_AUTORELEASEPOOL_DEDUP_PTRS
@@ -1163,12 +1169,14 @@ public:
     }
 
 
-    static inline void *push() 
+    static inline void *push()  // 压入，必然会是有这个pool的
     {
         id *dest;
         if (slowpath(DebugPoolAllocation)) {
+            // slowpath 是编译上面的优化
+            // 调试pool的创建 ， 这样每次都会创建的
             // Each autorelease pool starts on a new pool page.
-            dest = autoreleaseNewPage(POOL_BOUNDARY);
+            dest = autoreleaseNewPage(POOL_BOUNDARY); // 创建
         } else {
             dest = autoreleaseFast(POOL_BOUNDARY);
         }
@@ -1336,6 +1344,7 @@ public:
         }
         else {
             for (page = coldPage(); page; page = page->child) {
+//                 这个地方看一下page结构
                 page->print();
             }
         }
@@ -1668,6 +1677,7 @@ objc_object::sidetable_tryRetain()
 }
 
 
+// 看那一下这个里面的实现效果
 uintptr_t
 objc_object::sidetable_retainCount()
 {
@@ -2083,6 +2093,7 @@ _objc_rootHash(id obj)
 void *
 objc_autoreleasePoolPush(void)
 {
+//     相当于生成或持有pool类对象
     return AutoreleasePoolPage::push();
 }
 
@@ -2090,6 +2101,7 @@ NEVER_INLINE
 void
 objc_autoreleasePoolPop(void *ctxt)
 {
+//     相当于废弃pool类对象
     AutoreleasePoolPage::pop(ctxt);
 }
 
