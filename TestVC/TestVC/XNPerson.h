@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "XNStudent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -13,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, assign) NSInteger age;
+@property (nonatomic, strong) XNStudent *student;
 
 @end
 

@@ -73,6 +73,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    {
+        XNPerson *p = [XNPerson new];
+        p.name = @"helinyu";
+        p.age = 18;
+        XNStudent *stu = [XNStudent new];
+        stu.name = @"son";
+        p.student = stu;
+        XNPerson *p1 = [p copy];
+//        p1.name = @"ll";
+//        p1.age = 23;
+//        p1.student.name = @"2334";
+        NSLog(@"lt - p name %@ , p1 name:%@",p.student.name, p1.student.name);
+        NSLog(@"lt - p %p , %p1",p, p1);
+        return;
+    }
     
     {
         dispatch_async(dispatch_queue_create(nil, nil), ^{

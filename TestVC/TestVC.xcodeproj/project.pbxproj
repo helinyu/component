@@ -48,6 +48,10 @@
 		D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */; };
 		D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */; };
 		D4C46A7326CFAEB00056B708 /* Flowers_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7126CFAEB00056B708 /* Flowers_2.png */; };
+		D4FA702E26E1BAAE00F5C3DE /* Vertex.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA702D26E1BAAE00F5C3DE /* Vertex.m */; };
+		D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA703026E1BC3F00F5C3DE /* Dot.m */; };
+		D4FA703426E1BCF900F5C3DE /* Stroke.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA703326E1BCF900F5C3DE /* Stroke.m */; };
+		D4FDD4F026E10FF6009D3661 /* XNStudent.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FDD4EF26E10FF6009D3661 /* XNStudent.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +151,15 @@
 		D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rainbow_1.png; sourceTree = "<group>"; };
 		D4C46A7126CFAEB00056B708 /* Flowers_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flowers_2.png; sourceTree = "<group>"; };
 		D4F125833029E5FD62B40A83 /* Pods-TestVC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.debug.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.debug.xcconfig"; sourceTree = "<group>"; };
+		D4FA702B26E1B98200F5C3DE /* Mark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
+		D4FA702C26E1BAAE00F5C3DE /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
+		D4FA702D26E1BAAE00F5C3DE /* Vertex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Vertex.m; sourceTree = "<group>"; };
+		D4FA702F26E1BC3F00F5C3DE /* Dot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Dot.h; sourceTree = "<group>"; };
+		D4FA703026E1BC3F00F5C3DE /* Dot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Dot.m; sourceTree = "<group>"; };
+		D4FA703226E1BCF900F5C3DE /* Stroke.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Stroke.h; sourceTree = "<group>"; };
+		D4FA703326E1BCF900F5C3DE /* Stroke.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Stroke.m; sourceTree = "<group>"; };
+		D4FDD4EE26E10FF6009D3661 /* XNStudent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNStudent.h; sourceTree = "<group>"; };
+		D4FDD4EF26E10FF6009D3661 /* XNStudent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNStudent.m; sourceTree = "<group>"; };
 		DCA1C06F05FC8EA70E6BC63F /* Pods-TestVCTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVCTests.debug.xcconfig"; path = "Target Support Files/Pods-TestVCTests/Pods-TestVCTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F1BF267CDC07013A829C31EC /* Pods-TestVC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.release.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -217,6 +230,7 @@
 		D47C80BE26B24E2200880F06 /* TestVC */ = {
 			isa = PBXGroup;
 			children = (
+				D4FDD4EC26E10511009D3661 /* Parttern */,
 				D4C326CE26D8875E0079FAD3 /* Descorators */,
 				D4C326CD26D87F310079FAD3 /* LYImageBrowser */,
 				D47C80BF26B24E2200880F06 /* AppDelegate.h */,
@@ -243,11 +257,13 @@
 				D4C3223E26D4D16A0079FAD3 /* YYWeakProxy.h */,
 				D4C3223F26D4D16A0079FAD3 /* YYWeakProxy.m */,
 				D4BDA75226CD095300858872 /* XNPerson.h */,
+				D4BDA75326CD095300858872 /* XNPerson.m */,
+				D4FDD4EE26E10FF6009D3661 /* XNStudent.h */,
+				D4FDD4EF26E10FF6009D3661 /* XNStudent.m */,
 				D4C3223526D4905B0079FAD3 /* NSTimer+Extra.h */,
 				D4C3223626D4905B0079FAD3 /* NSTimer+Extra.m */,
 				D4C3223926D497F60079FAD3 /* NSTimer+YYAdd.h */,
 				D4C3223826D497F60079FAD3 /* NSTimer+YYAdd.m */,
-				D4BDA75326CD095300858872 /* XNPerson.m */,
 				D47C80C826B24E2200880F06 /* Main.storyboard */,
 				D4C46A7126CFAEB00056B708 /* Flowers_2.png */,
 				D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */,
@@ -334,6 +350,28 @@
 				D4C3271626D887AC0079FAD3 /* UIImage+Transform.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		D4FDD4EC26E10511009D3661 /* Parttern */ = {
+			isa = PBXGroup;
+			children = (
+				D4FDD4ED26E10BAA009D3661 /* Prototype */,
+			);
+			path = Parttern;
+			sourceTree = "<group>";
+		};
+		D4FDD4ED26E10BAA009D3661 /* Prototype */ = {
+			isa = PBXGroup;
+			children = (
+				D4FA702B26E1B98200F5C3DE /* Mark.h */,
+				D4FA702C26E1BAAE00F5C3DE /* Vertex.h */,
+				D4FA702D26E1BAAE00F5C3DE /* Vertex.m */,
+				D4FA702F26E1BC3F00F5C3DE /* Dot.h */,
+				D4FA703026E1BC3F00F5C3DE /* Dot.m */,
+				D4FA703226E1BCF900F5C3DE /* Stroke.h */,
+				D4FA703326E1BCF900F5C3DE /* Stroke.m */,
+			);
+			path = Prototype;
 			sourceTree = "<group>";
 		};
 		DF0B6BF34ADC4C09F6239026 /* Frameworks */ = {
@@ -592,7 +630,9 @@
 				D4C3271926D887AC0079FAD3 /* UIImage+Transform.m in Sources */,
 				D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */,
 				D47C80C726B24E2200880F06 /* ViewController.mm in Sources */,
+				D4FDD4F026E10FF6009D3661 /* XNStudent.m in Sources */,
 				D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */,
+				D4FA702E26E1BAAE00F5C3DE /* Vertex.m in Sources */,
 				D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */,
 				D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */,
 				D45B668126D3BB1900964C86 /* XNThirdViewController.m in Sources */,
@@ -607,10 +647,12 @@
 				D47C80D226B24E2300880F06 /* main.m in Sources */,
 				D4BC0DEA26DCD24D0070993C /* XNAutoreleasePoolModel.m in Sources */,
 				D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */,
+				D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */,
 				D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,
 				D4C3273026D8D1CE0079FAD3 /* XNFourthViewController.m in Sources */,
 				D4C3270F26D8879D0079FAD3 /* ImageFilter.m in Sources */,
+				D4FA703426E1BCF900F5C3DE /* Stroke.m in Sources */,
 				D4C3223A26D497F60079FAD3 /* NSTimer+YYAdd.m in Sources */,
 				D4C3272426D8CB460079FAD3 /* LYImageBrowserView.m in Sources */,
 				D4C3271826D887AC0079FAD3 /* UIImage+BaseFilter.m in Sources */,

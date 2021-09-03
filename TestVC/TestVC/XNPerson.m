@@ -26,6 +26,7 @@
     if (cpy) {
         cpy.name = self.name;
         cpy.age = self.age;
+        cpy.student = [self.student copy];
     }
     return cpy;
 }
