@@ -48,6 +48,13 @@
 		D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */; };
 		D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */; };
 		D4C46A7326CFAEB00056B708 /* Flowers_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7126CFAEB00056B708 /* Flowers_2.png */; };
+		D4F05D3426E5EBA200800232 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3326E5EBA200800232 /* CanvasView.m */; };
+		D4F05D3726E5EBCC00800232 /* ClothCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3626E5EBCC00800232 /* ClothCanvasView.m */; };
+		D4F05D3A26E5EBDD00800232 /* PaperCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3926E5EBDD00800232 /* PaperCanvasView.m */; };
+		D4F05D3D26E5EC7F00800232 /* CanvasViewGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3C26E5EC7F00800232 /* CanvasViewGenerator.m */; };
+		D4F05D4026E5ECEE00800232 /* PaperCanvasViewGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3F26E5ECEE00800232 /* PaperCanvasViewGenerator.m */; };
+		D4F05D4326E5ED0300800232 /* ClothCanvasViewGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D4226E5ED0300800232 /* ClothCanvasViewGenerator.m */; };
+		D4F05D4626E5ED4C00800232 /* CanvasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D4526E5ED4C00800232 /* CanvasViewController.m */; };
 		D4FA702E26E1BAAE00F5C3DE /* Vertex.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA702D26E1BAAE00F5C3DE /* Vertex.m */; };
 		D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA703026E1BC3F00F5C3DE /* Dot.m */; };
 		D4FA703426E1BCF900F5C3DE /* Stroke.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA703326E1BCF900F5C3DE /* Stroke.m */; };
@@ -150,6 +157,20 @@
 		D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageIOViewController.m; sourceTree = "<group>"; };
 		D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rainbow_1.png; sourceTree = "<group>"; };
 		D4C46A7126CFAEB00056B708 /* Flowers_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flowers_2.png; sourceTree = "<group>"; };
+		D4F05D3226E5EBA200800232 /* CanvasView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasView.h; sourceTree = "<group>"; };
+		D4F05D3326E5EBA200800232 /* CanvasView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasView.m; sourceTree = "<group>"; };
+		D4F05D3526E5EBCC00800232 /* ClothCanvasView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothCanvasView.h; sourceTree = "<group>"; };
+		D4F05D3626E5EBCC00800232 /* ClothCanvasView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClothCanvasView.m; sourceTree = "<group>"; };
+		D4F05D3826E5EBDD00800232 /* PaperCanvasView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaperCanvasView.h; sourceTree = "<group>"; };
+		D4F05D3926E5EBDD00800232 /* PaperCanvasView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaperCanvasView.m; sourceTree = "<group>"; };
+		D4F05D3B26E5EC7F00800232 /* CanvasViewGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasViewGenerator.h; sourceTree = "<group>"; };
+		D4F05D3C26E5EC7F00800232 /* CanvasViewGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasViewGenerator.m; sourceTree = "<group>"; };
+		D4F05D3E26E5ECEE00800232 /* PaperCanvasViewGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaperCanvasViewGenerator.h; sourceTree = "<group>"; };
+		D4F05D3F26E5ECEE00800232 /* PaperCanvasViewGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaperCanvasViewGenerator.m; sourceTree = "<group>"; };
+		D4F05D4126E5ED0300800232 /* ClothCanvasViewGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothCanvasViewGenerator.h; sourceTree = "<group>"; };
+		D4F05D4226E5ED0300800232 /* ClothCanvasViewGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClothCanvasViewGenerator.m; sourceTree = "<group>"; };
+		D4F05D4426E5ED4C00800232 /* CanvasViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasViewController.h; sourceTree = "<group>"; };
+		D4F05D4526E5ED4C00800232 /* CanvasViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasViewController.m; sourceTree = "<group>"; };
 		D4F125833029E5FD62B40A83 /* Pods-TestVC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.debug.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.debug.xcconfig"; sourceTree = "<group>"; };
 		D4FA702B26E1B98200F5C3DE /* Mark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
 		D4FA702C26E1BAAE00F5C3DE /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
@@ -352,9 +373,31 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		D4F05D3126E5EB8A00800232 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05D3226E5EBA200800232 /* CanvasView.h */,
+				D4F05D3326E5EBA200800232 /* CanvasView.m */,
+				D4F05D3526E5EBCC00800232 /* ClothCanvasView.h */,
+				D4F05D3626E5EBCC00800232 /* ClothCanvasView.m */,
+				D4F05D3826E5EBDD00800232 /* PaperCanvasView.h */,
+				D4F05D3926E5EBDD00800232 /* PaperCanvasView.m */,
+				D4F05D3B26E5EC7F00800232 /* CanvasViewGenerator.h */,
+				D4F05D3C26E5EC7F00800232 /* CanvasViewGenerator.m */,
+				D4F05D3E26E5ECEE00800232 /* PaperCanvasViewGenerator.h */,
+				D4F05D3F26E5ECEE00800232 /* PaperCanvasViewGenerator.m */,
+				D4F05D4126E5ED0300800232 /* ClothCanvasViewGenerator.h */,
+				D4F05D4226E5ED0300800232 /* ClothCanvasViewGenerator.m */,
+				D4F05D4426E5ED4C00800232 /* CanvasViewController.h */,
+				D4F05D4526E5ED4C00800232 /* CanvasViewController.m */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 		D4FDD4EC26E10511009D3661 /* Parttern */ = {
 			isa = PBXGroup;
 			children = (
+				D4F05D3126E5EB8A00800232 /* Factory */,
 				D4FDD4ED26E10BAA009D3661 /* Prototype */,
 			);
 			path = Parttern;
@@ -628,6 +671,7 @@
 				D4C3270D26D8879D0079FAD3 /* ImageTransformFilter.m in Sources */,
 				D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */,
 				D4C3271926D887AC0079FAD3 /* UIImage+Transform.m in Sources */,
+				D4F05D4026E5ECEE00800232 /* PaperCanvasViewGenerator.m in Sources */,
 				D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */,
 				D47C80C726B24E2200880F06 /* ViewController.mm in Sources */,
 				D4FDD4F026E10FF6009D3661 /* XNStudent.m in Sources */,
@@ -635,7 +679,9 @@
 				D4FA702E26E1BAAE00F5C3DE /* Vertex.m in Sources */,
 				D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */,
 				D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */,
+				D4F05D3D26E5EC7F00800232 /* CanvasViewGenerator.m in Sources */,
 				D45B668126D3BB1900964C86 /* XNThirdViewController.m in Sources */,
+				D4F05D3726E5EBCC00800232 /* ClothCanvasView.m in Sources */,
 				D4C3270C26D8879D0079FAD3 /* UIImage+ImageComponent.m in Sources */,
 				D4C3224026D4D16A0079FAD3 /* YYWeakProxy.m in Sources */,
 				D4C3272726D8CBEB0079FAD3 /* LYImageBrowserShowView.m in Sources */,
@@ -648,11 +694,15 @@
 				D4BC0DEA26DCD24D0070993C /* XNAutoreleasePoolModel.m in Sources */,
 				D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */,
 				D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */,
+				D4F05D3426E5EBA200800232 /* CanvasView.m in Sources */,
 				D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,
+				D4F05D4626E5ED4C00800232 /* CanvasViewController.m in Sources */,
+				D4F05D4326E5ED0300800232 /* ClothCanvasViewGenerator.m in Sources */,
 				D4C3273026D8D1CE0079FAD3 /* XNFourthViewController.m in Sources */,
 				D4C3270F26D8879D0079FAD3 /* ImageFilter.m in Sources */,
 				D4FA703426E1BCF900F5C3DE /* Stroke.m in Sources */,
+				D4F05D3A26E5EBDD00800232 /* PaperCanvasView.m in Sources */,
 				D4C3223A26D497F60079FAD3 /* NSTimer+YYAdd.m in Sources */,
 				D4C3272426D8CB460079FAD3 /* LYImageBrowserView.m in Sources */,
 				D4C3271826D887AC0079FAD3 /* UIImage+BaseFilter.m in Sources */,
