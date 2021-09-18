@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 抽象类中定义的工厂方法
 @interface CanvasViewGenerator : NSObject
 
-+ (CanvasView *)canvasViewWithFrame:(CGRect)frame aFrame:(CGRect)aFrame;
+- (CanvasView *)canvasViewWithFrame:(CGRect)aframe;
 
 @end
 

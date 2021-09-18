@@ -20,7 +20,15 @@
 #import <objc/NSObjCRuntime.h>
 #import <objc/runtime.h>
 
-@interface ViewController ()
+#import "VisitorHeader.h"
+#import "MyWorkerClass.h"
+#include <stdio.h>
+#import "XNFiveViewViewController.h"
+
+@interface ViewController ()<NSPortDelegate>
+{
+    id _object;
+}
 
 @property (nonatomic, strong) NSPointerArray *pointArr;
 @property (nonatomic, strong) NSMutableArray *arr;
@@ -34,6 +42,10 @@
 @end
 
 @implementation ViewController
+
+- (void)setup {
+    _object = [NSObject new];
+}
 
 - (void)onTap2 {
     ImageIOViewController *vc = [ImageIOViewController new];
@@ -70,8 +82,104 @@
     NSLog(@"lt - onWillExitThread :%@",noti);
 }
 
+- (NSString *)stringValue {
+    NSString *str = [[NSString alloc] initWithFormat:@"nihaoya :%d",1];
+    NSString *str1 = [[NSString alloc] initWithFormat:@"nihaoya :%d",2];
+    return str;
+}
+
+#define kMsg1 100
+#define kMag2 101
+
+//- (void)handlePortMessage:(void *)message;
+- (void)handlePortMessage:(NSMessagePort *)message
+{
+    NSLog(@"message :%@",message);
+    NSUInteger msgId = [[message valueForKeyPath:@"msgid"] integerValue];
+    NSMachPort *localPort = [message valueForKeyPath:@"localPort"];
+    NSMachPort *remotePort = [message valueForKeyPath:@"remotePort"];
+    NSMutableArray *componts = [message valueForKey:@"components"];
+    for (NSData *data in componts) {
+        NSLog(@"data is %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    }
+
+    if (msgId == kMsg1) {
+        [remotePort sendBeforeDate:[NSDate date] msgid:kMag2 components:nil from:localPort reserved:0];
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    {
+        XNFiveViewViewController *vc = [XNFiveViewViewController new];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    {
+        NSPort *myPort = [NSMachPort port];
+        myPort.delegate = self;
+        [[NSRunLoop currentRunLoop] addPort:myPort forMode:NSDefaultRunLoopMode];
+        
+        NSLog(@"-- myport :%@",myPort);
+        MyWorkerClass *work = [MyWorkerClass new];
+        [NSThread detachNewThreadSelector:@selector(launchThreadWithPort:) toTarget:work withObject:myPort];
+        
+        NSObject *obj = [ NSObject new];
+        [obj performSelector:@selector(onTap) withObject:nil afterDelay:2.f];
+        [self performSelectorOnMainThread:@selector(onTap) withObject:nil waitUntilDone:YES];
+        
+        return;
+    }
+    
+    
+    {
+        NSPort *port = [NSPort port];
+        NSPort *matchPort = [NSMachPort port];
+        NSLog(@"lt - port :%@",port);
+        return;
+    }
+    
+    {
+       __block XNPerson *p = [XNPerson new];
+        void (^block)(void);
+        int a = 2;
+        if (a > 1){
+            block = ^(void) {
+                NSLog(@"aae");
+                NSLog(@"lt - person :%@",p);
+                p.name = @"hel;inyu";
+            };
+        }
+        else {
+            block = ^(void) {
+                NSLog(@"bbb");
+            };
+        }
+        block();
+        return;
+    }
+    
+    
+    {
+        NSString *string = [self stringValue];
+        NSLog(@"lt - str:%@",string);
+        return;
+    }
+    
+    {
+        Man *man = [Man new];
+        Woman *woman = [Woman new];
+        Success *suc = [Success new];
+        
+        ObjectStructure *o = [ObjectStructure new];
+        [o.arr addObject:man];
+        [o.arr addObject:woman];
+        [o display:suc];
+        
+        return;
+    }
     
     {
         XNPerson *p = [XNPerson new];

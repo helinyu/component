@@ -24,6 +24,14 @@ CF_EXTERN_C_BEGIN
 typedef CFStringRef CFRunLoopMode CF_EXTENSIBLE_STRING_ENUM;
 
 // 集中桥接的引用
+//  runloop涉及到的内容
+//  1） source  【port】 （source0,source1）
+//  2） observer
+//  3） timer
+
+//  port & timer 是什么关系， timer就是上面的， port是和上面的source有关系的
+
+
 typedef struct CF_BRIDGED_MUTABLE_TYPE(id) __CFRunLoop * CFRunLoopRef; 
 typedef struct CF_BRIDGED_MUTABLE_TYPE(id) __CFRunLoopSource * CFRunLoopSourceRef;
 typedef struct CF_BRIDGED_MUTABLE_TYPE(id) __CFRunLoopObserver * CFRunLoopObserverRef;
@@ -31,6 +39,8 @@ typedef struct CF_BRIDGED_MUTABLE_TYPE(NSTimer) __CFRunLoopTimer * CFRunLoopTime
 
 
 //  CFRunLoopRunInMode() 返回的结果
+//  runloop为啥会有这些结果？
+//  为什么这个和上面的三个没有对应关系，如果是timering呢？
 typedef CF_ENUM(SInt32, CFRunLoopRunResult) {
     kCFRunLoopRunFinished = 1,
     kCFRunLoopRunStopped = 2,
@@ -39,6 +49,7 @@ typedef CF_ENUM(SInt32, CFRunLoopRunResult) {
 };
 
 //  runloop 观察的活动
+//  执行完成了之后，为什么没有斌量呢？
 typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) {
     kCFRunLoopEntry = (1UL << 0), //进入
     kCFRunLoopBeforeTimers = (1UL << 1), // 定时器
@@ -50,22 +61,22 @@ typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) {
 };
 
 //  两种常用模式
-CF_EXPORT const CFRunLoopMode kCFRunLoopDefaultMode;
-CF_EXPORT const CFRunLoopMode kCFRunLoopCommonModes;
+CF_EXPORT const CFRunLoopMode kCFRunLoopDefaultMode; // 默认
+CF_EXPORT const CFRunLoopMode kCFRunLoopCommonModes; // 公共
 
 //  runloop ID
-CF_EXPORT CFTypeID CFRunLoopGetTypeID(void);
+CF_EXPORT CFTypeID CFRunLoopGetTypeID(void); // 为什么要获取这个id，每个线程都有它自己的id
 
 //  当前的runloop
-CF_EXPORT CFRunLoopRef CFRunLoopGetCurrent(void);
+CF_EXPORT CFRunLoopRef CFRunLoopGetCurrent(void); 
 
 //  主线程的runloop
 CF_EXPORT CFRunLoopRef CFRunLoopGetMain(void);
 
-//  当前runloop的mode
+//  当前runloop的mode ， （因为是字符串， 淡然是copy了）
 CF_EXPORT CFRunLoopMode CFRunLoopCopyCurrentMode(CFRunLoopRef rl);
 
-// 所有mode
+// 所有mode ， 当前runloop的所有mode
 CF_EXPORT CFArrayRef CFRunLoopCopyAllModes(CFRunLoopRef rl);
 
 //  添加公共mode
@@ -84,7 +95,10 @@ CF_EXPORT void CFRunLoopWakeUp(CFRunLoopRef rl);
 //  停止
 CF_EXPORT void CFRunLoopStop(CFRunLoopRef rl);
 
+//  上面的这几个方法，就是用来判断runloop里面的这些东西的内容的 （runloop的声明周求，这个内容要如何解决？）
+
 //  执行的block
+//  我们的一些方法完全是可以这样去写的
 #if __BLOCKS__
 CF_EXPORT void CFRunLoopPerformBlock(CFRunLoopRef rl, CFTypeRef mode, void (^block)(void)) API_AVAILABLE(macos(10.6), ios(4.0), watchos(2.0), tvos(9.0)); 
 #endif
@@ -108,23 +122,30 @@ CF_EXPORT Boolean CFRunLoopContainsTimer(CFRunLoopRef rl, CFRunLoopTimerRef time
 CF_EXPORT void CFRunLoopAddTimer(CFRunLoopRef rl, CFRunLoopTimerRef timer, CFRunLoopMode mode);
 CF_EXPORT void CFRunLoopRemoveTimer(CFRunLoopRef rl, CFRunLoopTimerRef timer, CFRunLoopMode mode);
 
+//  上面就是对应的addsource , addObserver , addTimer
+
 #pragma mark - source 
 
 //  source 包括source0 以及source1
 
+//  yy库里面很多这种写法
 typedef struct {
     CFIndex	version;
-    void *	info;
+    void *	info; // 这里面才是实际的内容，要干嘛的内容，很可能是一个函数指针
     const void *(*retain)(const void *info);
     void	(*release)(const void *info);
     CFStringRef	(*copyDescription)(const void *info);
-    Boolean	(*equal)(const void *info1, const void *info2);
-    CFHashCode	(*hash)(const void *info);
-    void	(*schedule)(void *info, CFRunLoopRef rl, CFRunLoopMode mode);
-    void	(*cancel)(void *info, CFRunLoopRef rl, CFRunLoopMode mode);
-    void	(*perform)(void *info);
+    //  用于判断相等的两个方法
+    Boolean	(*equal)(const void *info1, const void *info2); 
+    CFHashCode	(*hash)(const void *info); 
+
+    void	(*schedule)(void *info, CFRunLoopRef rl, CFRunLoopMode mode); // 触发
+    void	(*cancel)(void *info, CFRunLoopRef rl, CFRunLoopMode mode); // 取消
+    void	(*perform)(void *info); // 执行
 } CFRunLoopSourceContext;
 
+
+//  source1  和port是有关系的
 typedef struct {
     CFIndex	version;
     void *	info;
@@ -133,8 +154,10 @@ typedef struct {
     CFStringRef	(*copyDescription)(const void *info);
     Boolean	(*equal)(const void *info1, const void *info2);
     CFHashCode	(*hash)(const void *info);
+
+    //  和source0的去呗就是下面的两个方法
 #if TARGET_OS_OSX || TARGET_OS_IPHONE
-    mach_port_t	(*getPort)(void *info);
+    mach_port_t	(*getPort)(void *info); // port有关的
     void *	(*perform)(void *msg, CFIndex size, CFAllocatorRef allocator, void *info);
 #else
     void *	(*getPort)(void *info);
@@ -227,4 +250,7 @@ CF_EXTERN_C_END
 CF_IMPLICIT_BRIDGING_DISABLED
 
 #endif /* ! __COREFOUNDATION_CFRUNLOOP__ */
+
+
+//  争取对runloop有一个感性的认知， 看看这个内容有什么区别。 
 

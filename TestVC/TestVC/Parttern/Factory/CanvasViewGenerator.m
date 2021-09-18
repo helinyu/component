@@ -9,4 +9,9 @@
 
 @implementation CanvasViewGenerator
 
++ (CanvasView *)canvasViewWithFrame:(CGRect)aframe;
+{
+    return [[CanvasView alloc] initWithFrame:aframe];
+}
+
 @end

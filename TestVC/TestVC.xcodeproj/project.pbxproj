@@ -11,6 +11,9 @@
 		0F27E8EDE77462DB528F562C /* Pods_TestVC_TestVCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA1F205837650F6CD0AE8FB /* Pods_TestVC_TestVCUITests.framework */; };
 		3452FD2B34F89EA14602E1C4 /* Pods_TestVC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF93E68E22E92680134246B4 /* Pods_TestVC.framework */; };
 		D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B53F726CBB13E002C3C9D /* SecondViewController.m */; };
+		D4458A5E26EF3D1C009B7500 /* XNBlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A5D26EF3D1C009B7500 /* XNBlockModel.m */; };
+		D4458A8826F4B222009B7500 /* MyWorkerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A8726F4B222009B7500 /* MyWorkerClass.m */; };
+		D4458A8B26F597AE009B7500 /* XNFiveViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A8A26F597AE009B7500 /* XNFiveViewViewController.m */; };
 		D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D45B667D26D3BA6C00964C86 /* XNLockModel.m */; };
 		D45B668126D3BB1900964C86 /* XNThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D45B668026D3BB1900964C86 /* XNThirdViewController.m */; };
 		D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D47C80C026B24E2200880F06 /* AppDelegate.m */; };
@@ -55,6 +58,20 @@
 		D4F05D4026E5ECEE00800232 /* PaperCanvasViewGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3F26E5ECEE00800232 /* PaperCanvasViewGenerator.m */; };
 		D4F05D4326E5ED0300800232 /* ClothCanvasViewGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D4226E5ED0300800232 /* ClothCanvasViewGenerator.m */; };
 		D4F05D4626E5ED4C00800232 /* CanvasViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D4526E5ED4C00800232 /* CanvasViewController.m */; };
+		D4F05D4A26E6049F00800232 /* BrandingFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D4926E6049F00800232 /* BrandingFactory.m */; };
+		D4F05D4D26E6055100800232 /* AcmeBrandingFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D4C26E6055100800232 /* AcmeBrandingFactory.m */; };
+		D4F05D5026E6056200800232 /* SierraBrandingFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D4F26E6056200800232 /* SierraBrandingFactory.m */; };
+		D4F05D5726E6060F00800232 /* AcmeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D5626E6060F00800232 /* AcmeView.m */; };
+		D4F05D5E26E6064F00800232 /* AcmeToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D5D26E6064F00800232 /* AcmeToolbar.m */; };
+		D4F05D6126E6066200800232 /* AcmeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D6026E6066200800232 /* AcmeButton.m */; };
+		D4F05D6826E606EF00800232 /* SierraView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D6726E606EF00800232 /* SierraView.m */; };
+		D4F05D6B26E606FF00800232 /* SierraButton.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D6A26E606FF00800232 /* SierraButton.m */; };
+		D4F05D6E26E6070F00800232 /* SierraToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D6D26E6070F00800232 /* SierraToolbar.m */; };
+		D4F05D9926E8570C00800232 /* Success.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D9826E8570C00800232 /* Success.m */; };
+		D4F05D9C26E85BB800800232 /* Man.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D9B26E85BB800800232 /* Man.m */; };
+		D4F05D9F26E85C1D00800232 /* Woman.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D9E26E85C1C00800232 /* Woman.m */; };
+		D4F05DA326E85D7900800232 /* ObjectStructure.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05DA226E85D7800800232 /* ObjectStructure.m */; };
+		D4F05DA926E861CC00800232 /* MarkRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05DA826E861CC00800232 /* MarkRenderer.m */; };
 		D4FA702E26E1BAAE00F5C3DE /* Vertex.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA702D26E1BAAE00F5C3DE /* Vertex.m */; };
 		D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA703026E1BC3F00F5C3DE /* Dot.m */; };
 		D4FA703426E1BCF900F5C3DE /* Stroke.m in Sources */ = {isa = PBXBuildFile; fileRef = D4FA703326E1BCF900F5C3DE /* Stroke.m */; };
@@ -87,6 +104,12 @@
 		D1CDCF0445AADAED3784DFDB /* Pods-TestVC-TestVCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC-TestVCUITests.release.xcconfig"; path = "Target Support Files/Pods-TestVC-TestVCUITests/Pods-TestVC-TestVCUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D42B53F626CBB13E002C3C9D /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		D42B53F726CBB13E002C3C9D /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
+		D4458A5C26EF3D1C009B7500 /* XNBlockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNBlockModel.h; sourceTree = "<group>"; };
+		D4458A5D26EF3D1C009B7500 /* XNBlockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNBlockModel.m; sourceTree = "<group>"; };
+		D4458A8626F4B222009B7500 /* MyWorkerClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyWorkerClass.h; sourceTree = "<group>"; };
+		D4458A8726F4B222009B7500 /* MyWorkerClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyWorkerClass.m; sourceTree = "<group>"; };
+		D4458A8926F597AE009B7500 /* XNFiveViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNFiveViewViewController.h; sourceTree = "<group>"; };
+		D4458A8A26F597AE009B7500 /* XNFiveViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNFiveViewViewController.m; sourceTree = "<group>"; };
 		D45B667C26D3BA6C00964C86 /* XNLockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNLockModel.h; sourceTree = "<group>"; };
 		D45B667D26D3BA6C00964C86 /* XNLockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNLockModel.m; sourceTree = "<group>"; };
 		D45B667F26D3BB1900964C86 /* XNThirdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNThirdViewController.h; sourceTree = "<group>"; };
@@ -171,6 +194,38 @@
 		D4F05D4226E5ED0300800232 /* ClothCanvasViewGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ClothCanvasViewGenerator.m; sourceTree = "<group>"; };
 		D4F05D4426E5ED4C00800232 /* CanvasViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasViewController.h; sourceTree = "<group>"; };
 		D4F05D4526E5ED4C00800232 /* CanvasViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasViewController.m; sourceTree = "<group>"; };
+		D4F05D4826E6049F00800232 /* BrandingFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BrandingFactory.h; sourceTree = "<group>"; };
+		D4F05D4926E6049F00800232 /* BrandingFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BrandingFactory.m; sourceTree = "<group>"; };
+		D4F05D4B26E6055100800232 /* AcmeBrandingFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AcmeBrandingFactory.h; sourceTree = "<group>"; };
+		D4F05D4C26E6055100800232 /* AcmeBrandingFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcmeBrandingFactory.m; sourceTree = "<group>"; };
+		D4F05D4E26E6056200800232 /* SierraBrandingFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SierraBrandingFactory.h; sourceTree = "<group>"; };
+		D4F05D4F26E6056200800232 /* SierraBrandingFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SierraBrandingFactory.m; sourceTree = "<group>"; };
+		D4F05D5526E6060F00800232 /* AcmeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AcmeView.h; sourceTree = "<group>"; };
+		D4F05D5626E6060F00800232 /* AcmeView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcmeView.m; sourceTree = "<group>"; };
+		D4F05D5C26E6064F00800232 /* AcmeToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AcmeToolbar.h; sourceTree = "<group>"; };
+		D4F05D5D26E6064F00800232 /* AcmeToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcmeToolbar.m; sourceTree = "<group>"; };
+		D4F05D5F26E6066200800232 /* AcmeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AcmeButton.h; sourceTree = "<group>"; };
+		D4F05D6026E6066200800232 /* AcmeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AcmeButton.m; sourceTree = "<group>"; };
+		D4F05D6626E606EF00800232 /* SierraView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SierraView.h; sourceTree = "<group>"; };
+		D4F05D6726E606EF00800232 /* SierraView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SierraView.m; sourceTree = "<group>"; };
+		D4F05D6926E606FF00800232 /* SierraButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SierraButton.h; sourceTree = "<group>"; };
+		D4F05D6A26E606FF00800232 /* SierraButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SierraButton.m; sourceTree = "<group>"; };
+		D4F05D6C26E6070F00800232 /* SierraToolbar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SierraToolbar.h; sourceTree = "<group>"; };
+		D4F05D6D26E6070F00800232 /* SierraToolbar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SierraToolbar.m; sourceTree = "<group>"; };
+		D4F05D9226E8562C00800232 /* Action.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Action.h; sourceTree = "<group>"; };
+		D4F05D9326E8563400800232 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		D4F05D9726E8570C00800232 /* Success.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Success.h; sourceTree = "<group>"; };
+		D4F05D9826E8570C00800232 /* Success.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Success.m; sourceTree = "<group>"; };
+		D4F05D9A26E85BB800800232 /* Man.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Man.h; sourceTree = "<group>"; };
+		D4F05D9B26E85BB800800232 /* Man.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Man.m; sourceTree = "<group>"; };
+		D4F05D9D26E85C1C00800232 /* Woman.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Woman.h; sourceTree = "<group>"; };
+		D4F05D9E26E85C1C00800232 /* Woman.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Woman.m; sourceTree = "<group>"; };
+		D4F05DA026E85CE100800232 /* VisitorHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VisitorHeader.h; sourceTree = "<group>"; };
+		D4F05DA126E85D7800800232 /* ObjectStructure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjectStructure.h; sourceTree = "<group>"; };
+		D4F05DA226E85D7800800232 /* ObjectStructure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ObjectStructure.m; sourceTree = "<group>"; };
+		D4F05DA626E8614300800232 /* MarkVisitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkVisitor.h; sourceTree = "<group>"; };
+		D4F05DA726E861CC00800232 /* MarkRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkRenderer.h; sourceTree = "<group>"; };
+		D4F05DA826E861CC00800232 /* MarkRenderer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkRenderer.m; sourceTree = "<group>"; };
 		D4F125833029E5FD62B40A83 /* Pods-TestVC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC.debug.xcconfig"; path = "Target Support Files/Pods-TestVC/Pods-TestVC.debug.xcconfig"; sourceTree = "<group>"; };
 		D4FA702B26E1B98200F5C3DE /* Mark.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mark.h; sourceTree = "<group>"; };
 		D4FA702C26E1BAAE00F5C3DE /* Vertex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Vertex.h; sourceTree = "<group>"; };
@@ -260,6 +315,8 @@
 				D47C80C326B24E2200880F06 /* SceneDelegate.m */,
 				D47C80C526B24E2200880F06 /* ViewController.h */,
 				D47C80C626B24E2200880F06 /* ViewController.mm */,
+				D4458A8626F4B222009B7500 /* MyWorkerClass.h */,
+				D4458A8726F4B222009B7500 /* MyWorkerClass.m */,
 				D42B53F626CBB13E002C3C9D /* SecondViewController.h */,
 				D42B53F726CBB13E002C3C9D /* SecondViewController.m */,
 				D4C46A6A26CF9FAF0056B708 /* ImageIOViewController.h */,
@@ -268,6 +325,8 @@
 				D45B668026D3BB1900964C86 /* XNThirdViewController.m */,
 				D4C3272E26D8D1CE0079FAD3 /* XNFourthViewController.h */,
 				D4C3272F26D8D1CE0079FAD3 /* XNFourthViewController.m */,
+				D4458A8926F597AE009B7500 /* XNFiveViewViewController.h */,
+				D4458A8A26F597AE009B7500 /* XNFiveViewViewController.m */,
 				D4C3272026D88A0C0079FAD3 /* Image.png */,
 				D45B667C26D3BA6C00964C86 /* XNLockModel.h */,
 				D45B667D26D3BA6C00964C86 /* XNLockModel.m */,
@@ -279,6 +338,8 @@
 				D4C3223F26D4D16A0079FAD3 /* YYWeakProxy.m */,
 				D4BDA75226CD095300858872 /* XNPerson.h */,
 				D4BDA75326CD095300858872 /* XNPerson.m */,
+				D4458A5C26EF3D1C009B7500 /* XNBlockModel.h */,
+				D4458A5D26EF3D1C009B7500 /* XNBlockModel.m */,
 				D4FDD4EE26E10FF6009D3661 /* XNStudent.h */,
 				D4FDD4EF26E10FF6009D3661 /* XNStudent.m */,
 				D4C3223526D4905B0079FAD3 /* NSTimer+Extra.h */,
@@ -376,6 +437,7 @@
 		D4F05D3126E5EB8A00800232 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
+				D4F05D4726E6045100800232 /* AbstractoryFractory */,
 				D4F05D3226E5EBA200800232 /* CanvasView.h */,
 				D4F05D3326E5EBA200800232 /* CanvasView.m */,
 				D4F05D3526E5EBCC00800232 /* ClothCanvasView.h */,
@@ -394,9 +456,96 @@
 			path = Factory;
 			sourceTree = "<group>";
 		};
+		D4F05D4726E6045100800232 /* AbstractoryFractory */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05D5126E605E600800232 /* View */,
+				D4F05D4826E6049F00800232 /* BrandingFactory.h */,
+				D4F05D4926E6049F00800232 /* BrandingFactory.m */,
+				D4F05D4B26E6055100800232 /* AcmeBrandingFactory.h */,
+				D4F05D4C26E6055100800232 /* AcmeBrandingFactory.m */,
+				D4F05D4E26E6056200800232 /* SierraBrandingFactory.h */,
+				D4F05D4F26E6056200800232 /* SierraBrandingFactory.m */,
+			);
+			path = AbstractoryFractory;
+			sourceTree = "<group>";
+		};
+		D4F05D5126E605E600800232 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05D6226E606B900800232 /* Sierra */,
+				D4F05D5826E6061400800232 /* Acme */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D4F05D5826E6061400800232 /* Acme */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05D5526E6060F00800232 /* AcmeView.h */,
+				D4F05D5626E6060F00800232 /* AcmeView.m */,
+				D4F05D5F26E6066200800232 /* AcmeButton.h */,
+				D4F05D6026E6066200800232 /* AcmeButton.m */,
+				D4F05D5C26E6064F00800232 /* AcmeToolbar.h */,
+				D4F05D5D26E6064F00800232 /* AcmeToolbar.m */,
+			);
+			path = Acme;
+			sourceTree = "<group>";
+		};
+		D4F05D6226E606B900800232 /* Sierra */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05D6626E606EF00800232 /* SierraView.h */,
+				D4F05D6726E606EF00800232 /* SierraView.m */,
+				D4F05D6926E606FF00800232 /* SierraButton.h */,
+				D4F05D6A26E606FF00800232 /* SierraButton.m */,
+				D4F05D6C26E6070F00800232 /* SierraToolbar.h */,
+				D4F05D6D26E6070F00800232 /* SierraToolbar.m */,
+			);
+			path = Sierra;
+			sourceTree = "<group>";
+		};
+		D4F05D9126E8560B00800232 /* Visitor */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05DA526E8612E00800232 /* Mark */,
+				D4F05DA426E8612600800232 /* Person */,
+			);
+			path = Visitor;
+			sourceTree = "<group>";
+		};
+		D4F05DA426E8612600800232 /* Person */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05D9226E8562C00800232 /* Action.h */,
+				D4F05D9326E8563400800232 /* Person.h */,
+				D4F05D9726E8570C00800232 /* Success.h */,
+				D4F05D9826E8570C00800232 /* Success.m */,
+				D4F05D9A26E85BB800800232 /* Man.h */,
+				D4F05D9B26E85BB800800232 /* Man.m */,
+				D4F05D9D26E85C1C00800232 /* Woman.h */,
+				D4F05D9E26E85C1C00800232 /* Woman.m */,
+				D4F05DA026E85CE100800232 /* VisitorHeader.h */,
+				D4F05DA126E85D7800800232 /* ObjectStructure.h */,
+				D4F05DA226E85D7800800232 /* ObjectStructure.m */,
+			);
+			path = Person;
+			sourceTree = "<group>";
+		};
+		D4F05DA526E8612E00800232 /* Mark */ = {
+			isa = PBXGroup;
+			children = (
+				D4F05DA626E8614300800232 /* MarkVisitor.h */,
+				D4F05DA726E861CC00800232 /* MarkRenderer.h */,
+				D4F05DA826E861CC00800232 /* MarkRenderer.m */,
+			);
+			path = Mark;
+			sourceTree = "<group>";
+		};
 		D4FDD4EC26E10511009D3661 /* Parttern */ = {
 			isa = PBXGroup;
 			children = (
+				D4F05D9126E8560B00800232 /* Visitor */,
 				D4F05D3126E5EB8A00800232 /* Factory */,
 				D4FDD4ED26E10BAA009D3661 /* Prototype */,
 			);
@@ -670,41 +819,58 @@
 			files = (
 				D4C3270D26D8879D0079FAD3 /* ImageTransformFilter.m in Sources */,
 				D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */,
+				D4F05D9C26E85BB800800232 /* Man.m in Sources */,
 				D4C3271926D887AC0079FAD3 /* UIImage+Transform.m in Sources */,
 				D4F05D4026E5ECEE00800232 /* PaperCanvasViewGenerator.m in Sources */,
 				D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */,
 				D47C80C726B24E2200880F06 /* ViewController.mm in Sources */,
 				D4FDD4F026E10FF6009D3661 /* XNStudent.m in Sources */,
 				D47C80C126B24E2200880F06 /* AppDelegate.m in Sources */,
+				D4F05D6126E6066200800232 /* AcmeButton.m in Sources */,
 				D4FA702E26E1BAAE00F5C3DE /* Vertex.m in Sources */,
 				D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */,
+				D4F05D5E26E6064F00800232 /* AcmeToolbar.m in Sources */,
 				D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */,
 				D4F05D3D26E5EC7F00800232 /* CanvasViewGenerator.m in Sources */,
+				D4458A8826F4B222009B7500 /* MyWorkerClass.m in Sources */,
 				D45B668126D3BB1900964C86 /* XNThirdViewController.m in Sources */,
+				D4F05D5026E6056200800232 /* SierraBrandingFactory.m in Sources */,
 				D4F05D3726E5EBCC00800232 /* ClothCanvasView.m in Sources */,
 				D4C3270C26D8879D0079FAD3 /* UIImage+ImageComponent.m in Sources */,
+				D4F05D6826E606EF00800232 /* SierraView.m in Sources */,
+				D4F05D6E26E6070F00800232 /* SierraToolbar.m in Sources */,
+				D4F05D9F26E85C1D00800232 /* Woman.m in Sources */,
 				D4C3224026D4D16A0079FAD3 /* YYWeakProxy.m in Sources */,
+				D4F05DA926E861CC00800232 /* MarkRenderer.m in Sources */,
 				D4C3272726D8CBEB0079FAD3 /* LYImageBrowserShowView.m in Sources */,
+				D4F05DA326E85D7900800232 /* ObjectStructure.m in Sources */,
 				D4BDA75426CD095300858872 /* XNPerson.m in Sources */,
 				D4C3271726D887AC0079FAD3 /* UIImage+Shadow.m in Sources */,
 				D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */,
+				D4F05D9926E8570C00800232 /* Success.m in Sources */,
+				D4458A8B26F597AE009B7500 /* XNFiveViewViewController.m in Sources */,
 				D4C3272A26D8CC000079FAD3 /* LYImageBrowserViewController.m in Sources */,
 				D4C3271F26D887CA0079FAD3 /* DecoratorView.m in Sources */,
 				D47C80D226B24E2300880F06 /* main.m in Sources */,
 				D4BC0DEA26DCD24D0070993C /* XNAutoreleasePoolModel.m in Sources */,
 				D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */,
+				D4F05D4A26E6049F00800232 /* BrandingFactory.m in Sources */,
 				D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */,
 				D4F05D3426E5EBA200800232 /* CanvasView.m in Sources */,
+				D4F05D5726E6060F00800232 /* AcmeView.m in Sources */,
 				D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,
+				D4458A5E26EF3D1C009B7500 /* XNBlockModel.m in Sources */,
 				D4F05D4626E5ED4C00800232 /* CanvasViewController.m in Sources */,
 				D4F05D4326E5ED0300800232 /* ClothCanvasViewGenerator.m in Sources */,
 				D4C3273026D8D1CE0079FAD3 /* XNFourthViewController.m in Sources */,
 				D4C3270F26D8879D0079FAD3 /* ImageFilter.m in Sources */,
+				D4F05D6B26E606FF00800232 /* SierraButton.m in Sources */,
 				D4FA703426E1BCF900F5C3DE /* Stroke.m in Sources */,
 				D4F05D3A26E5EBDD00800232 /* PaperCanvasView.m in Sources */,
 				D4C3223A26D497F60079FAD3 /* NSTimer+YYAdd.m in Sources */,
 				D4C3272426D8CB460079FAD3 /* LYImageBrowserView.m in Sources */,
+				D4F05D4D26E6055100800232 /* AcmeBrandingFactory.m in Sources */,
 				D4C3271826D887AC0079FAD3 /* UIImage+BaseFilter.m in Sources */,
 				D4C3271C26D887BD0079FAD3 /* DecoratorViewController.m in Sources */,
 			);

@@ -1,0 +1,9 @@
+@startuml  XNImageBrowserViewController
+
+class  XNImageBrowserViewController
+class XNImageBrowserView
+
+XNImageBrowserViewController --> XNImageBrowserView
+
+
+@enduml 

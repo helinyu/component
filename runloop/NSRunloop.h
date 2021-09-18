@@ -44,6 +44,16 @@ FOUNDATION_EXPORT NSRunLoopMode const NSRunLoopCommonModes API_AVAILABLE(macos(1
 
 @end
 
+//  runloop里面涉及到的内容
+//  1） timer
+//  2） port
+//  3） 执行和时间的关系
+//  NSRunloop 只是暴露一下简单的内容
+
+//  runloop的一些分类方法
+//  1） 执行的遍历
+//  2)  延迟执行
+//  3)  顺序执行 （用得比较少）
 @interface NSRunLoop (NSRunLoopConveniences)
 
 - (void)run;  // 当前就运行

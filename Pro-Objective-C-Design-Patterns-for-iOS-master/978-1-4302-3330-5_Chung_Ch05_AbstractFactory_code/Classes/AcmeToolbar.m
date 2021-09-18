@@ -8,7 +8,6 @@
 
 #import "AcmeToolbar.h"
 
-
 @implementation AcmeToolbar
 
 @end

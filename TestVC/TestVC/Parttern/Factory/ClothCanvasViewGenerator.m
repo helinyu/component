@@ -6,7 +6,12 @@
 //
 
 #import "ClothCanvasViewGenerator.h"
+#import "ClothCanvasView.h"
 
 @implementation ClothCanvasViewGenerator
+
+- (CanvasView *)canvasViewWithFrame:(CGRect)aframe {
+    return [[ClothCanvasView alloc] initWithFrame:aframe];
+}
 
 @end

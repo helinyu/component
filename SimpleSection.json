@@ -1,0 +1,64 @@
+
+SimpleSection.o:	file format mach-o 64-bit x86-64
+
+Contents of section __text:
+ 0000 554889e5 4883ec10 897dfc8b 75fc488d  UH..H....}..u.H.
+ 0010 3d5b0000 00b000e8 00000000 4883c410  =[..........H...
+ 0020 5dc3662e 0f1f8400 00000000 0f1f4000  ].f...........@.
+ 0030 554889e5 4883ec10 c745fc00 000000c7  UH..H....E......
+ 0040 45f80100 00008b05 00000000 03050000  E...............
+ 0050 00000345 f80345f4 89c7e800 0000008b  ...E..E.........
+ 0060 45f84883 c4105dc3                    E.H...].
+Contents of section __data:
+ 0068 54000000 55000000                    T...U...
+Contents of section __cstring:
+ 0070 2564200a 00                          %d ..
+Contents of section __bss:
+<skipping contents of bss section at [0120, 0124)>
+Contents of section __compact_unwind:
+ 0078 00000000 00000000 22000000 00000001  ........".......
+ 0088 00000000 00000000 00000000 00000000  ................
+ 0098 30000000 00000000 38000000 00000001  0.......8.......
+ 00a8 00000000 00000000 00000000 00000000  ................
+Contents of section __eh_frame:
+ 00b8 14000000 00000000 017a5200 01781001  .........zR..x..
+ 00c8 100c0708 90010000 24000000 1c000000  ........$.......
+ 00d8 28ffffff ffffffff 22000000 00000000  (.......".......
+ 00e8 00410e10 8602430d 06000000 00000000  .A....C.........
+ 00f8 24000000 44000000 30ffffff ffffffff  $...D...0.......
+ 0108 38000000 00000000 00410e10 8602430d  8........A....C.
+ 0118 06000000 00000000                    ........
+
+Disassembly of section __TEXT,__text:
+
+0000000000000000 <_func1>:
+       0: 55                           	pushq	%rbp
+       1: 48 89 e5                     	movq	%rsp, %rbp
+       4: 48 83 ec 10                  	subq	$16, %rsp
+       8: 89 7d fc                     	movl	%edi, -4(%rbp)
+       b: 8b 75 fc                     	movl	-4(%rbp), %esi
+       e: 48 8d 3d 5b 00 00 00         	leaq	91(%rip), %rdi  # 70 <_main+0x40>
+      15: b0 00                        	movb	$0, %al
+      17: e8 00 00 00 00               	callq	0x1c <_func1+0x1c>
+      1c: 48 83 c4 10                  	addq	$16, %rsp
+      20: 5d                           	popq	%rbp
+      21: c3                           	retq
+      22: 66 2e 0f 1f 84 00 00 00 00 00	nopw	%cs:(%rax,%rax)
+      2c: 0f 1f 40 00                  	nopl	(%rax)
+
+0000000000000030 <_main>:
+      30: 55                           	pushq	%rbp
+      31: 48 89 e5                     	movq	%rsp, %rbp
+      34: 48 83 ec 10                  	subq	$16, %rsp
+      38: c7 45 fc 00 00 00 00         	movl	$0, -4(%rbp)
+      3f: c7 45 f8 01 00 00 00         	movl	$1, -8(%rbp)
+      46: 8b 05 00 00 00 00            	movl	(%rip), %eax  # 4c <_main+0x1c>
+      4c: 03 05 00 00 00 00            	addl	(%rip), %eax  # 52 <_main+0x22>
+      52: 03 45 f8                     	addl	-8(%rbp), %eax
+      55: 03 45 f4                     	addl	-12(%rbp), %eax
+      58: 89 c7                        	movl	%eax, %edi
+      5a: e8 00 00 00 00               	callq	0x5f <_main+0x2f>
+      5f: 8b 45 f8                     	movl	-8(%rbp), %eax
+      62: 48 83 c4 10                  	addq	$16, %rsp
+      66: 5d                           	popq	%rbp
+      67: c3                           	retq

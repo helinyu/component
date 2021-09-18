@@ -6,7 +6,12 @@
 //
 
 #import "PaperCanvasViewGenerator.h"
+#import "PaperCanvasView.h"
 
 @implementation PaperCanvasViewGenerator
+
+- (CanvasView *)canvasViewWithFrame:(CGRect)aframe {
+    return [[PaperCanvasView alloc] initWithFrame:aframe];
+}
 
 @end
