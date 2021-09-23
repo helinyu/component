@@ -41,11 +41,13 @@ extern "C" {
  * A structure representing a particular intended rebinding from a symbol
  * name to its replacement
  */
+// 绑定的结构体
 struct rebinding {
-  const char *name;
-  void *replacement;
-  void **replaced;
+  const char *name; // 符号的名字
+  void *replacement; // 替换的字符串
+  void **replaced; // 被替换的字符串
 };
+// replacement 和 replaced 不太确定这个指的是什么？
 
 /*
  * For each rebinding in rebindings, rebinds references to external, indirect
@@ -55,6 +57,12 @@ struct rebinding {
  * rebind are added to the existing list of rebindings, and if a given symbol
  * is rebound more than once, the later rebinding will take precedence.
  */
+// 重新绑定符号
+// rebinding 就是重定位的符号表
+// 这个绑定是， 对rebindings 里面的没给rebinding进行绑定，
+// rebindings_nel
+// 这里面的重新绑定，后面的绑定会覆盖掉前面的绑定
+// rebindings_nel：绑定实体的绑定数组大小
 FISHHOOK_VISIBILITY
 int rebind_symbols(struct rebinding rebindings[], size_t rebindings_nel);
 
@@ -62,6 +70,11 @@ int rebind_symbols(struct rebinding rebindings[], size_t rebindings_nel);
  * Rebinds as above, but only in the specified image. The header should point
  * to the mach-o header, the slide should be the slide offset. Others as above.
  */
+// 只在一个指定的映射。
+// header: header应该指定到一个mach-o 的头部，
+// slide 距离头部的距离
+// header 映射文件的头部， slide offset ， rebindings就是符号表数组 ， rebindings_nel 就是绑定的nel
+//
 FISHHOOK_VISIBILITY
 int rebind_symbols_image(void *header,
                          intptr_t slide,

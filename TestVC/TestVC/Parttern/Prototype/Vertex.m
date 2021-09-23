@@ -59,7 +59,9 @@
 
 - (id)copyWithZone:(NSZone *)zone;
 {
-    return [[[self class] allocWithZone:zone] initWithLocation:self.location];
+    Vertex *tex = [Vertex new];
+    tex = [tex initWithLocation:self.location];
+    return tex;
 }
 
 @end

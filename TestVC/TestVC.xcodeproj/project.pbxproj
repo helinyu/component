@@ -10,6 +10,7 @@
 		042B54DBE916E24854E374CC /* Pods_TestVCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5EC2816AEDE1ED7730B8830 /* Pods_TestVCTests.framework */; };
 		0F27E8EDE77462DB528F562C /* Pods_TestVC_TestVCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA1F205837650F6CD0AE8FB /* Pods_TestVC_TestVCUITests.framework */; };
 		3452FD2B34F89EA14602E1C4 /* Pods_TestVC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF93E68E22E92680134246B4 /* Pods_TestVC.framework */; };
+		D4190DE726FC7CA7009CFCD4 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = D4190DE526FC7CA7009CFCD4 /* fishhook.c */; };
 		D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B53F726CBB13E002C3C9D /* SecondViewController.m */; };
 		D4458A5E26EF3D1C009B7500 /* XNBlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A5D26EF3D1C009B7500 /* XNBlockModel.m */; };
 		D4458A8826F4B222009B7500 /* MyWorkerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A8726F4B222009B7500 /* MyWorkerClass.m */; };
@@ -102,6 +103,8 @@
 		BBA1F205837650F6CD0AE8FB /* Pods_TestVC_TestVCUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestVC_TestVCUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88B21B7E7FFB9DA290BA6A8 /* Pods-TestVCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVCTests.release.xcconfig"; path = "Target Support Files/Pods-TestVCTests/Pods-TestVCTests.release.xcconfig"; sourceTree = "<group>"; };
 		D1CDCF0445AADAED3784DFDB /* Pods-TestVC-TestVCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC-TestVCUITests.release.xcconfig"; path = "Target Support Files/Pods-TestVC-TestVCUITests/Pods-TestVC-TestVCUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D4190DE526FC7CA7009CFCD4 /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		D4190DE626FC7CA7009CFCD4 /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
 		D42B53F626CBB13E002C3C9D /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		D42B53F726CBB13E002C3C9D /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		D4458A5C26EF3D1C009B7500 /* XNBlockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNBlockModel.h; sourceTree = "<group>"; };
@@ -281,6 +284,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		D4190DE426FC7CA7009CFCD4 /* fishhook */ = {
+			isa = PBXGroup;
+			children = (
+				D4190DE626FC7CA7009CFCD4 /* fishhook.h */,
+				D4190DE526FC7CA7009CFCD4 /* fishhook.c */,
+			);
+			name = fishhook;
+			path = ../../fishhook;
+			sourceTree = "<group>";
+		};
 		D47C80B326B24E2200880F06 = {
 			isa = PBXGroup;
 			children = (
@@ -306,6 +319,7 @@
 		D47C80BE26B24E2200880F06 /* TestVC */ = {
 			isa = PBXGroup;
 			children = (
+				D4190DE426FC7CA7009CFCD4 /* fishhook */,
 				D4FDD4EC26E10511009D3661 /* Parttern */,
 				D4C326CE26D8875E0079FAD3 /* Descorators */,
 				D4C326CD26D87F310079FAD3 /* LYImageBrowser */,
@@ -818,6 +832,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4C3270D26D8879D0079FAD3 /* ImageTransformFilter.m in Sources */,
+				D4190DE726FC7CA7009CFCD4 /* fishhook.c in Sources */,
 				D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */,
 				D4F05D9C26E85BB800800232 /* Man.m in Sources */,
 				D4C3271926D887AC0079FAD3 /* UIImage+Transform.m in Sources */,

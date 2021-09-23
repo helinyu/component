@@ -115,6 +115,7 @@
     {
         XNFiveViewViewController *vc = [XNFiveViewViewController new];
         [self.navigationController pushViewController:vc animated:YES];
+        return;
     }
     
     {

@@ -54,31 +54,37 @@ typedef struct nlist nlist_t;
 #define SEG_DATA_CONST  "__DATA_CONST"
 #endif
 
+//重新绑定的实体
 struct rebindings_entry {
-  struct rebinding *rebindings;
-  size_t rebindings_nel;
-  struct rebindings_entry *next;
+  struct rebinding *rebindings; // 重新绑定的数组， 通过索引的方式进行获取的
+  size_t rebindings_nel; // 重新绑定的nel
+  struct rebindings_entry *next; // 下一个的指针，绑定实体的指针
 };
 
+// 重新绑定的头部
 static struct rebindings_entry *_rebindings_head;
 
+// 预先绑定
+// 宠幸绑定的头部 、重新绑定的数组
+// nel
+// 预处理绑定
 static int prepend_rebindings(struct rebindings_entry **rebindings_head,
                               struct rebinding rebindings[],
                               size_t nel) {
-  struct rebindings_entry *new_entry = (struct rebindings_entry *) malloc(sizeof(struct rebindings_entry));
-  if (!new_entry) {
-    return -1;
-  }
-  new_entry->rebindings = (struct rebinding *) malloc(sizeof(struct rebinding) * nel);
-  if (!new_entry->rebindings) {
-    free(new_entry);
-    return -1;
-  }
-  memcpy(new_entry->rebindings, rebindings, sizeof(struct rebinding) * nel);
-  new_entry->rebindings_nel = nel;
-  new_entry->next = *rebindings_head;
-  *rebindings_head = new_entry;
-  return 0;
+    struct rebindings_entry *new_entry = (struct rebindings_entry *) malloc(sizeof(struct rebindings_entry)); // 新的实体
+    if (!new_entry) {
+        return -1;
+    }
+    new_entry->rebindings = (struct rebinding *)malloc(sizeof(struct rebinding) * nel);
+    if (!new_entry->rebindings) {
+        free(new_entry);
+        return -1;
+    }
+    memcpy(new_entry->rebindings, rebindings, sizeof(struct rebinding) * nel); // 将绑定的数组拷贝到这个实体里面
+    new_entry->rebindings_nel = nel;
+    new_entry->next = *rebindings_head;
+    *rebindings_head = new_entry;
+    return 0;
 }
 
 static vm_prot_t get_protection(void *sectionStart) {
@@ -219,6 +225,7 @@ static void rebind_symbols_for_image(struct rebindings_entry *rebindings,
   }
 }
 
+// 重新绑定符号给映射文件
 static void _rebind_symbols_for_image(const struct mach_header *header,
                                       intptr_t slide) {
     rebind_symbols_for_image(_rebindings_head, header, slide);
@@ -243,13 +250,16 @@ int rebind_symbols(struct rebinding rebindings[], size_t rebindings_nel) {
   if (retval < 0) {
     return retval;
   }
-  // If this was the first call, register callback for image additions (which is also invoked for
-  // existing images, otherwise, just run on existing images
+    
+   // 通过预绑定
+   //
+  // If this was the first call, register callback for image additions (which is also invoked for existing images, otherwise, just run on existing images
   if (!_rebindings_head->next) {
-    _dyld_register_func_for_add_image(_rebind_symbols_for_image);
+    _dyld_register_func_for_add_image(_rebind_symbols_for_image); // 给对应的映射进行注册方法
   } else {
     uint32_t c = _dyld_image_count();
     for (uint32_t i = 0; i < c; i++) {
+    // 这里重新绑定映射
       _rebind_symbols_for_image(_dyld_get_image_header(i), _dyld_get_image_vmaddr_slide(i));
     }
   }
