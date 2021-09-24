@@ -64,6 +64,8 @@
  */
 
 
+@ 从这里面开始执行有关的动态加载
+
 #include <TargetConditionals.h>
 
 	.globl __dyld_start
@@ -83,6 +85,7 @@ __dyld_start:
 L__dyld_start_picbase:
 	popl	%ebx		# set %ebx to runtime value of picbase
 
+@  也就是调用了 dyldbootstrap 方法
 	# call dyldbootstrap::start(app_mh, argc, argv, dyld_mh, &startGlue)
    	subl	$L__dyld_start_picbase-__dyld_start, %ebx # ebx = &__dyld_start
 	subl	$0x1000, %ebx	# ebx = load address of dyld

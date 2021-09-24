@@ -150,12 +150,12 @@ extern bool _dyld_shared_cache_contains_path(const char* path)               __A
  *    NSLinkModule                         -> not needed when dlopen used
  *    NSUnLinkModule                       -> not needed when dlclose used
  *    NSLookupSymbolInModule               -> dlsym
- *    _dyld_image_containing_address       -> dladdr
+ *    _dyld_image_containing_address       -> dladdr // 有没有包括这个地址
  *    NSLinkEditError                      -> dlerror
  *
  */
 
-#ifndef ENUM_DYLD_BOOL
+    #ifndef ENUM_DYLD_BOOL
 #define ENUM_DYLD_BOOL
   #undef FALSE
   #undef TRUE
@@ -177,9 +177,10 @@ typedef enum {
 typedef struct __NSObjectFileImage* NSObjectFileImage;
 
 
-
+// NSObjectFileImage 用于bundle的文件
 /* NSObjectFileImage can only be used with MH_BUNDLE files */
-// MH_BUNDLE文件
+// MH_BUNDLE文件 , 这个额就是bundle的有关方法
+//https://justinyan.me/post/4125
 extern NSObjectFileImageReturnCode NSCreateObjectFileImageFromFile(const char* pathName, NSObjectFileImage *objectFileImage)               __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlopen()");
 extern NSObjectFileImageReturnCode NSCreateObjectFileImageFromMemory(const void *address, size_t size, NSObjectFileImage *objectFileImage) __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "");
 extern bool                        NSDestroyObjectFileImage(NSObjectFileImage objectFileImage)                                             __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlclose()");
@@ -208,6 +209,7 @@ extern bool NSUnLinkModule(NSModule module, uint32_t options) __API_UNAVAILABLE(
 #define NSUNLINKMODULE_OPTION_KEEP_MEMORY_MAPPED    0x1
 #define NSUNLINKMODULE_OPTION_RESET_LAZY_REFERENCES	0x2
 
+// 符号的API
 /* symbol API */
 typedef struct __NSSymbol* NSSymbol;
 extern bool     NSIsSymbolNameDefined(const char* symbolName)                                                    __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
@@ -226,6 +228,7 @@ extern void *       NSAddressOfSymbol(NSSymbol symbol) __API_UNAVAILABLE(ios, tv
 extern NSModule     NSModuleForSymbol(NSSymbol symbol) __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dladdr()");
 
 /* error handling API */
+// 错误的类型
 typedef enum {
     NSLinkEditFileAccessError,
     NSLinkEditFileFormatError,
@@ -271,6 +274,7 @@ extern const struct mach_header* NSAddImage(const char* image_name, uint32_t opt
 #define NSADDIMAGE_OPTION_RETURN_ONLY_IF_LOADED 	0x4
 #define NSADDIMAGE_OPTION_MATCH_FILENAME_BY_INSTALLNAME	0x8
 
+// dyld显示， 启动、 有关内容
 extern bool _dyld_present(void)                                                              __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "always true");
 extern bool _dyld_launched_prebound(void)                                                    __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "moot");
 extern bool _dyld_all_twolevel_modules_prebound(void)                                        __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "moot");
@@ -280,6 +284,7 @@ extern void _dyld_lookup_and_bind(const char* symbol_name, void **address, NSMod
 extern void _dyld_lookup_and_bind_with_hint(const char* symbol_name, const char* library_name_hint, void** address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.4, "dlsym()");
 extern void _dyld_lookup_and_bind_fully(const char* symbol_name, void** address, NSModule* module) __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.1, 10.5, "dlsym()");
 
+// 通过地址来获取头文件
 extern const struct mach_header*  _dyld_get_image_header_containing_address(const void* address) __API_UNAVAILABLE(ios, tvos, watchos)  DYLD_DRIVERKIT_UNAVAILABLE  __OSX_DEPRECATED(10.3, 10.5, "dladdr()");
 
 

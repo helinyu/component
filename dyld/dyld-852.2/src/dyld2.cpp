@@ -6493,6 +6493,8 @@ static ClosureMode getPlatformDefaultClosureMode() {
 //
 // Returns address of main() in target program which __dyld_start jumps to
 //
+//  跳转了这个地方
+//  主函数
 uintptr_t
 _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide, 
 		int argc, const char* argv[], const char* envp[], const char* apple[], 
@@ -6527,6 +6529,7 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 			mainExecutableCDHash = mainExecutableCDHashBuffer;
 	}
 
+// 获取当前运行架构的信息
 	getHostInfo(mainExecutableMH, mainExecutableSlide);
 
 #if !TARGET_OS_SIMULATOR
@@ -6537,8 +6540,8 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 #endif
 
 	uintptr_t result = 0;
-	sMainExecutableMachHeader = mainExecutableMH;
-	sMainExecutableSlide = mainExecutableSlide;
+	sMainExecutableMachHeader = mainExecutableMH; // 保存执行文件头部， 后续可以根据头部访问其他信息
+	sMainExecutableSlide = mainExecutableSlide; 
 
 
 	// Set the platform ID in the all image infos so debuggers can tell the process type
@@ -6607,9 +6610,11 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 
 	CRSetCrashLogMessage("dyld: launch started");
 
+//  设置上下文信息
 	setContext(mainExecutableMH, argc, argv, envp, apple);
 
 	// Pickup the pointer to the exec path.
+	//  获取可执行文件的路径
 	sExecPath = _simple_getenv(apple, "executable_path");
 
 	// <rdar://problem/13868260> Remove interim apple[0] transition code from dyld
@@ -6626,6 +6631,7 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 	}
 #endif
 
+// 将相对路径转换成绝对路径
 	if ( sExecPath[0] != '/' ) {
 		// have relative path, use cwd to make absolute
 		char cwdbuff[MAXPATHLEN];
@@ -6641,6 +6647,7 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 
 	// Remember short name of process for later logging
 	sExecShortName = ::strrchr(sExecPath, '/');
+	//  获取文件的名字
 	if ( sExecShortName != NULL )
 		++sExecShortName;
 	else
@@ -6657,6 +6664,7 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 	}
 #endif
 
+//  配置进程是否受限
     configureProcessRestrictions(mainExecutableMH, envp);
 
 	// Check if we should force dyld3.  Note we have to do this outside of the regular env parsing due to AMFI
@@ -6717,6 +6725,7 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 	else
 #endif
 	{
+		//  检查设置环境变量
 		checkEnvironmentVariables(envp);
 		defaultUninitializedFallbackPaths(envp);
 	}
@@ -6741,8 +6750,10 @@ _main(const macho_header* mainExecutableMH, uintptr_t mainExecutableSlide,
 			break;
 	}
 #endif
+//  如果设置了DYLD_PRINT_OPTS 环境变量，则打印参数
 	if ( sEnv.DYLD_PRINT_OPTS )
 		printOptions(argv);
+		//  如果设置DYLD_PRINT_ENV 环境变量，则打印环境变量
 	if ( sEnv.DYLD_PRINT_ENV ) 
 		printEnvironmentVariables(envp);
 
