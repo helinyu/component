@@ -13,7 +13,8 @@
 @synthesize size;
 
 - (id)copyWithZone:(NSZone *)zone {
-    Dot *copy = [[[self class] allocWithZone:zone] initWithLocation:self.location];
+    Dot *copy = [Dot new];
+    copy = [copy initWithLocation:self.location];
 //     复制颜色, 相当于重新创建一个颜色对象
     [copy setColor:[UIColor colorWithCGColor:[self.color CGColor]]];
     

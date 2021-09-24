@@ -225,7 +225,8 @@ static void rebind_symbols_for_image(struct rebindings_entry *rebindings,
   }
 }
 
-// 重新绑定符号给映射文件
+// 这个方法是是动态绑定的回调
+// 用于重新绑定
 static void _rebind_symbols_for_image(const struct mach_header *header,
                                       intptr_t slide) {
     rebind_symbols_for_image(_rebindings_head, header, slide);
@@ -246,22 +247,20 @@ int rebind_symbols_image(void *header,
 }
 
 int rebind_symbols(struct rebinding rebindings[], size_t rebindings_nel) {
-  int retval = prepend_rebindings(&_rebindings_head, rebindings, rebindings_nel);
-  if (retval < 0) {
-    return retval;
-  }
-    
-   // 通过预绑定
-   //
-  // If this was the first call, register callback for image additions (which is also invoked for existing images, otherwise, just run on existing images
-  if (!_rebindings_head->next) {
-    _dyld_register_func_for_add_image(_rebind_symbols_for_image); // 给对应的映射进行注册方法
-  } else {
-    uint32_t c = _dyld_image_count();
-    for (uint32_t i = 0; i < c; i++) {
-    // 这里重新绑定映射
-      _rebind_symbols_for_image(_dyld_get_image_header(i), _dyld_get_image_vmaddr_slide(i));
+    int retval = prepend_rebindings(&_rebindings_head, rebindings, rebindings_nel);
+    if (retval < 0) {
+        return retval;
     }
-  }
-  return retval;
+    
+    // If this was the first call, register callback for image additions (which is also invoked for existing images, otherwise, just run on existing images
+    // 
+    if (!_rebindings_head->next) {
+        _dyld_register_func_for_add_image(_rebind_symbols_for_image); // 给对应的映射进行注册方法
+    } else {
+        uint32_t c = _dyld_image_count();
+        for (uint32_t i = 0; i < c; i++) {
+            _rebind_symbols_for_image(_dyld_get_image_header(i), _dyld_get_image_vmaddr_slide(i));
+        }
+    }
+    return retval;
 }
