@@ -17,12 +17,17 @@ NSURLProtectionSpace 保护空间
 NSURLProtocolClient 接口
 NSURLProtocol  抽象类
 
-
 NSURLRequest 请求的准备对象
 NSURLResponse url的响应
 NSURLSession url的回话，基本上是用来替换NSURLConnection
 
-通过AFNetworking的内容来查看有关的处理。 
+NSURLSessionConfiguration 回话的配置
+
+NSURLSessionTaskMetrics 统计https请求过程哪个过程是缓慢的
+
+
+
+
 
 
 

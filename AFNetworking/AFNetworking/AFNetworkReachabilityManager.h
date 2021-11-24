@@ -21,6 +21,12 @@
 
 #import <Foundation/Foundation.h>
 
+//其实这里面是很简单的，这个里面就是监控有关的网络的状况，
+//主要是SCNetWork 这个类的处理内容， 这个看看以后有什么先
+
+//1、监控网络
+//2、kvc 里面的新的应用， 这个多点了解
+
 #if !TARGET_OS_WATCH
 #import <SystemConfiguration/SystemConfiguration.h>
 

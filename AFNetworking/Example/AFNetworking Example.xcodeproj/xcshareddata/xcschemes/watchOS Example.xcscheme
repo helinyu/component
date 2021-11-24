@@ -94,8 +94,10 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/iOS Example">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "291BFDB81BB9E85400FFB029"
@@ -103,7 +105,7 @@
             BlueprintName = "watchOS Example"
             ReferencedContainer = "container:AFNetworking Example.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
       <AdditionalOptions>
          <AdditionalOption
             key = "NSZombieEnabled"
@@ -118,8 +120,10 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/iOS Example">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "291BFDB81BB9E85400FFB029"
@@ -127,7 +131,16 @@
             BlueprintName = "watchOS Example"
             ReferencedContainer = "container:AFNetworking Example.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "291BFDB81BB9E85400FFB029"
+            BuildableName = "watchOS Example.app"
+            BlueprintName = "watchOS Example"
+            ReferencedContainer = "container:AFNetworking Example.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

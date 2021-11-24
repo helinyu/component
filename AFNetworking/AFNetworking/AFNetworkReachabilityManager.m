@@ -146,6 +146,7 @@ static void AFNetworkReachabilityReleaseCallback(const void *info) {
 
 + (instancetype)manager
 {
+//  iOS 9 之后为啥子使用了ipv6， 是不是ipv6包括了ipv4？
 #if (defined(__IPHONE_OS_VERSION_MIN_REQUIRED) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 90000) || (defined(__MAC_OS_X_VERSION_MIN_REQUIRED) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101100)
     struct sockaddr_in6 address;
     bzero(&address, sizeof(address));

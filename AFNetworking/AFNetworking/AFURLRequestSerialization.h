@@ -197,9 +197,8 @@ forHTTPHeaderField:(NSString *)field;
 /// @name Configuring Query String Parameter Serialization
 ///-------------------------------------------------------
 
-/**
- HTTP methods for which serialized requests will encode parameters as a query string. `GET`, `HEAD`, and `DELETE` by default.
- */
+// 默认： `GET`, `HEAD`, and `DELETE`
+// http 编码参数在URI中的方法 ， 也就是参数在URI中需要编码
 @property (nonatomic, strong) NSSet <NSString *> *HTTPMethodsEncodingParametersInURI;
 
 /**
@@ -377,50 +376,57 @@ forHTTPHeaderField:(NSString *)field;
 
 #pragma mark -
 
-/**
- `AFJSONRequestSerializer` is a subclass of `AFHTTPRequestSerializer` that encodes parameters as JSON using `NSJSONSerialization`, setting the `Content-Type` of the encoded request to `application/json`.
- */
+// 设置Content-Type=application/json ， 使用NSJSONSerialization来进行编码
 @interface AFJSONRequestSerializer : AFHTTPRequestSerializer
 
-/**
- Options for writing the request JSON data from Foundation objects. For possible values, see the `NSJSONSerialization` documentation section "NSJSONWritingOptions". `0` by default.
- */
+// json写的选项
+//typedef NS_OPTIONS(NSUInteger, NSJSONWritingOptions) {
+//指定输出使用空白和缩进使生成的数据更具可读性。
+//    NSJSONWritingPrettyPrinted = (1UL << 0),
+
+// 具有排序的功能 ，通过系统本地，通过NSNumericSearch 来进行排序
+//    NSJSONWritingSortedKeys API_AVAILABLE(macos(10.13), ios(11.0), watchos(4.0), tvos(11.0)) = (1UL << 1),
+
+//指定解析的应该是顶级的对象，而不是数组或者字典
+//    NSJSONWritingFragmentsAllowed = (1UL << 2),
+
+//指定输出不使用转义字符作为斜杠字符的前缀。
+//    NSJSONWritingWithoutEscapingSlashes API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0)) = (1UL << 3),
+//};
+
+// 从对象中协成json数据。 默认是0
 @property (nonatomic, assign) NSJSONWritingOptions writingOptions;
 
-/**
- Creates and returns a JSON serializer with specified reading and writing options.
-
- @param writingOptions The specified JSON writing options.
- */
+// 系列化初始化方法
 + (instancetype)serializerWithWritingOptions:(NSJSONWritingOptions)writingOptions;
 
 @end
 
 #pragma mark -
 
-/**
- `AFPropertyListRequestSerializer` is a subclass of `AFHTTPRequestSerializer` that encodes parameters as JSON using `NSPropertyListSerializer`, setting the `Content-Type` of the encoded request to `application/x-plist`.
- */
+
+// 继承 AFHTTPRequestSerializer 和 json类似使用了NSPropertyListSerializer ，
+// 设置Content-Type=application/x-plist
+// 这个东西有待去研究一下
+// propertylist的请求系列化
 @interface AFPropertyListRequestSerializer : AFHTTPRequestSerializer
 
-/**
- The property list format. Possible values are described in "NSPropertyListFormat".
- */
+// list的类型：
+//typedef NS_ENUM(NSUInteger, NSPropertyListFormat) {
+//    NSPropertyListOpenStepFormat = kCFPropertyListOpenStepFormat, // 打开的格式， 常规格式
+//    NSPropertyListXMLFormat_v1_0 = kCFPropertyListXMLFormat_v1_0, // xml格式
+//    NSPropertyListBinaryFormat_v1_0 = kCFPropertyListBinaryFormat_v1_0 // 二进制格式
+//};
 @property (nonatomic, assign) NSPropertyListFormat format;
 
+
 /**
  @warning The `writeOptions` property is currently unused.
  */
+// 目前不适用了， 不过是一个写的额选项，默认0 就行了
 @property (nonatomic, assign) NSPropertyListWriteOptions writeOptions;
 
-/**
- Creates and returns a property list serializer with a specified format, read options, and write options.
-
- @param format The property list format.
- @param writeOptions The property list write options.
-
- @warning The `writeOptions` property is currently unused.
- */
+// 创建一个serializer
 + (instancetype)serializerWithFormat:(NSPropertyListFormat)format
                         writeOptions:(NSPropertyListWriteOptions)writeOptions;
 

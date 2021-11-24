@@ -1013,20 +1013,25 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
 
 #pragma mark -
 
+// http 主体部分
+
+// 这里为什么有第一个和第4个？
 typedef enum {
-    AFEncapsulationBoundaryPhase = 1,
-    AFHeaderPhase                = 2,
-    AFBodyPhase                  = 3,
-    AFFinalBoundaryPhase         = 4,
+    AFEncapsulationBoundaryPhase = 1, // 封装边界段
+    AFHeaderPhase                = 2, // 头部
+    AFBodyPhase                  = 3, // 主体
+    AFFinalBoundaryPhase         = 4, // 最后边界段
 } AFHTTPBodyPartReadPhase;
 
 @interface AFHTTPBodyPart () <NSCopying> {
-    AFHTTPBodyPartReadPhase _phase;
-    NSInputStream *_inputStream;
-    unsigned long long _phaseReadOffset;
+    AFHTTPBodyPartReadPhase _phase; // 段
+    NSInputStream *_inputStream; // 输入的流
+    unsigned long long _phaseReadOffset; // 段读的偏移量
 }
 
-- (BOOL)transitionToNextPhase;
+- (BOOL)transitionToNextPhase; // 转换到下个段
+
+// 读数据的数目
 - (NSInteger)readData:(NSData *)data
            intoBuffer:(uint8_t *)buffer
             maxLength:(NSUInteger)length;
@@ -1040,7 +1045,7 @@ typedef enum {
         return nil;
     }
 
-    [self transitionToNextPhase];
+    [self transitionToNextPhase]; // 下一个段
 
     return self;
 }
@@ -1052,6 +1057,7 @@ typedef enum {
     }
 }
 
+// 获取输入流
 - (NSInputStream *)inputStream {
     if (!_inputStream) {
         if ([self.body isKindOfClass:[NSData class]]) {
@@ -1068,6 +1074,7 @@ typedef enum {
     return _inputStream;
 }
 
+// 头部的字符串
 - (NSString *)stringForHeaders {
     NSMutableString *headerString = [NSMutableString string];
     for (NSString *field in [self.headers allKeys]) {
@@ -1078,9 +1085,11 @@ typedef enum {
     return [NSString stringWithString:headerString];
 }
 
+// 内容的长度
 - (unsigned long long)contentLength {
     unsigned long long length = 0;
 
+//     这个获取这个请求内容的长度 ， 看看是否有对应的边界来进行处理的
     NSData *encapsulationBoundaryData = [([self hasInitialBoundary] ? AFMultipartFormInitialBoundary(self.boundary) : AFMultipartFormEncapsulationBoundary(self.boundary)) dataUsingEncoding:self.stringEncoding];
     length += [encapsulationBoundaryData length];
 
@@ -1241,12 +1250,14 @@ typedef enum {
 {
     NSParameterAssert(request);
 
+//拼接在url的参数， 直接使用了父类的组织方式
     if ([self.HTTPMethodsEncodingParametersInURI containsObject:[[request HTTPMethod] uppercaseString]]) {
         return [super requestBySerializingRequest:request withParameters:parameters error:error];
     }
 
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
 
+//     头部
     [self.HTTPRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id field, id value, BOOL * __unused stop) {
         if (![request valueForHTTPHeaderField:field]) {
             [mutableRequest setValue:value forHTTPHeaderField:field];
@@ -1266,6 +1277,7 @@ typedef enum {
             return nil;
         }
 
+//         转化为对应的data
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:parameters options:self.writingOptions error:error];
         
         if (!jsonData) {
@@ -1273,6 +1285,7 @@ typedef enum {
         }
         
         [mutableRequest setHTTPBody:jsonData];
+//         设置请求主体
     }
 
     return mutableRequest;
@@ -1334,12 +1347,16 @@ typedef enum {
 {
     NSParameterAssert(request);
 
+// 参数是在http链接上的
     if ([self.HTTPMethodsEncodingParametersInURI containsObject:[[request HTTPMethod] uppercaseString]]) {
+//         调用了父类
         return [super requestBySerializingRequest:request withParameters:parameters error:error];
     }
 
+//     加入我的request是post的方式的时候
     NSMutableURLRequest *mutableRequest = [request mutableCopy];
 
+//     http的头部设置
     [self.HTTPRequestHeaders enumerateKeysAndObjectsUsingBlock:^(id field, id value, BOOL * __unused stop) {
         if (![request valueForHTTPHeaderField:field]) {
             [mutableRequest setValue:value forHTTPHeaderField:field];
@@ -1347,6 +1364,8 @@ typedef enum {
     }];
 
     if (parameters) {
+        
+//         没有指定，就设置为x-plist的
         if (![mutableRequest valueForHTTPHeaderField:@"Content-Type"]) {
             [mutableRequest setValue:@"application/x-plist" forHTTPHeaderField:@"Content-Type"];
         }
@@ -1358,6 +1377,7 @@ typedef enum {
         }
         
         [mutableRequest setHTTPBody:plistData];
+        // 请求体的内容
     }
 
     return mutableRequest;
