@@ -20,6 +20,7 @@
 // THE SOFTWARE.
 
 import UIKit
+import AFNetworking
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 
@@ -37,6 +38,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             )
 
             gravatars.append(gravatar)
+        }
+        
+        {
+            let mgr = AFNetworkReachabilityManager.shared();
+            mgr.setReachabilityStatusChange { status in
+                print(status)
+                mgr.stop();
+            }
+            mgr.start()
         }
     }
 
