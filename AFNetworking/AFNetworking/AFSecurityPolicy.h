@@ -24,14 +24,15 @@
 
 typedef NS_ENUM(NSUInteger, AFSSLPinningMode) {
     AFSSLPinningModeNone,
-    AFSSLPinningModePublicKey,
-    AFSSLPinningModeCertificate,
+    AFSSLPinningModePublicKey, // 公钥
+    AFSSLPinningModeCertificate, // 证书
 };
 
 /**
+ X.509 是密码学里公钥证书的格式标准
  `AFSecurityPolicy` evaluates server trust against pinned X.509 certificates and public keys over secure connections.
 
- Adding pinned SSL certificates to your app helps prevent man-in-the-middle attacks and other vulnerabilities. Applications dealing with sensitive customer data or financial information are strongly encouraged to route all communication over an HTTPS connection with SSL pinning configured and enabled.
+ Adding pinned SSL certificates to your app helps prevent man-in-the-middle attacks and other vulnerabilities（弱点）. Applications dealing with sensitive customer data or financial information are strongly encouraged to route all communication over an HTTPS connection with SSL pinning configured and enabled.
  */
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,8 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AFSecurityPolicy : NSObject <NSSecureCoding, NSCopying>
 
 /**
- The criteria by which server trust should be evaluated against the pinned SSL certificates. Defaults to `AFSSLPinningModeNone`.
+ The criteria(标准) by which server trust should be evaluated against the pinned SSL certificates. Defaults to `AFSSLPinningModeNone`.
  */
+//
 @property (readonly, nonatomic, assign) AFSSLPinningMode SSLPinningMode;
 
 /**
@@ -50,16 +52,19 @@ NS_ASSUME_NONNULL_BEGIN
 
  @see policyWithPinningMode:withPinnedCertificates:
  */
+// 证书的数据
 @property (nonatomic, strong, nullable) NSSet <NSData *> *pinnedCertificates;
 
 /**
  Whether or not to trust servers with an invalid or expired SSL certificates. Defaults to `NO`.
  */
+// 是否允许无效的证书
 @property (nonatomic, assign) BOOL allowInvalidCertificates;
 
 /**
  Whether or not to validate the domain name in the certificate's CN field. Defaults to `YES`.
  */
+// 有效的域名
 @property (nonatomic, assign) BOOL validatesDomainName;
 
 ///-----------------------------------------
@@ -71,6 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The certificates included in the given bundle.
  */
+// 从bundle里面获取证书数据
 + (NSSet <NSData *> *)certificatesInBundle:(NSBundle *)bundle;
 
 ///-----------------------------------------
@@ -82,6 +88,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return The default security policy.
  */
+// 默认安全策略
 + (instancetype)defaultPolicy;
 
 ///---------------------
@@ -99,6 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @see -policyWithPinningMode:withPinnedCertificates:
  */
+// 安全策略的模式
 + (instancetype)policyWithPinningMode:(AFSSLPinningMode)pinningMode;
 
 /**
@@ -112,6 +120,7 @@ NS_ASSUME_NONNULL_BEGIN
  @see +certificatesInBundle:
  @see -pinnedCertificates
 */
+// 安全策略模式和证书数据
 + (instancetype)policyWithPinningMode:(AFSSLPinningMode)pinningMode withPinnedCertificates:(NSSet <NSData *> *)pinnedCertificates;
 
 ///------------------------------
@@ -128,6 +137,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @return Whether or not to trust the server.
  */
+//后台是否新人
 - (BOOL)evaluateServerTrust:(SecTrustRef)serverTrust
                   forDomain:(nullable NSString *)domain;
 
