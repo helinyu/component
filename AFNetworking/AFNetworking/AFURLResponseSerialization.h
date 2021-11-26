@@ -30,21 +30,21 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingOptions readingOptions);
 
 /**
- The `AFURLResponseSerialization` protocol is adopted by an object that decodes data into a more useful object representation, according to details in the server response. Response serializers may additionally perform validation on the incoming response and data.
-
- For example, a JSON response serializer may check for an acceptable status code (`2XX` range) and content type (`application/json`), decoding a valid JSON response into an object.
+ 这个接口用于将数据解码为更加有用的数据对西安共in，根据服务器响应的数据。  响应类别组可以更加有效处理
+eg：json响应系列可能检查对于一个可接受的状态码和content type `application/json` ， 解码json数据变成对象
  */
+
+// 响应的系列化。 也就是网络数据对应本地机器进行系列化
 @protocol AFURLResponseSerialization <NSObject, NSSecureCoding, NSCopying>
 
 /**
- The response object decoded from the data associated with a specified response.
 
- @param response The response to be processed.
- @param data The response data to be decoded.
- @param error The error that occurred while attempting to decode the response data.
+ @param response 响应
+ @param data 被解码的数据
+ @param error
 
- @return The object decoded from the specified response data.
  */
+// urlresponse 转化为对对应的obj
 - (nullable id)responseObjectForResponse:(nullable NSURLResponse *)response
                            data:(nullable NSData *)data
                           error:(NSError * _Nullable __autoreleasing *)error NS_SWIFT_NOTHROW;
@@ -53,18 +53,14 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 
 #pragma mark -
 
-/**
- `AFHTTPResponseSerializer` conforms to the `AFURLRequestSerialization` & `AFURLResponseSerialization` protocols, offering a concrete base implementation of query string / URL form-encoded parameter serialization and default request headers, as well as response status code and content type validation.
-
- Any request or response serializer dealing with HTTP is encouraged to subclass `AFHTTPResponseSerializer` in order to ensure consistent default behavior.
- */
+// http的响应系列化
+// AFURLResponseSerialization 接口实现
+// 提供了一个 query string / URL form-encoded parameter和默认请求偷的响应处理。 确定一直的默认行为
 @interface AFHTTPResponseSerializer : NSObject <AFURLResponseSerialization>
 
 - (instancetype)init;
 
-/**
- Creates and returns a serializer with default configuration.
- */
+// 默认配置系列化
 + (instancetype)serializer;
 
 ///-----------------------------------------
@@ -72,28 +68,17 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 ///-----------------------------------------
 
 /**
- The acceptable HTTP status codes for responses. When non-`nil`, responses with status codes not contained by the set will result in an error during validation.
-
- See http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+ 查看：http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
+ http status codes ,响应码， nonil ， 返回的响应码不再这里的话，将会导致错误
  */
+//
 @property (nonatomic, copy, nullable) NSIndexSet *acceptableStatusCodes;
 
-/**
- The acceptable MIME types for responses. When non-`nil`, responses with a `Content-Type` with MIME types that do not intersect with the set will result in an error during validation.
- */
+// 接收的类型，`Content-Type` with MIME types 是否吃吃
 @property (nonatomic, copy, nullable) NSSet <NSString *> *acceptableContentTypes;
 
-/**
- Validates the specified response and data.
 
- In its base implementation, this method checks for an acceptable status code and content type. Subclasses may wish to add other domain-specific checks.
-
- @param response The response to be validated.
- @param data The data associated with the response.
- @param error The error that occurred while attempting to validate the response.
-
- @return `YES` if the response is valid, otherwise `NO`.
- */
+//检查是否响应是否有效
 - (BOOL)validateResponse:(nullable NSHTTPURLResponse *)response
                     data:(nullable NSData *)data
                    error:(NSError * _Nullable __autoreleasing *)error;
@@ -108,31 +93,25 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 
  By default, `AFJSONResponseSerializer` accepts the following MIME types, which includes the official standard, `application/json`, as well as other commonly-used types:
 
+  // 默认就是这三种的数据
  - `application/json`
  - `text/json`
  - `text/javascript`
 
  In RFC 7159 - Section 8.1, it states that JSON text is required to be encoded in UTF-8, UTF-16, or UTF-32, and the default encoding is UTF-8. NSJSONSerialization provides support for all the encodings listed in the specification, and recommends UTF-8 for efficiency. Using an unsupported encoding will result in serialization error. See the `NSJSONSerialization` documentation for more details.
  */
+// json的响应协力恶化
 @interface AFJSONResponseSerializer : AFHTTPResponseSerializer
 
 - (instancetype)init;
 
-/**
- Options for reading the response JSON data and creating the Foundation objects. For possible values, see the `NSJSONSerialization` documentation section "NSJSONReadingOptions". `0` by default.
- */
+// 读的选项 ， 默认是0 ， 读repsonsejson和创建foundation对象
 @property (nonatomic, assign) NSJSONReadingOptions readingOptions;
 
-/**
- Whether to remove keys with `NSNull` values from response JSON. Defaults to `NO`.
- */
+// 默认是NO， 是否移除值为NSNull的key。 默认是NO
 @property (nonatomic, assign) BOOL removesKeysWithNullValues;
 
-/**
- Creates and returns a JSON serializer with specified reading and writing options.
-
- @param readingOptions The specified JSON reading options.
- */
+// 系列读取的选项
 + (instancetype)serializerWithReadingOptions:(NSJSONReadingOptions)readingOptions;
 
 @end
@@ -141,12 +120,12 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 
 /**
  `AFXMLParserResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLParser` objects.
-
- By default, `AFXMLParserResponseSerializer` accepts the following MIME types, which includes the official standard, `application/xml`, as well as other commonly-used types:
-
+ 支持这两格式
  - `application/xml`
  - `text/xml`
  */
+
+// msl的解析
 @interface AFXMLParserResponseSerializer : AFHTTPResponseSerializer
 
 @end
@@ -156,10 +135,8 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 #ifdef __MAC_OS_X_VERSION_MIN_REQUIRED
 
 /**
- `AFXMLDocumentResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLDocument` objects.
-
- By default, `AFXMLDocumentResponseSerializer` accepts the following MIME types, which includes the official standard, `application/xml`, as well as other commonly-used types:
-
+ 界面xml响应成为一个NSXMLDocument 对象
+  默认是AFXMLDocumentResponseSerializer， 支持官方的`application/xml` ， 也包括场常使用的
  - `application/xml`
  - `text/xml`
  */
@@ -167,16 +144,14 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 
 - (instancetype)init;
 
-/**
- Input and output options specifically intended for `NSXMLDocument` objects. For possible values, see the `NSXMLDocument` documentation section "Input and Output Options". `0` by default.
- */
+// 输入和输出的选项， 默认是0， 可以以查看 NSXMLDocument的章节
 @property (nonatomic, assign) NSUInteger options;
 
 /**
- Creates and returns an XML document serializer with the specified options.
 
  @param mask The XML document options.
  */
+// 系列化，
 + (instancetype)serializerWithXMLDocumentOptions:(NSUInteger)mask;
 
 @end
@@ -186,32 +161,20 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 #pragma mark -
 
 /**
- `AFPropertyListResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes XML responses as an `NSXMLDocument` objects.
-
- By default, `AFPropertyListResponseSerializer` accepts the following MIME types:
-
- - `application/x-plist`
+返回的xml解码成为`NSXMLDocument`对象， 默认的minetype 是 - `application/x-plist`
  */
 @interface AFPropertyListResponseSerializer : AFHTTPResponseSerializer
 
 - (instancetype)init;
 
-/**
- The property list format. Possible values are described in "NSPropertyListFormat".
- */
+//格式
 @property (nonatomic, assign) NSPropertyListFormat format;
 
-/**
- The property list reading options. Possible values are described in "NSPropertyListMutabilityOptions."
- */
+// 读的选项
 @property (nonatomic, assign) NSPropertyListReadOptions readOptions;
 
-/**
- Creates and returns a property list serializer with a specified format, read options, and write options.
 
- @param format The property list format.
- @param readOptions The property list reading options.
- */
+// 系列化
 + (instancetype)serializerWithFormat:(NSPropertyListFormat)format
                          readOptions:(NSPropertyListReadOptions)readOptions;
 
@@ -220,10 +183,8 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 #pragma mark -
 
 /**
- `AFImageResponseSerializer` is a subclass of `AFHTTPResponseSerializer` that validates and decodes image responses.
-
- By default, `AFImageResponseSerializer` accepts the following MIME types, which correspond to the image formats supported by UIImage or NSImage:
-
+ 默认的类型是图片对应的雷兴国
+ 
  - `image/tiff`
  - `image/jpeg`
  - `image/gif`
@@ -238,14 +199,14 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 @interface AFImageResponseSerializer : AFHTTPResponseSerializer
 
 #if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_WATCH
-/**
- The scale factor used when interpreting the image data to construct `responseImage`. Specifying a scale factor of 1.0 results in an image whose size matches the pixel-based dimensions of the image. Applying a different scale factor changes the size of the image as reported by the size property. This is set to the value of scale of the main screen by default, which automatically scales images for retina displays, for instance.
- */
+
+// 图片的倍率，默认是1
 @property (nonatomic, assign) CGFloat imageScale;
 
 /**
  Whether to automatically inflate response image data for compressed formats (such as PNG or JPEG). Enabling this can significantly improve drawing performance on iOS when used with `setCompletionBlockWithSuccess:failure:`, as it allows a bitmap representation to be constructed in the background rather than on the main thread. `YES` by default.
  */
+// 是否自动填充响应图片， 默认是YES
 @property (nonatomic, assign) BOOL automaticallyInflatesResponseImage;
 #endif
 
@@ -256,6 +217,8 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 /**
  `AFCompoundSerializer` is a subclass of `AFHTTPResponseSerializer` that delegates the response serialization to the first `AFHTTPResponseSerializer` object that returns an object for `responseObjectForResponse:data:error:`, falling back on the default behavior of `AFHTTPResponseSerializer`. This is useful for supporting multiple potential types and structures of server responses with a single serializer.
  */
+// 符合不同的数据结构的心相映处理
+// 也就是， 这几个，主要我用一个能够解析就可以了
 @interface AFCompoundResponseSerializer : AFHTTPResponseSerializer
 
 /**
@@ -276,38 +239,10 @@ FOUNDATION_EXPORT id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJ
 /// @name Constants
 ///----------------
 
-/**
- ## Error Domains
+FOUNDATION_EXPORT NSString * const AFURLResponseSerializationErrorDomain; // 错误的domain
 
- The following error domain is predefined.
+FOUNDATION_EXPORT NSString * const AFNetworkingOperationFailingURLResponseErrorKey; // 响应错误的key
 
- - `NSString * const AFURLResponseSerializationErrorDomain`
-
- ### Constants
-
- `AFURLResponseSerializationErrorDomain`
- AFURLResponseSerializer errors. Error codes for `AFURLResponseSerializationErrorDomain` correspond to codes in `NSURLErrorDomain`.
- */
-FOUNDATION_EXPORT NSString * const AFURLResponseSerializationErrorDomain;
-
-/**
- ## User info dictionary keys
-
- These keys may exist in the user info dictionary, in addition to those defined for NSError.
-
- - `NSString * const AFNetworkingOperationFailingURLResponseErrorKey`
- - `NSString * const AFNetworkingOperationFailingURLResponseDataErrorKey`
-
- ### Constants
-
- `AFNetworkingOperationFailingURLResponseErrorKey`
- The corresponding value is an `NSURLResponse` containing the response of the operation associated with an error. This key is only present in the `AFURLResponseSerializationErrorDomain`.
-
- `AFNetworkingOperationFailingURLResponseDataErrorKey`
- The corresponding value is an `NSData` containing the original data of the operation associated with an error. This key is only present in the `AFURLResponseSerializationErrorDomain`.
- */
-FOUNDATION_EXPORT NSString * const AFNetworkingOperationFailingURLResponseErrorKey;
-
-FOUNDATION_EXPORT NSString * const AFNetworkingOperationFailingURLResponseDataErrorKey;
+FOUNDATION_EXPORT NSString * const AFNetworkingOperationFailingURLResponseDataErrorKey; //响应数据错误的key
 
 NS_ASSUME_NONNULL_END
