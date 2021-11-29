@@ -516,6 +516,7 @@ CFIndex SecTrustGetCertificateCount(SecTrustRef trust)
 __nullable
 SecCertificateRef SecTrustGetCertificateAtIndex(SecTrustRef trust, CFIndex ix)
     API_DEPRECATED_WITH_REPLACEMENT("SecTrustCopyCertificateChain", macos(10.7, 12.0), ios(2.0, 15.0), watchos(1.0, 8.0), tvos(9.0, 15.0));
+//  通过索引获取证书
 
 /*!
     @function SecTrustCopyExceptions

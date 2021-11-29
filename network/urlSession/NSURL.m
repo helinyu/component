@@ -9,7 +9,7 @@ url  上面的内容
 }
 
 // 1）baseUrl 是基本的前面的部分，最基本部分的url </br>
-// URLString： 可以理解为urlPath ，会拼接在后面，如果这个值是一个完整的，那么baseUrl将会被置空
+// 2) URLString： 可以理解为urlPath ，会拼接在后面，如果这个值是一个完整的，那么baseUrl将会被置空
 + (nullable instancetype)URLWithString:(NSString *)URLString relativeToURL:(nullable NSURL *)baseURL;
 
 
