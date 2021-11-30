@@ -282,6 +282,7 @@
         return nil;
     }
 
+    // 设置一些内容的回调， block或者回调，监听等
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self dataTaskWithRequest:request
                           uploadProgress:uploadProgress

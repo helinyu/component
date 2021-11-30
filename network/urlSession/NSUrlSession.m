@@ -69,6 +69,7 @@ typedef NS_ENUM(NSInteger, NSURLSessionResponseDisposition) {
                                  totalBytesSent:(int64_t)totalBytesSent
                        totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend;
 
-// 
+//  通过request创建一个session对象
+- (NSURLSessionDataTask *)dataTaskWithRequest:(NSURLRequest *)request;
 
 @end
