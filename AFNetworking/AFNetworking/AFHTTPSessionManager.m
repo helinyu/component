@@ -63,6 +63,7 @@
     return [self initWithBaseURL:nil sessionConfiguration:configuration];
 }
 
+// 这个config的方法
 - (instancetype)initWithBaseURL:(NSURL *)url
            sessionConfiguration:(NSURLSessionConfiguration *)configuration
 {
@@ -79,6 +80,9 @@
 
     self.baseURL = url;
 
+//     默认的系列化：
+//     请求是： http的基本系列化
+//     响应是：json系列化
     self.requestSerializer = [AFHTTPRequestSerializer serializer];
     self.responseSerializer = [AFJSONResponseSerializer serializer];
 
@@ -101,6 +105,7 @@
 
 @dynamic securityPolicy;
 
+// 设置安全策略
 - (void)setSecurityPolicy:(AFSecurityPolicy *)securityPolicy {
     if (securityPolicy.SSLPinningMode != AFSSLPinningModeNone && ![self.baseURL.scheme isEqualToString:@"https"]) {
         NSString *pinningMode = @"Unknown Pinning Mode";
@@ -171,6 +176,8 @@
     return dataTask;
 }
 
+
+// 上传文件的内容，不是这个http的最后面的一个底层内容，直接调用了url的manager里面的一个上传方法
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
                     parameters:(nullable id)parameters
                        headers:(nullable NSDictionary<NSString *,NSString *> *)headers
@@ -192,6 +199,7 @@
         
         return nil;
     }
+//     上面构建基本的请求内容
     
     __block NSURLSessionDataTask *task = [self uploadTaskWithStreamedRequest:request progress:uploadProgress completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
         if (error) {
@@ -305,6 +313,8 @@
     return YES;
 }
 
+
+// 编码的基本配置的内容
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     NSURL *baseURL = [decoder decodeObjectOfClass:[NSURL class] forKey:NSStringFromSelector(@selector(baseURL))];
     NSURLSessionConfiguration *configuration = [decoder decodeObjectOfClass:[NSURLSessionConfiguration class] forKey:@"sessionConfiguration"];
@@ -330,6 +340,7 @@
     return self;
 }
 
+// session的配置
 - (void)encodeWithCoder:(NSCoder *)coder {
     [super encodeWithCoder:coder];
 
@@ -346,6 +357,7 @@
 
 #pragma mark - NSCopying
 
+// copy的内容
 - (instancetype)copyWithZone:(NSZone *)zone {
     AFHTTPSessionManager *HTTPClient = [[[self class] allocWithZone:zone] initWithBaseURL:self.baseURL sessionConfiguration:self.session.configuration];
 

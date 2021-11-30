@@ -30,6 +30,9 @@
 #import "AFNetworkReachabilityManager.h"
 #endif
 
+//常规的请求接口、上传、下载
+//定义的接口
+
 /**
  `AFURLSessionManager` creates and manages an `NSURLSession` object based on a specified `NSURLSessionConfiguration` object, which conforms to `<NSURLSessionTaskDelegate>`, `<NSURLSessionDataDelegate>`, `<NSURLSessionDownloadDelegate>`, and `<NSURLSessionDelegate>`.
 
