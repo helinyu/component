@@ -170,6 +170,8 @@
                                 failure:(nullable void (^)(NSURLSessionDataTask * _Nullable task, NSError *error))failure
 {
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST" URLString:URLString parameters:parameters headers:headers uploadProgress:uploadProgress downloadProgress:nil success:success failure:failure];
+//    其实就是创建一个sessionTask ， 为什么需要设置这样的类
+//     task， 就是当前的一个任务，session管理的是什么？
     
     [dataTask resume];
     
