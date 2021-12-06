@@ -1,4 +1,4 @@
-// 1） component & queryItem 的内容
+// 1）component & queryItem 的内容
 // 2）
 
 API_AVAILABLE(macos(10.9), ios(7.0), watchos(2.0), tvos(9.0))

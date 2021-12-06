@@ -15,7 +15,9 @@
 @class NSURLResponse;
 @class NSError;
 
-https://www.cnblogs.com/code-life/p/7806824.html
+//  https://www.cnblogs.com/code-life/p/7806824.html
+//  几个重要的概念理解
+
 
 NS_ASSUME_NONNULL_BEGIN
 

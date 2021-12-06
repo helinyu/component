@@ -32,6 +32,7 @@ NSURLSessionUploadTask：NSURLSessionDataTask
 NSURLSessionDownloadTask：NSURLSessionDataTask
 NSURLSessionStreamTask : NSURLSessionTask
 
+//  其实就是urlsession 和UrlSessionTask 的内容
 
 NSURLSessionWebSocketMessage : NSObject
 NSURLSessionWebSocketTask : NSURLSessionTask
@@ -994,9 +995,8 @@ API_AVAILABLE(macos(10.9), ios(7.0), watchos(2.0), tvos(9.0))
                                  totalBytesSent:(int64_t)totalBytesSent
                        totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend;
 
-/*
- * Sent when complete statistics information has been collected for the task.
- */
+
+// 完成url请求的手机
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didFinishCollectingMetrics:(NSURLSessionTaskMetrics *)metrics API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0));
 
 /* Sent as the last message related to a specific task.  Error may be
@@ -1168,19 +1168,20 @@ FOUNDATION_EXPORT NSString * const NSURLSessionDownloadTaskResumeData API_AVAILA
 + (NSURLSessionConfiguration *)backgroundSessionConfiguration:(NSString *)identifier API_DEPRECATED_WITH_REPLACEMENT("-backgroundSessionConfigurationWithIdentifier:", macos(10.9, 10.10), ios(7.0, 8.0), watchos(2.0, 2.0), tvos(9.0, 9.0));
 @end
 
+
+#pragma mark - URL 请求收集内容
+
 /*
  * The resource fetch type.
  */
 typedef NS_ENUM(NSInteger, NSURLSessionTaskMetricsResourceFetchType) {
     NSURLSessionTaskMetricsResourceFetchTypeUnknown,
-    NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad,   /* The resource was loaded over the network. */
-    NSURLSessionTaskMetricsResourceFetchTypeServerPush,    /* The resource was pushed by the server to the client. */
-    NSURLSessionTaskMetricsResourceFetchTypeLocalCache,    /* The resource was retrieved from the local storage. */
+    NSURLSessionTaskMetricsResourceFetchTypeNetworkLoad,   /* 网络加载 */
+    NSURLSessionTaskMetricsResourceFetchTypeServerPush,    /* 服务器推送到客户端*/
+    NSURLSessionTaskMetricsResourceFetchTypeLocalCache,    /* 从本地检索资源 */
 } API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0));
 
-/*
- * DNS protocol used for domain resolution.
- */
+//  DNS接口用于域名的解析
 typedef NS_ENUM(NSInteger, NSURLSessionTaskMetricsDomainResolutionProtocol) {
     NSURLSessionTaskMetricsDomainResolutionProtocolUnknown,
     NSURLSessionTaskMetricsDomainResolutionProtocolUDP,     /* Resolution used DNS over UDP. */
@@ -1189,20 +1190,14 @@ typedef NS_ENUM(NSInteger, NSURLSessionTaskMetricsDomainResolutionProtocol) {
     NSURLSessionTaskMetricsDomainResolutionProtocolHTTPS,   /* Resolution used DNS over HTTPS. */
 } API_AVAILABLE(macos(11.0), ios(14.0), watchos(7.0), tvos(14.0));
 
-/*
- * This class defines the performance metrics collected for a request/response transaction during the task execution.
- */
+//  metrics收集request/response 的传输在任务执行期间
 API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
 @interface NSURLSessionTaskTransactionMetrics : NSObject
 
-/*
- * Represents the transaction request.
- */
+// 请求
 @property (copy, readonly) NSURLRequest *request;
 
-/*
- * Represents the transaction response. Can be nil if error occurred and no response was generated.
- */
+// 响应
 @property (nullable, copy, readonly) NSURLResponse *response;
 
 /*
@@ -1215,23 +1210,26 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * The following metrics will be set to nil, if a persistent connection was used or the resource was retrieved from local resources:
  *
- *   domainLookupStartDate
- *   domainLookupEndDate
- *   connectStartDate
- *   connectEndDate
- *   secureConnectionStartDate
- *   secureConnectionEndDate
+ *   domainLookupStartDate // 域名查找开始时间
+ *   domainLookupEndDate // 域名查找结束时间
+ *   connectStartDate // 连接开始时间
+ *   connectEndDate // 连接结束时间
+ *   secureConnectionStartDate // 安全连接开始时间
+ *   secureConnectionEndDate // 安全连接结束时间
  */
+//  获取的开始时间
 @property (nullable, copy, readonly) NSDate *fetchStartDate;
 
 /*
  * domainLookupStartDate returns the time immediately before the user agent started the name lookup for the resource.
  */
+// 
 @property (nullable, copy, readonly) NSDate *domainLookupStartDate;
 
 /*
  * domainLookupEndDate returns the time after the name lookup was completed.
  */
+// 
 @property (nullable, copy, readonly) NSDate *domainLookupEndDate;
 
 /*
@@ -1239,6 +1237,7 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * For example, this would correspond to the time immediately before the user agent started trying to establish the TCP connection.
  */
+// 
 @property (nullable, copy, readonly) NSDate *connectStartDate;
 
 /*
@@ -1248,6 +1247,7 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * If an encrypted connection was not used, this attribute is set to nil.
  */
+// 
 @property (nullable, copy, readonly) NSDate *secureConnectionStartDate;
 
 /*
@@ -1255,11 +1255,13 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * If an encrypted connection was not used, this attribute is set to nil.
  */
+// 
 @property (nullable, copy, readonly) NSDate *secureConnectionEndDate;
 
 /*
  * connectEndDate is the time immediately after the user agent finished establishing the connection to the server, including completion of security-related and other handshakes.
  */
+// 
 @property (nullable, copy, readonly) NSDate *connectEndDate;
 
 /*
@@ -1274,6 +1276,7 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * For example, this would correspond to the time immediately after the user agent finished sending the last byte of the request.
  */
+// 
 @property (nullable, copy, readonly) NSDate *requestEndDate;
 
 /*
@@ -1281,11 +1284,13 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * For example, this would correspond to the time immediately after the user agent received the first byte of an HTTP response.
  */
+// 
 @property (nullable, copy, readonly) NSDate *responseStartDate;
 
 /*
  * responseEndDate is the time immediately after the user agent received the last byte of the resource.
  */
+// 
 @property (nullable, copy, readonly) NSDate *responseEndDate;
 
 /*
@@ -1300,32 +1305,38 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  * If HTTP/1.1 were used to the proxy, and there were no tunnel, then http/1.1 would be returned.
  *
  */
+// 网络协议名字
 @property (nullable, copy, readonly) NSString *networkProtocolName;
 
 /*
  * This property is set to YES if a proxy connection was used to fetch the resource.
  */
+//  代理连接
 @property (assign, readonly, getter=isProxyConnection) BOOL proxyConnection;
 
 /*
  * This property is set to YES if a persistent connection was used to fetch the resource.
  */
+// 重用连接
 @property (assign, readonly, getter=isReusedConnection) BOOL reusedConnection;
 
 /*
  * Indicates whether the resource was loaded, pushed or retrieved from the local cache.
  */
+// 资源获取类型
 @property (assign, readonly) NSURLSessionTaskMetricsResourceFetchType resourceFetchType;
 
 /*
  * countOfRequestHeaderBytesSent is the number of bytes transferred for request header.
  */
+// 头部字节发送
 @property (readonly) int64_t countOfRequestHeaderBytesSent API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
 /*
  * countOfRequestBodyBytesSent is the number of bytes transferred for request body.
  * It includes protocol-specific framing, transfer encoding, and content encoding.
  */
+// body的请求发送
 @property (readonly) int64_t countOfRequestBodyBytesSent API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
 /*
@@ -1336,53 +1347,32 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
 /*
  * countOfResponseHeaderBytesReceived is the number of bytes transferred for response header.
  */
+// 头部字节接收
 @property (readonly) int64_t countOfResponseHeaderBytesReceived API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
 /*
  * countOfResponseBodyBytesReceived is the number of bytes transferred for response header.
  * It includes protocol-specific framing, transfer encoding, and content encoding.
  */
+// 响应题接收
 @property (readonly) int64_t countOfResponseBodyBytesReceived API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
 /*
  * countOfResponseBodyBytesAfterDecoding is the size of data delivered to your delegate or completion handler.
  */
+// body解密码之后
 @property (readonly) int64_t countOfResponseBodyBytesAfterDecoding API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * localAddress is the IP address string of the local interface for the connection.
- *
- * For multipath protocols, this is the local address of the initial flow.
- *
- * If a connection was not used, this attribute is set to nil.
- */
+//  本地地址
 @property (nullable, copy, readonly) NSString *localAddress API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * localPort is the port number of the local interface for the connection.
- *
- * For multipath protocols, this is the local port of the initial flow.
- *
- * If a connection was not used, this attribute is set to nil.
- */
+// 本地端口
 @property (nullable, copy, readonly) NSNumber *localPort API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * remoteAddress is the IP address string of the remote interface for the connection.
- *
- * For multipath protocols, this is the remote address of the initial flow.
- *
- * If a connection was not used, this attribute is set to nil.
- */
+//  远程的地址
 @property (nullable, copy, readonly) NSString *remoteAddress API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * remotePort is the port number of the remote interface for the connection.
- *
- * For multipath protocols, this is the remote port of the initial flow.
- *
- * If a connection was not used, this attribute is set to nil.
- */
+//  远程的端口
 @property (nullable, copy, readonly) NSNumber *remotePort API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
 /*
@@ -1393,6 +1383,7 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * If an encrypted connection was not used, this attribute is set to nil.
  */
+// 协商TLS密码接口版本
 @property (nullable, copy, readonly) NSNumber *negotiatedTLSProtocolVersion API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
 /*
@@ -1403,31 +1394,22 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
  *
  * If an encrypted connection was not used, this attribute is set to nil.
  */
+// 协商TLS密码套件
 @property (nullable, copy, readonly) NSNumber *negotiatedTLSCipherSuite API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * Whether the connection is established over a cellular interface.
- */
+//  是否是窝蜂网络
 @property (readonly, getter=isCellular) BOOL cellular API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * Whether the connection is established over an expensive interface.
- */
+//  是否是昂贵的网络
 @property (readonly, getter=isExpensive) BOOL expensive API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * Whether the connection is established over a constrained interface.
- */
+// 收约束的
 @property (readonly, getter=isConstrained) BOOL constrained API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * Whether a multipath protocol is successfully negotiated for the connection.
- */
+// 在连接协商的时候，多路协议是否成功
 @property (readonly, getter=isMultipath) BOOL multipath API_AVAILABLE(macos(10.15), ios(13.0), watchos(6.0), tvos(13.0));
 
-/*
- * DNS protocol used for domain resolution.
- */
+// 矩阵统计域名决议接口
 @property (readonly) NSURLSessionTaskMetricsDomainResolutionProtocol domainResolutionProtocol API_AVAILABLE(macos(11.0), ios(14.0), watchos(7.0), tvos(14.0));
 
 
@@ -1440,21 +1422,15 @@ API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
 API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0))
 @interface NSURLSessionTaskMetrics : NSObject
 
-/*
- * transactionMetrics array contains the metrics collected for every request/response transaction created during the task execution.
- */
+// 在task执行之前的的每个request/response 的传输
 @property (copy, readonly) NSArray<NSURLSessionTaskTransactionMetrics *> *transactionMetrics;
 
-/*
- * Interval from the task creation time to the task completion time.
- * Task creation time is the time when the task was instantiated.
- * Task completion time is the time when the task is about to change its internal state to completed.
- */
+// 任务间隔， 从任务创建到任务完成的时间
+// 开始时间：task实例化的时候
+// task改变，状态已经完成
 @property (copy, readonly) NSDateInterval *taskInterval;
 
-/*
- * redirectCount is the number of redirects that were recorded.
- */
+//  重定位的数目
 @property (assign, readonly) NSUInteger redirectCount;
 
 
