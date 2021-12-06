@@ -102,6 +102,7 @@
 
 // 获取每个核的使用情况
 ```
+// 视乎这个方法不太准确
 - (NSArray *)cpuUsagePerProcessor {
     processor_info_array_t _cpuInfo, _prevCPUInfo = nil;
     mach_msg_type_number_t _numCPUInfo, _numPrevCPUInfo = 0;
