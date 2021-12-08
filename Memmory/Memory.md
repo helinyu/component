@@ -143,6 +143,7 @@ int64_t getUsedMemory()
 
 
 ```
+// 虚拟内存的数据结构
 struct vm_statistics {
 	natural_t       free_count;             /* # of pages free */
 	natural_t       active_count;           /* # of pages active */
