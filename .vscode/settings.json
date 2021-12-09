@@ -3,5 +3,6 @@
     "files.associations": {
         "algorithm": "cpp",
         "random": "cpp"
-    }
+    },
+    "cmake.configureOnOpen": false
 }

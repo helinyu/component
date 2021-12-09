@@ -1,0 +1,6 @@
+framework module FastEasyMapping {
+  umbrella header "FastEasyMapping-umbrella.h"
+
+  export *
+  module * { export * }
+}
