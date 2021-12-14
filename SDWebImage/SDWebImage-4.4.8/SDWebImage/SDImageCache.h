@@ -303,7 +303,7 @@ typedef void(^SDWebImageCalculateSizeBlock)(NSUInteger fileCount, NSUInteger tot
 /**
  * Asynchronously calculate the disk cache's size.
  */
-// 计算大小完成
+// 计算所有文件的大小
 - (void)calculateSizeWithCompletionBlock:(nullable SDWebImageCalculateSizeBlock)completionBlock;
 
 #pragma mark - Cache Paths

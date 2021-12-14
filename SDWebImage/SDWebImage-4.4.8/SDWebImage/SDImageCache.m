@@ -17,16 +17,23 @@
 #define UNLOCK(lock) dispatch_semaphore_signal(lock);
 
 // A memory cache which auto purge the cache on memory warning and support weak cache.
+// 内存清楚了缓存和支持weak cache
+// weak cache 有什么特性，好处？ weak 不应该是对象销毁就没有了引用么？ 那还有什么作用呢？
 @interface SDMemoryCache <KeyType, ObjectType> : NSCache <KeyType, ObjectType>
 
 @end
 
+// 为什么需要这样的一个继承的的对象
+
 // Private
 @interface SDMemoryCache <KeyType, ObjectType> ()
+@property (nonatomic, strong, nonnull) SDImageCacheConfig *config; // 缓存的配置
+@property (nonatomic, strong, nonnull) NSMapTable<KeyType, ObjectType> *weakCache; // strong-weak
+// 为什么不用NSMutableDictionary , strong,strong，NSCache也是Strong，strong
+// NSCache：这里是为了存储一些key不是NSCopying协议
+// 为什么声明为strong-weak , 因为不想对value进行性持有，key为什么是strong？  对key进行引用，为什么要对key进行引用？
 
-@property (nonatomic, strong, nonnull) SDImageCacheConfig *config;
-@property (nonatomic, strong, nonnull) NSMapTable<KeyType, ObjectType> *weakCache; // strong-weak cache
-@property (nonatomic, strong, nonnull) dispatch_semaphore_t weakCacheLock; // a lock to keep the access to `weakCache` thread-safe
+@property (nonatomic, strong, nonnull) dispatch_semaphore_t weakCacheLock; // a lock to keep the access to `weakCache` thread-safe 锁的操作
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithConfig:(nonnull SDImageCacheConfig *)config;
@@ -50,6 +57,7 @@
         // Use a strong-weak maptable storing the secondary cache. Follow the doc that NSCache does not copy keys
         // This is useful when the memory warning, the cache was purged. However, the image instance can be retained by other instance such as imageViews and alive.
         // At this case, we can sync weak cache back and do not need to load from disk cache
+        // NSCache 在缓存被擦除的时候， 这个是可以处理的
         self.weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory capacity:0];
         self.weakCacheLock = dispatch_semaphore_create(1);
         self.config = config;
@@ -61,6 +69,7 @@
     return self;
 }
 
+// 内存暴涨的时候，移除了cache， 当时weakCache没有缓存
 - (void)didReceiveMemoryWarning:(NSNotification *)notification {
     // Only remove cache, but keep weak cache
     [super removeAllObjects];
@@ -69,7 +78,7 @@
 // `setObject:forKey:` just call this with 0 cost. Override this is enough
 - (void)setObject:(id)obj forKey:(id)key cost:(NSUInteger)g {
     [super setObject:obj forKey:key cost:g];
-    if (!self.config.shouldUseWeakMemoryCache) {
+    if (!self.config.shouldUseWeakMemoryCache) { // 不使用weakCache
         return;
     }
     if (key && obj) {
@@ -77,11 +86,13 @@
         LOCK(self.weakCacheLock);
         // Do the real copy of the key and only let NSMapTable manage the key's lifetime
         // Fixes issue #2507 https://github.com/SDWebImage/SDWebImage/issues/2507
+        // 为什么要这样去处理这个东西呢？ 不是不使用copy的么？ 如果的key不是copying的，岂不是不是出现问题？
         [self.weakCache setObject:obj forKey:[[key mutableCopy] copy]];
         UNLOCK(self.weakCacheLock);
     }
 }
 
+// 通过key获取对应的对象
 - (id)objectForKey:(id)key {
     id obj = [super objectForKey:key];
     if (!self.config.shouldUseWeakMemoryCache) {
@@ -104,6 +115,7 @@
     return obj;
 }
 
+// 移除key的内容
 - (void)removeObjectForKey:(id)key {
     [super removeObjectForKey:key];
     if (!self.config.shouldUseWeakMemoryCache) {
@@ -117,6 +129,7 @@
     }
 }
 
+// 移除所有的对象
 - (void)removeAllObjects {
     [super removeAllObjects];
     if (!self.config.shouldUseWeakMemoryCache) {
@@ -139,14 +152,16 @@
 
 @end
 
+
+// 管理缓存的对象
 @interface SDImageCache ()
 
 #pragma mark - Properties
-@property (strong, nonatomic, nonnull) SDMemoryCache *memCache;
-@property (strong, nonatomic, nonnull) NSString *diskCachePath;
-@property (strong, nonatomic, nullable) NSMutableArray<NSString *> *customPaths; // 自定义的路径
-@property (strong, nonatomic, nullable) dispatch_queue_t ioQueue;
-@property (strong, nonatomic, nonnull) NSFileManager *fileManager;
+@property (strong, nonatomic, nonnull) SDMemoryCache *memCache; // 内存和缓存
+@property (strong, nonatomic, nonnull) NSString *diskCachePath; // 磁盘缓存路径
+@property (strong, nonatomic, nullable) NSMutableArray<NSString *> *customPaths; // 自定义的路径， 用于只是可读的，也就是我们包里面就准备好的图片
+@property (strong, nonatomic, nullable) dispatch_queue_t ioQueue; // 队列
+@property (strong, nonatomic, nonnull) NSFileManager *fileManager; // 文件管理
 
 @end
 
@@ -296,7 +311,7 @@
     // if memory cache is enabled
     if (self.config.shouldCacheImagesInMemory) {
         NSUInteger cost = image.sd_memoryCost;
-        [self.memCache setObject:image forKey:key cost:cost];
+        [self.memCache setObject:image forKey:key cost:cost]; // NSCache
     }
     
     if (toDisk) {
@@ -311,8 +326,10 @@
                     } else {
                         format = SDImageFormatJPEG;
                     }
+                    // 编码成为data对应的数据
                     data = [[SDWebImageCodersManager sharedInstance] encodedDataWithImage:image format:format];
                 }
+                // 存储在磁盘中
                 [self _storeImageDataToDisk:data forKey:key];
             }
             
@@ -352,10 +369,10 @@
     NSString *cachePathForKey = [self defaultCachePathForKey:key];
     // transform to NSUrl
     NSURL *fileURL = [NSURL fileURLWithPath:cachePathForKey];
-    
+//     写数据
     [imageData writeToURL:fileURL options:self.config.diskCacheWritingOptions error:nil];
     
-    // disable iCloud backup
+    // disable iCloud backup 设置云不存储
     if (self.config.shouldDisableiCloud) {
         [fileURL setResourceValue:@YES forKey:NSURLIsExcludedFromBackupKey error:nil];
     }
@@ -365,6 +382,7 @@
 
 - (void)diskImageExistsWithKey:(nullable NSString *)key completion:(nullable SDWebImageCheckCacheCompletionBlock)completionBlock {
     dispatch_async(self.ioQueue, ^{
+        // 是否存在
         BOOL exists = [self _diskImageDataExistsWithKey:key];
         if (completionBlock) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -441,6 +459,7 @@
 }
 
 // 通过key来获取缓存的数据
+//  先查找网上缓存下来的，然后再找我们自己的设置的
 - (nullable NSData *)diskImageDataBySearchingAllPathsForKey:(nullable NSString *)key {
     NSString *defaultPath = [self defaultCachePathForKey:key]; //获取缓存路径
     
@@ -479,8 +498,8 @@
 }
 
 - (nullable UIImage *)diskImageForKey:(nullable NSString *)key {
-    NSData *data = [self diskImageDataForKey:key];
-    return [self diskImageForKey:key data:data];
+    NSData *data = [self diskImageDataForKey:key]; // 磁盘图片数据
+    return [self diskImageForKey:key data:data]; // 将获取的data转化为Image对象
 }
 
 - (nullable UIImage *)diskImageForKey:(nullable NSString *)key data:(nullable NSData *)data {
@@ -509,6 +528,7 @@
     return [self queryCacheOperationForKey:key options:0 done:doneBlock];
 }
 
+// 通过key来进行查找工作
 - (nullable NSOperation *)queryCacheOperationForKey:(nullable NSString *)key options:(SDImageCacheOptions)options done:(nullable SDCacheQueryCompletedBlock)doneBlock {
     if (!key) {
         if (doneBlock) {

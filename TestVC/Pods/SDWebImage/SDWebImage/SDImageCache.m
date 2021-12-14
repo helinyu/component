@@ -51,7 +51,8 @@
         // Use a strong-weak maptable storing the secondary cache. Follow the doc that NSCache does not copy keys
         // This is useful when the memory warning, the cache was purged. However, the image instance can be retained by other instance such as imageViews and alive.
         // At this case, we can sync weak cache back and do not need to load from disk cache
-        self.weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsWeakMemory capacity:0];
+        // 完全可以看这样写
+        self.weakCache = [[NSMapTable alloc] initWithKeyOptions:NSPointerFunctionsStrongMemory|NSPointerFunctionsCopyIn valueOptions:NSPointerFunctionsWeakMemory capacity:0];
         self.weakCacheLock = dispatch_semaphore_create(1);
         self.config = config;
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -242,6 +243,7 @@
     return [self cachePathForKey:key inPath:self.diskCachePath];
 }
 
+// 做一个hash的存储
 - (nullable NSString *)cachedFileNameForKey:(nullable NSString *)key {
     const char *str = key.UTF8String;
     if (str == NULL) {
@@ -310,6 +312,7 @@
                     } else {
                         format = SDImageFormatJPEG;
                     }
+                    // 针对不同的图片进行了编码？编码了之后再进行处处
                     data = [[SDWebImageCodersManager sharedInstance] encodedDataWithImage:image format:format];
                 }
                 [self _storeImageDataToDisk:data forKey:key];

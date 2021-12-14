@@ -14,6 +14,7 @@
 		D4458A5E26EF3D1C009B7500 /* XNBlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A5D26EF3D1C009B7500 /* XNBlockModel.m */; };
 		D4458A8826F4B222009B7500 /* MyWorkerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A8726F4B222009B7500 /* MyWorkerClass.m */; };
 		D4458A8B26F597AE009B7500 /* XNFiveViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A8A26F597AE009B7500 /* XNFiveViewViewController.m */; };
+		D44BDB6C2768A60000507D11 /* Snip20211214_8.png in Resources */ = {isa = PBXBuildFile; fileRef = D44BDB6B2768A60000507D11 /* Snip20211214_8.png */; };
 		D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D45B667D26D3BA6C00964C86 /* XNLockModel.m */; };
 		D45B668126D3BB1900964C86 /* XNThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D45B668026D3BB1900964C86 /* XNThirdViewController.m */; };
 		D465F88026FDAC9B00735F80 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = D465F87E26FDAC9B00735F80 /* fishhook.c */; };
@@ -111,6 +112,7 @@
 		D4458A8726F4B222009B7500 /* MyWorkerClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyWorkerClass.m; sourceTree = "<group>"; };
 		D4458A8926F597AE009B7500 /* XNFiveViewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNFiveViewViewController.h; sourceTree = "<group>"; };
 		D4458A8A26F597AE009B7500 /* XNFiveViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNFiveViewViewController.m; sourceTree = "<group>"; };
+		D44BDB6B2768A60000507D11 /* Snip20211214_8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snip20211214_8.png; sourceTree = "<group>"; };
 		D45B667C26D3BA6C00964C86 /* XNLockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNLockModel.h; sourceTree = "<group>"; };
 		D45B667D26D3BA6C00964C86 /* XNLockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNLockModel.m; sourceTree = "<group>"; };
 		D45B667F26D3BB1900964C86 /* XNThirdViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNThirdViewController.h; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				D47C80C326B24E2200880F06 /* SceneDelegate.m */,
 				D47C80C526B24E2200880F06 /* ViewController.h */,
 				D47C80C626B24E2200880F06 /* ViewController.mm */,
+				D44BDB6B2768A60000507D11 /* Snip20211214_8.png */,
 				D4458A8626F4B222009B7500 /* MyWorkerClass.h */,
 				D4458A8726F4B222009B7500 /* MyWorkerClass.m */,
 				D42B53F626CBB13E002C3C9D /* SecondViewController.h */,
@@ -700,6 +703,7 @@
 				D4C3272126D88A0C0079FAD3 /* Image.png in Resources */,
 				D47C80CF26B24E2300880F06 /* LaunchScreen.storyboard in Resources */,
 				D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */,
+				D44BDB6C2768A60000507D11 /* Snip20211214_8.png in Resources */,
 				D47C80CC26B24E2300880F06 /* Assets.xcassets in Resources */,
 				D4C46A7326CFAEB00056B708 /* Flowers_2.png in Resources */,
 				D47C80CA26B24E2200880F06 /* Main.storyboard in Resources */,

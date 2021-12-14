@@ -25,6 +25,8 @@
 #include <stdio.h>
 #import "XNFiveViewViewController.h"
 
+#import <SDWebImage/SDImageCache.h>
+
 @interface ViewController ()<NSPortDelegate>
 {
     id _object;
@@ -111,6 +113,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    {
+        SDImageCache *cache = [SDImageCache sharedImageCache];
+        UIImage *image = [UIImage imageNamed:@"Snip20211214_8.png"];
+        [cache storeImage:image forKey:@"hahha" completion:^{
+            NSLog(@"");
+        }];
+        return;
+    
+    }
+    
+    {
+        NSCache *cache = [[NSCache alloc] init];
+        cache.countLimit = 3;
+        [cache setObject:@"nihao" forKey:@"nihao"];
+        [cache setObject:@"nihao" forKey:@"niha1"];
+        [cache setObject:@"nihao" forKey:nil];
+        
+        NSLog(@"lt cache ");
+        
+        NSMutableDictionary *dict = [NSMutableDictionary new];
+        cache.countLimit = 3;
+        [dict setObject:@"nihao" forKey:@"nihao"];
+        [dict setObject:@"nihao" forKey:@"niha1"];
+        
+        [dict setObject:nil forKey:@"niha1"];
+        NSLog(@"lt dict ");
+
+        return;
+    }
     
     {
         XNFiveViewViewController *vc = [XNFiveViewViewController new];
