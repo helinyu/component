@@ -9,9 +9,7 @@
 #import "SDWebImageCoderHelper.h"
 #import "SDWebImageFrame.h"
 #import "UIImage+MultiFormat.h"
-#import "NSImage+WebCache.h"
 #import <ImageIO/ImageIO.h>
-#import "SDAnimatedImageRep.h"
 
 @implementation SDWebImageCoderHelper
 
@@ -23,7 +21,6 @@
     
     UIImage *animatedImage;
     
-#if SD_UIKIT || SD_WATCH
     NSUInteger durations[frameCount];
     for (size_t i = 0; i < frameCount; i++) {
         durations[i] = frames[i].duration * 1000;
@@ -46,40 +43,9 @@
         }
     }];
     
+    // 这里构建了动图
     animatedImage = [UIImage animatedImageWithImages:animatedImages duration:totalDuration / 1000.f];
-    
-#else
-    
-    NSMutableData *imageData = [NSMutableData data];
-    CFStringRef imageUTType = [NSData sd_UTTypeFromSDImageFormat:SDImageFormatGIF];
-    // Create an image destination. GIF does not support EXIF image orientation
-    CGImageDestinationRef imageDestination = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)imageData, imageUTType, frameCount, NULL);
-    if (!imageDestination) {
-        // Handle failure.
-        return nil;
-    }
-    
-    for (size_t i = 0; i < frameCount; i++) {
-        @autoreleasepool {
-            SDWebImageFrame *frame = frames[i];
-            float frameDuration = frame.duration;
-            CGImageRef frameImageRef = frame.image.CGImage;
-            NSDictionary *frameProperties = @{(__bridge NSString *)kCGImagePropertyGIFDictionary : @{(__bridge NSString *)kCGImagePropertyGIFDelayTime : @(frameDuration)}};
-            CGImageDestinationAddImage(imageDestination, frameImageRef, (__bridge CFDictionaryRef)frameProperties);
-        }
-    }
-    // Finalize the destination.
-    if (CGImageDestinationFinalize(imageDestination) == NO) {
-        // Handle failure.
-        CFRelease(imageDestination);
-        return nil;
-    }
-    CFRelease(imageDestination);
-    SDAnimatedImageRep *imageRep = [[SDAnimatedImageRep alloc] initWithData:imageData];
-    animatedImage = [[NSImage alloc] initWithSize:imageRep.size];
-    [animatedImage addRepresentation:imageRep];
-#endif
-    
+
     return animatedImage;
 }
 
@@ -91,7 +57,6 @@
     NSMutableArray<SDWebImageFrame *> *frames = [NSMutableArray array];
     NSUInteger frameCount = 0;
     
-#if SD_UIKIT || SD_WATCH
     NSArray<UIImage *> *animatedImages = animatedImage.images;
     frameCount = animatedImages.count;
     if (frameCount == 0) {
@@ -127,39 +92,9 @@
         }
     }];
     
-#else
-    
-    NSBitmapImageRep *bitmapRep;
-    for (NSImageRep *imageRep in animatedImage.representations) {
-        if ([imageRep isKindOfClass:[NSBitmapImageRep class]]) {
-            bitmapRep = (NSBitmapImageRep *)imageRep;
-            break;
-        }
-    }
-    if (bitmapRep) {
-        frameCount = [[bitmapRep valueForProperty:NSImageFrameCount] unsignedIntegerValue];
-    }
-    
-    if (frameCount == 0) {
-        return nil;
-    }
-    
-    for (size_t i = 0; i < frameCount; i++) {
-        @autoreleasepool {
-            // NSBitmapImageRep need to manually change frame. "Good taste" API
-            [bitmapRep setProperty:NSImageCurrentFrame withValue:@(i)];
-            float frameDuration = [[bitmapRep valueForProperty:NSImageCurrentFrameDuration] floatValue];
-            NSImage *frameImage = [[NSImage alloc] initWithCGImage:bitmapRep.CGImage size:CGSizeZero];
-            SDWebImageFrame *frame = [SDWebImageFrame frameWithImage:frameImage duration:frameDuration];
-            [frames addObject:frame];
-        }
-    }
-#endif
-    
     return frames;
 }
 
-#if SD_UIKIT || SD_WATCH
 // Convert an EXIF image orientation to an iOS one.
 + (UIImageOrientation)imageOrientationFromEXIFOrientation:(NSInteger)exifOrientation {
     // CGImagePropertyOrientation is available on iOS 8 above. Currently kept for compatibility
@@ -195,6 +130,7 @@
     return imageOrientation;
 }
 
+// 图片的方向来获取exif图片的方向
 // Convert an iOS orientation to an EXIF image orientation.
 + (NSInteger)exifOrientationFromImageOrientation:(UIImageOrientation)imageOrientation {
     // CGImagePropertyOrientation is available on iOS 8 above. Currently kept for compatibility
@@ -229,10 +165,9 @@
     }
     return exifOrientation;
 }
-#endif
 
 #pragma mark - Helper Fuction
-#if SD_UIKIT || SD_WATCH
+
 static NSUInteger gcd(NSUInteger a, NSUInteger b) {
     NSUInteger c;
     while (a != 0) {
@@ -253,6 +188,5 @@ static NSUInteger gcdArray(size_t const count, NSUInteger const * const values) 
     }
     return result;
 }
-#endif
 
 @end

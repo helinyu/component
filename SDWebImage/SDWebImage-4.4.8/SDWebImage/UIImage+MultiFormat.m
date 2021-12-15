@@ -7,37 +7,12 @@
  */
 
 #import "UIImage+MultiFormat.h"
-#import "NSImage+WebCache.h"
 #import "SDWebImageCodersManager.h"
 #import "objc/runtime.h"
 
 @implementation UIImage (MultiFormat)
 
-#if SD_MAC
-- (NSUInteger)sd_imageLoopCount {
-    NSUInteger imageLoopCount = 0;
-    for (NSImageRep *rep in self.representations) {
-        if ([rep isKindOfClass:[NSBitmapImageRep class]]) {
-            NSBitmapImageRep *bitmapRep = (NSBitmapImageRep *)rep;
-            imageLoopCount = [[bitmapRep valueForProperty:NSImageLoopCount] unsignedIntegerValue];
-            break;
-        }
-    }
-    return imageLoopCount;
-}
-
-- (void)setSd_imageLoopCount:(NSUInteger)sd_imageLoopCount {
-    for (NSImageRep *rep in self.representations) {
-        if ([rep isKindOfClass:[NSBitmapImageRep class]]) {
-            NSBitmapImageRep *bitmapRep = (NSBitmapImageRep *)rep;
-            [bitmapRep setProperty:NSImageLoopCount withValue:@(sd_imageLoopCount)];
-            break;
-        }
-    }
-}
-
-#else
-
+// 图片循环的次数
 - (NSUInteger)sd_imageLoopCount {
     NSUInteger imageLoopCount = 0;
     NSNumber *value = objc_getAssociatedObject(self, @selector(sd_imageLoopCount));
@@ -51,8 +26,8 @@
     NSNumber *value = @(sd_imageLoopCount);
     objc_setAssociatedObject(self, @selector(sd_imageLoopCount), value, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-#endif
 
+// 获取图片的格式
 - (SDImageFormat)sd_imageFormat {
     SDImageFormat imageFormat = SDImageFormatUndefined;
     NSNumber *value = objc_getAssociatedObject(self, @selector(sd_imageFormat));
@@ -90,6 +65,5 @@
     }
     return imageData;
 }
-
 
 @end

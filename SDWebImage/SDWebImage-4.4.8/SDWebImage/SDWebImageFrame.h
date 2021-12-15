@@ -16,11 +16,11 @@
 /**
  The image of current frame. You should not set an animated image.
  */
-@property (nonatomic, strong, readonly, nonnull) UIImage *image;
+@property (nonatomic, strong, readonly, nonnull) UIImage *image; // 图片
 /**
  The duration of current frame to be displayed. The number is seconds but not milliseconds. You should not set this to zero.
  */
-@property (nonatomic, readonly, assign) NSTimeInterval duration;
+@property (nonatomic, readonly, assign) NSTimeInterval duration; // 图片生命时间
 
 /**
  Create a frame instance with specify image and duration
@@ -29,6 +29,7 @@
  @param duration current frame's duration
  @return frame instance
  */
+// 构建一个图片帧
 + (instancetype _Nonnull)frameWithImage:(UIImage * _Nonnull)image duration:(NSTimeInterval)duration;
 
 @end

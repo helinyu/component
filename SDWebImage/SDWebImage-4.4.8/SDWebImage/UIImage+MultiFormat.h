@@ -21,17 +21,17 @@
  * The getter of this property will get the loop count from GIF imageRep
  * The setter of this property will set the loop count from GIF imageRep
  */
-@property (nonatomic, assign) NSUInteger sd_imageLoopCount;
+@property (nonatomic, assign) NSUInteger sd_imageLoopCount; // 图片循环的次数
 
 /**
  * The image format represent the original compressed image data format.
  * If you don't manually specify a format, this information is retrieve from CGImage using `CGImageGetUTType`, which may return nil for non-CG based image. At this time it will return `SDImageFormatUndefined` as default value.
  * @note Note that because of the limitations of categories this property can get out of sync if you create another instance with CGImage or other methods.
  */
-@property (nonatomic, assign) SDImageFormat sd_imageFormat;
+@property (nonatomic, assign) SDImageFormat sd_imageFormat; // 格式
 
-+ (nullable UIImage *)sd_imageWithData:(nullable NSData *)data;
-- (nullable NSData *)sd_imageData;
-- (nullable NSData *)sd_imageDataAsFormat:(SDImageFormat)imageFormat;
++ (nullable UIImage *)sd_imageWithData:(nullable NSData *)data; // 图片的数据
+- (nullable NSData *)sd_imageData; // 转化为图片
+- (nullable NSData *)sd_imageDataAsFormat:(SDImageFormat)imageFormat; // 转化为data为指定的格式
 
 @end

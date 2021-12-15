@@ -7,12 +7,10 @@
  */
 
 #import "SDWebImageGIFCoder.h"
-#import "NSImage+WebCache.h"
 #import <ImageIO/ImageIO.h>
 #import "NSData+ImageContentType.h"
 #import "UIImage+MultiFormat.h"
 #import "SDWebImageCoderHelper.h"
-#import "SDAnimatedImageRep.h"
 
 @implementation SDWebImageGIFCoder
 
@@ -30,66 +28,60 @@
     return ([NSData sd_imageFormatForImageData:data] == SDImageFormatGIF);
 }
 
+// 解压缩的过程
 - (UIImage *)decodedImageWithData:(NSData *)data {
     if (!data) {
         return nil;
     }
     
-#if SD_MAC
-    SDAnimatedImageRep *imageRep = [[SDAnimatedImageRep alloc] initWithData:data];
-    NSImage *animatedImage = [[NSImage alloc] initWithSize:imageRep.size];
-    [animatedImage addRepresentation:imageRep];
-    return animatedImage;
-#else
-    
     CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
     if (!source) {
         return nil;
     }
-    size_t count = CGImageSourceGetCount(source);
+    size_t count = CGImageSourceGetCount(source); // 获取图片的数目
     
     UIImage *animatedImage;
     
     if (count <= 1) {
-        animatedImage = [[UIImage alloc] initWithData:data];
+        animatedImage = [[UIImage alloc] initWithData:data]; // 直接就是静态图片(为什么这个不解码？)
     } else {
+        // 用frame 存储图片帧
         NSMutableArray<SDWebImageFrame *> *frames = [NSMutableArray array];
         
         for (size_t i = 0; i < count; i++) {
             CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, i, NULL);
+            // 通过索引获取ImageSource
             if (!imageRef) {
                 continue;
             }
             
-            float duration = [self sd_frameDurationAtIndex:i source:source];
+            float duration = [self sd_frameDurationAtIndex:i source:source]; //图片的长度
             UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
             CGImageRelease(imageRef);
             
             SDWebImageFrame *frame = [SDWebImageFrame frameWithImage:image duration:duration];
-            [frames addObject:frame];
+            [frames addObject:frame]; //获取每一张图片，然后进行处理了
         }
         
         NSUInteger loopCount = 1;
         NSDictionary *imageProperties = (__bridge_transfer NSDictionary *)CGImageSourceCopyProperties(source, nil);
-        NSDictionary *gifProperties = [imageProperties valueForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary];
+        NSDictionary *gifProperties = [imageProperties valueForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary]; //获取对应的key的属性字典内容
         if (gifProperties) {
-            NSNumber *gifLoopCount = [gifProperties valueForKey:(__bridge NSString *)kCGImagePropertyGIFLoopCount];
+            NSNumber *gifLoopCount = [gifProperties valueForKey:(__bridge NSString *)kCGImagePropertyGIFLoopCount]; // 数目
             if (gifLoopCount != nil) {
                 loopCount = gifLoopCount.unsignedIntegerValue;
             }
         }
-        
+
         animatedImage = [SDWebImageCoderHelper animatedImageWithFrames:frames];
         animatedImage.sd_imageLoopCount = loopCount;
         animatedImage.sd_imageFormat = SDImageFormatGIF;
     }
-    
     CFRelease(source);
-    
     return animatedImage;
-#endif
 }
 
+// 通过索引获取图片的生命周期时间
 - (float)sd_frameDurationAtIndex:(NSUInteger)index source:(CGImageSourceRef)source {
     float frameDuration = 0.1f;
     CFDictionaryRef cfFrameProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil);
@@ -122,10 +114,11 @@
     return frameDuration;
 }
 
+// 这个没有可以操作的解压缩
 - (UIImage *)decompressedImageWithImage:(UIImage *)image
                                    data:(NSData *__autoreleasing  _Nullable *)data
                                 options:(nullable NSDictionary<NSString*, NSObject*>*)optionsDict {
-    // GIF do not decompress
+    // GIF do not decompress, 为什么gif图没有解压？
     return image;
 }
 
@@ -134,6 +127,7 @@
     return (format == SDImageFormatGIF);
 }
 
+// 将图片编码为图片数据
 - (NSData *)encodedDataWithImage:(UIImage *)image format:(SDImageFormat)format {
     if (!image) {
         return nil;
@@ -146,6 +140,7 @@
     NSMutableData *imageData = [NSMutableData data];
     CFStringRef imageUTType = [NSData sd_UTTypeFromSDImageFormat:SDImageFormatGIF];
     NSArray<SDWebImageFrame *> *frames = [SDWebImageCoderHelper framesFromAnimatedImage:image];
+    // 通过解码之后的图片获取对应的帧
     
     // Create an image destination. GIF does not support EXIF image orientation
     CGImageDestinationRef imageDestination = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)imageData, imageUTType, frames.count, NULL);

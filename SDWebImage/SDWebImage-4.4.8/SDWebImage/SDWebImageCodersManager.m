@@ -37,10 +37,12 @@
 - (instancetype)init {
     if (self = [super init]) {
         // initialize with default coders
-        NSMutableArray<id<SDWebImageCoder>> *mutableCoders = [@[[SDWebImageImageIOCoder sharedCoder]] mutableCopy];
+//       先加入两个基本框架使用到的解码器
+        NSMutableArray<id<SDWebImageCoder>> *mutableCoders = [@[[SDWebImageImageIOCoder sharedCoder]] mutableCopy]; // 基本UIImage解码器
 #ifdef SD_WEBP
-        [mutableCoders addObject:[SDWebImageWebPCoder sharedCoder]];
+        [mutableCoders addObject:[SDWebImageWebPCoder sharedCoder]]; //webp的解码器
 #endif
+        
         _coders = [mutableCoders copy];
         _codersLock = dispatch_semaphore_create(1);
     }
@@ -49,6 +51,7 @@
 
 #pragma mark - Coder IO operations
 
+// 添加coder
 - (void)addCoder:(nonnull id<SDWebImageCoder>)coder {
     if (![coder conformsToProtocol:@protocol(SDWebImageCoder)]) {
         return;
@@ -63,6 +66,7 @@
     UNLOCK(self.codersLock);
 }
 
+//移除coder
 - (void)removeCoder:(nonnull id<SDWebImageCoder>)coder {
     if (![coder conformsToProtocol:@protocol(SDWebImageCoder)]) {
         return;
@@ -75,6 +79,9 @@
 }
 
 #pragma mark - SDWebImageCoder
+
+// for 循环找到对应的编解码器
+
 - (BOOL)canDecodeFromData:(NSData *)data {
     LOCK(self.codersLock);
     NSArray<id<SDWebImageCoder>> *coders = self.coders;

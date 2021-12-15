@@ -16,6 +16,7 @@
  @note If you decide to make all `UIImageView`(including `FLAnimatedImageView`) instance support GIF. You should add this coder to `SDWebImageCodersManager` and make sure that it has a higher priority than `SDWebImageIOCoder`
  @note The recommended approach for animated GIFs is using `FLAnimatedImage`. It's more performant than `UIImageView` for GIF displaying
  */
+// 这个是gif图，肯定是整个西西安市，不可能进度显示这个内容
 @interface SDWebImageGIFCoder : NSObject <SDWebImageCoder>
 
 + (nonnull instancetype)sharedCoder;

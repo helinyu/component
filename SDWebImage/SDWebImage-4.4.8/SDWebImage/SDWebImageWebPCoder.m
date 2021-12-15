@@ -207,11 +207,7 @@
             return nil;
         }
         
-#if SD_UIKIT || SD_WATCH
         image = [[UIImage alloc] initWithCGImage:newImageRef];
-#else
-        image = [[UIImage alloc] initWithCGImage:newImageRef size:NSZeroSize];
-#endif
         image.sd_imageFormat = SDImageFormatWebP;
         CGImageRelease(newImageRef);
         CGContextRelease(canvas);
@@ -230,10 +226,10 @@
 - (UIImage *)decompressedImageWithImage:(UIImage *)image
                                    data:(NSData *__autoreleasing  _Nullable *)data
                                 options:(nullable NSDictionary<NSString*, NSObject*>*)optionsDict {
-    UIImage *decompressedImage = [[SDWebImageImageIOCoder sharedCoder] decompressedImageWithImage:image data:data options:optionsDict];
+    UIImage *decompressedImage = [[SDWebImageImageIOCoder sharedCoder] decompressedImageWithImage:image data:data options:optionsDict]; // 每张原始图片的解压缩
     // if the image is scaled down, need to modify the data pointer as well
     if (decompressedImage && !CGSizeEqualToSize(decompressedImage.size, image.size) && [NSData sd_imageFormatForImageData:*data] == SDImageFormatWebP) {
-        NSData *imageData = [self encodedDataWithImage:decompressedImage format:SDImageFormatWebP];
+        NSData *imageData = [self encodedDataWithImage:decompressedImage format:SDImageFormatWebP]; // 编码成为数据
         if (imageData) {
             *data = imageData;
         }
@@ -261,13 +257,8 @@
     }
     CGContextDrawImage(canvas, imageRect, image.CGImage);
     CGImageRef newImageRef = CGBitmapContextCreateImage(canvas);
-    
-#if SD_UIKIT || SD_WATCH
+
     image = [[UIImage alloc] initWithCGImage:newImageRef];
-#elif SD_MAC
-    image = [[UIImage alloc] initWithCGImage:newImageRef size:NSZeroSize];
-#endif
-    
     CGImageRelease(newImageRef);
     
     if (iter.dispose_method == WEBP_MUX_DISPOSE_BACKGROUND) {
@@ -319,12 +310,7 @@
     CGImageRef imageRef = CGImageCreate(width, height, 8, components * 8, components * width, colorSpaceRef, bitmapInfo, provider, NULL, NO, renderingIntent);
     
     CGDataProviderRelease(provider);
-    
-#if SD_UIKIT || SD_WATCH
     UIImage *image = [[UIImage alloc] initWithCGImage:imageRef];
-#else
-    UIImage *image = [[UIImage alloc] initWithCGImage:imageRef size:NSZeroSize];
-#endif
     CGImageRelease(imageRef);
     
     return image;

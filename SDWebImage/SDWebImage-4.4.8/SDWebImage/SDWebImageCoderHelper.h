@@ -31,8 +31,8 @@
  @return The frames array
  */
 + (NSArray<SDWebImageFrame *> * _Nullable)framesFromAnimatedImage:(UIImage * _Nullable)animatedImage;
+// 上面两个方法都是动图有关的转化
 
-#if SD_UIKIT || SD_WATCH
 /**
  Convert an EXIF image orientation to an iOS one.
 
@@ -47,6 +47,6 @@
  @return EXIF orientation
  */
 + (NSInteger)exifOrientationFromImageOrientation:(UIImageOrientation)imageOrientation;
-#endif
+// image图片方向和exif方向的转换
 
 @end
