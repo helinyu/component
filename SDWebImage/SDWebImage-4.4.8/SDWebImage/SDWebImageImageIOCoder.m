@@ -107,7 +107,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     }
     UIImage *image = [[UIImage alloc] initWithData:data];
     image.sd_imageFormat = [NSData sd_imageFormatForImageData:data];
-    
+
     return image;
 }
 
@@ -195,6 +195,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
 }
 
 // 解压缩， 调整为合适的代码，这个算不算是解码
+// 将有关的数据解码成为合适当前对象的UIImage
 - (nullable UIImage *)sd_decompressedImageWithImage:(nullable UIImage *)image {
     if (![[self class] shouldDecodeImage:image]) {
         return image;

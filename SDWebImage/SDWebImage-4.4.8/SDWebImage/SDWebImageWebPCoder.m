@@ -10,7 +10,6 @@
 
 #import "SDWebImageWebPCoder.h"
 #import "SDWebImageCoderHelper.h"
-#import "NSImage+WebCache.h"
 #import "UIImage+MultiFormat.h"
 #import "SDWebImageImageIOCoder.h"
 #if __has_include(<webp/decode.h>) && __has_include(<webp/encode.h>) && __has_include(<webp/demux.h>) && __has_include(<webp/mux.h>)
