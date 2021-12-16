@@ -105,7 +105,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     if (!data) {
         return nil;
     }
-    UIImage *image = [[UIImage alloc] initWithData:data]; // 这个就是解密码的过程么？
+    UIImage *image = [[UIImage alloc] initWithData:data];
     image.sd_imageFormat = [NSData sd_imageFormatForImageData:data];
     
     return image;
