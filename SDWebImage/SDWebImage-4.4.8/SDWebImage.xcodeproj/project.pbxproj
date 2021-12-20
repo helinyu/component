@@ -1774,8 +1774,8 @@
 		53922DA9148C562D0056699D /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				5D5B9140188EE8DD006D06BD /* NSData+ImageContentType.h */,
 				5D5B9141188EE8DD006D06BD /* NSData+ImageContentType.m */,
+				5D5B9140188EE8DD006D06BD /* NSData+ImageContentType.h */,
 				A18A6CC5172DC28500419892 /* UIImage+GIF.h */,
 				A18A6CC6172DC28500419892 /* UIImage+GIF.m */,
 				53EDFB8817623F7C00698166 /* UIImage+MultiFormat.h */,

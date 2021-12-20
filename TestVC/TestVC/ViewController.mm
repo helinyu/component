@@ -219,8 +219,16 @@ CGImageRef MyCreateThumbnailImageFromData (NSData * data, int imageSize)
     [super viewDidLoad];
     
     {
-         
+        UIImageView *imgView = [UIImageView new];
+        imgView.frame = CGRectMake(100.f, 100.f, 100.f, 100.f);
+        imgView.backgroundColor = [UIColor redColor];
         
+        UIImage *img = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"icon_main_ranking.png"]];
+        UIImage *img1 = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"icon_main_ranking@3x.png"]];
+        UIImage *img2 = [UIImage imageWithContentsOfFile:[[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"icon_main_ranking@2x.png"]];
+        CGFloat scale = [UIScreen mainScreen].scale;
+        CGFloat nativeScale  = [UIScreen mainScreen].nativeScale;
+        NSLog(@"lt -  ");
         return;
     }
     

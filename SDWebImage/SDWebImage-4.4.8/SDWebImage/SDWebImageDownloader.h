@@ -74,6 +74,8 @@ typedef NS_ENUM(NSInteger, SDWebImageDownloaderExecutionOrder) {
     SDWebImageDownloaderLIFOExecutionOrder
 };
 
+
+// 下载的集体详细的处理
 FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadStartNotification;
 FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadStopNotification;
 
@@ -113,21 +115,25 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
  * Decompressing images that are downloaded and cached can improve performance but can consume lot of memory.
  * Defaults to YES. Set this to NO if you are experiencing a crash due to excessive memory consumption.
  */
+// 图片下载下来是否就解码了？
 @property (assign, nonatomic) BOOL shouldDecompressImages;
 
 /**
  *  The maximum number of concurrent downloads
  */
+// 最大的并行下载数量
 @property (assign, nonatomic) NSInteger maxConcurrentDownloads;
 
 /**
  * Shows the current amount of downloads that still need to be downloaded
  */
+// 当前的下载数量
 @property (readonly, nonatomic) NSUInteger currentDownloadCount;
 
 /**
  *  The timeout value (in seconds) for the download operation. Default: 15.0.
  */
+// 下载超时
 @property (assign, nonatomic) NSTimeInterval downloadTimeout;
 
 /**
@@ -136,12 +142,14 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
  *
  * @see createNewSessionWithConfiguration:
  */
+//  有关的配置
 @property (readonly, nonatomic, nonnull) NSURLSessionConfiguration *sessionConfiguration;
 
 
 /**
  * Changes download operations execution order. Default value is `SDWebImageDownloaderFIFOExecutionOrder`.
  */
+// 执行的先后的队列问题
 @property (assign, nonatomic) SDWebImageDownloaderExecutionOrder executionOrder;
 
 /**
@@ -154,17 +162,17 @@ typedef SDHTTPHeadersDictionary * _Nullable (^SDWebImageDownloaderHeadersFilterB
 /**
  *  Set the default URL credential to be set for request operations.
  */
-@property (strong, nonatomic, nullable) NSURLCredential *urlCredential;
+@property (strong, nonatomic, nullable) NSURLCredential *urlCredential; // 验证的问题
 
 /**
  * Set username
  */
-@property (strong, nonatomic, nullable) NSString *username;
+@property (strong, nonatomic, nullable) NSString *username; // 用户没名字
 
 /**
  * Set password
  */
-@property (strong, nonatomic, nullable) NSString *password;
+@property (strong, nonatomic, nullable) NSString *password; // 密码
 
 /**
  * Set filter to pick headers for downloading image HTTP request.

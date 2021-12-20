@@ -51,10 +51,10 @@ static mmkv::MMKVRecoverStrategic ErrorHandler(const string &mmapID, mmkv::MMKVE
 static void ContentChangeHandler(const string &mmapID);
 
 @implementation MMKV {
-    NSString *m_mmapID; // 映射的id
-    NSString *m_mmapKey; // 映射的key
-    mmkv::MMKV *m_mmkv; // // 映射对象
-    uint64_t m_lastAccessTime; // 最新访问的时间
+    NSString *m_mmapID;
+    NSString *m_mmapKey;
+    mmkv::MMKV *m_mmkv;
+    uint64_t m_lastAccessTime;
 }
 
 #pragma mark - init
@@ -162,10 +162,6 @@ static BOOL g_hasCalledInitializeMMKV = NO;
 }
 
 // relatePath and MMKVMultiProcess mode can't be set at the same time, so we hide this method from public
-// 有关的内容设置这个， mmmapId  这个是不知道是什么东西？
-// cryptKey 秘钥
-// rootPath 根目录
-// mode 模式
 + (instancetype)mmkvWithID:(NSString *)mmapID cryptKey:(NSData *)cryptKey rootPath:(nullable NSString *)rootPath mode:(MMKVMode)mode {
     if (!g_hasCalledInitializeMMKV) {
         MMKVError("MMKV not initialized properly, must call +initializeMMKV: in main thread before calling any other MMKV methods");
@@ -566,7 +562,7 @@ static bool g_isAutoCleanUpEnabled = false;
 static uint32_t g_maxIdleSeconds = 0;
 static dispatch_source_t g_autoCleanUpTimer = nullptr;
 
-+ (void)enableAutoCleanUp:(uint32_t)maxIdleMinutes NS_SWIFT_NAME(enableAutoCleanUp(maxIdleMinutes:)) {
++ (void)enableAutoCleanUp:(uint32_t)maxIdleMinutes {
     MMKVInfo("enable auto clean up with maxIdleMinutes:%zu", maxIdleMinutes);
     SCOPED_LOCK(g_lock);
 
@@ -629,7 +625,11 @@ static dispatch_source_t g_autoCleanUpTimer = nullptr;
         return g_basePath;
     }
 
+#if TARGET_OS_TV
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+#else
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+#endif
     NSString *documentPath = (NSString *) [paths firstObject];
     if ([documentPath length] > 0) {
         g_basePath = [[documentPath stringByAppendingPathComponent:@"mmkv"] retain];
@@ -690,6 +690,74 @@ static NSString *md5(NSString *value) {
     }
     return NO;
 }
+
+#pragma mark - backup & restore
+
++ (BOOL) backupOneMMKV:(NSString*)mmapID rootPath:(nullable NSString *)path toDirectory:(NSString*)dstDir {
+    if (path.length > 0) {
+        string rootPath(path.UTF8String);
+        return mmkv::MMKV::backupOneToDirectory(mmapID.UTF8String, dstDir.UTF8String, &rootPath);
+    }
+    return mmkv::MMKV::backupOneToDirectory(mmapID.UTF8String, dstDir.UTF8String);
+}
+
++ (BOOL) restoreOneMMKV:(NSString*)mmapID rootPath:(nullable NSString *)path fromDirectory:(NSString*)srcDir {
+    if (path.length > 0) {
+        string rootPath(path.UTF8String);
+        return mmkv::MMKV::restoreOneFromDirectory(mmapID.UTF8String, srcDir.UTF8String, &rootPath);
+    }
+    return mmkv::MMKV::restoreOneFromDirectory(mmapID.UTF8String, srcDir.UTF8String);
+}
+
++ (size_t) backupAll:(nullable NSString *)path toDirectory:(NSString*)dstDir {
+    if (path.length > 0) {
+        string rootPath(path.UTF8String);
+        return mmkv::MMKV::backupAllToDirectory(dstDir.UTF8String, &rootPath);
+    }
+    return mmkv::MMKV::backupAllToDirectory(dstDir.UTF8String);
+}
+
++ (size_t) restoreAll:(nullable NSString *)path fromDirectory:(NSString*)srcDir {
+    if (path.length > 0) {
+        string rootPath(path.UTF8String);
+        return mmkv::MMKV::restoreAllFromDirectory(srcDir.UTF8String, &rootPath);
+    }
+    return mmkv::MMKV::restoreAllFromDirectory(srcDir.UTF8String);
+}
+
++ (BOOL)backupMultiProcessMMKV:(NSString *)mmapID toDirectory:(NSString*)dstDir {
+    if (!g_groupPath) {
+        MMKVError("Backup a multi-process MMKV [%@] without setting groupDir makes no sense", mmapID);
+        MMKV_ASSERT(0);
+    }
+    return [MMKV backupOneMMKV:mmapID rootPath:g_groupPath toDirectory:dstDir];
+}
+
++ (BOOL) restoreMultiProcessMMKV:(NSString*)mmapID fromDirectory:(NSString*)srcDir {
+    if (!g_groupPath) {
+        MMKVError("Restore a multi-process MMKV [%@] without setting groupDir makes no sense", mmapID);
+        MMKV_ASSERT(0);
+    }
+    return [MMKV restoreOneMMKV:mmapID rootPath:g_groupPath fromDirectory:srcDir];
+}
+
++ (size_t) backupAllMultiProcessToDirectory:(NSString*)dstDir {
+    if (!g_groupPath) {
+        MMKVError("Backup multi-process MMKV without setting groupDir makes no sense.");
+        MMKV_ASSERT(0);
+    }
+    return [MMKV backupAll:g_groupPath toDirectory:dstDir];
+}
+
++ (size_t) restoreAllMultiProcessFromDirectory:(NSString*)srcDir {
+    if (!g_groupPath) {
+        MMKVError("Restore multi-process MMKV without setting groupDir makes no sense.");
+        MMKV_ASSERT(0);
+    }
+    return [MMKV restoreAll:g_groupPath fromDirectory:srcDir];
+}
+
+#pragma mark - handler
 
 + (void)registerHandler:(id<MMKVHandler>)handler {
     SCOPED_LOCK(g_lock);

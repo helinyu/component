@@ -115,7 +115,7 @@ void CodedOutputData::writeRawByte(uint8_t value) {
         return;
     }
 
-    m_ptr[m_position++] = value; // 原生的数据是在这个位置上的， 然后就是将m_position 这个位置加1  ， 所以向下移动， value
+    m_ptr[m_position++] = value;
 }
 
 void CodedOutputData::writeRawData(const MMBuffer &data) {
@@ -132,12 +132,11 @@ void CodedOutputData::writeRawData(const MMBuffer &data) {
 void CodedOutputData::writeRawVarint32(int32_t value) {
     while (true) {
         if ((value & ~0x7f) == 0) {
-            this->writeRawByte(static_cast<uint8_t>(value)); //   uint8_t 无符号的1byte的数据类型
+            this->writeRawByte(static_cast<uint8_t>(value));
             return;
         } else {
-//             这里是转数据类型
             this->writeRawByte(static_cast<uint8_t>((value & 0x7F) | 0x80));
-            value = logicalRightShift32(value, 7); // right shift
+            value = logicalRightShift32(value, 7);
         }
     }
 }
@@ -145,7 +144,7 @@ void CodedOutputData::writeRawVarint32(int32_t value) {
 void CodedOutputData::writeRawVarint64(int64_t value) {
     while (true) {
         if ((value & ~0x7f) == 0) {
-            this->writeRawByte(static_cast<uint8_t>(value)); // 这里是一个字节一个字节设置对应的指针的值
+            this->writeRawByte(static_cast<uint8_t>(value));
             return;
         } else {
             this->writeRawByte(static_cast<uint8_t>((value & 0x7f) | 0x80));

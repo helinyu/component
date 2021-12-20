@@ -26,6 +26,7 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <cstddef>
 
 namespace mmkv {
 
@@ -40,11 +41,10 @@ enum MMBufferCopyFlag : bool {
 struct KeyValueHolderCrypt;
 #endif
 
-// 对应的缓存内容
 class MMBuffer {
     enum MMBufferType : uint8_t {
-        MMBufferType_Small,  // 小的存储在栈中 store small buffer in stack memory
-        MMBufferType_Normal, // 大的存储在堆中 store in heap memory
+        MMBufferType_Small,  // store small buffer in stack memory
+        MMBufferType_Normal, // store in heap memory
     };
     MMBufferType type;
 

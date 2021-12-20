@@ -96,15 +96,8 @@
         _URLOperations = [NSMutableDictionary new];
         SDHTTPHeadersMutableDictionary *headerDictionary = [SDHTTPHeadersMutableDictionary dictionary];
         NSString *userAgent = nil;
-#if SD_UIKIT
         // User-Agent Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43
         userAgent = [NSString stringWithFormat:@"%@/%@ (%@; iOS %@; Scale/%0.2f)", [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleExecutableKey] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleIdentifierKey], [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey], [[UIDevice currentDevice] model], [[UIDevice currentDevice] systemVersion], [[UIScreen mainScreen] scale]];
-#elif SD_WATCH
-        // User-Agent Header; see http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.43
-        userAgent = [NSString stringWithFormat:@"%@/%@ (%@; watchOS %@; Scale/%0.2f)", [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleExecutableKey] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleIdentifierKey], [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey], [[WKInterfaceDevice currentDevice] model], [[WKInterfaceDevice currentDevice] systemVersion], [[WKInterfaceDevice currentDevice] screenScale]];
-#elif SD_MAC
-        userAgent = [NSString stringWithFormat:@"%@/%@ (Mac OS X %@)", [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleExecutableKey] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleIdentifierKey], [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"] ?: [[NSBundle mainBundle] infoDictionary][(__bridge NSString *)kCFBundleVersionKey], [[NSProcessInfo processInfo] operatingSystemVersionString]];
-#endif
         if (userAgent) {
             if (![userAgent canBeConvertedToEncoding:NSASCIIStringEncoding]) {
                 NSMutableString *mutableUserAgent = [userAgent mutableCopy];
@@ -114,11 +107,7 @@
             }
             headerDictionary[@"User-Agent"] = userAgent;
         }
-#ifdef SD_WEBP
         headerDictionary[@"Accept"] = @"image/webp,image/*;q=0.8";
-#else
-        headerDictionary[@"Accept"] = @"image/*;q=0.8";
-#endif
         _HTTPHeaders = headerDictionary;
         _operationsLock = dispatch_semaphore_create(1);
         _headersLock = dispatch_semaphore_create(1);
@@ -210,7 +199,7 @@
     if (operationClass && [operationClass isSubclassOfClass:[NSOperation class]] && [operationClass conformsToProtocol:@protocol(SDWebImageDownloaderOperationInterface)]) {
         _operationClass = operationClass;
     } else {
-        _operationClass = [SDWebImageDownloaderOperation class];
+        _operationClass = [SDWebImageDownloaderOperation class]; // 具体的下载操作
     }
 }
 
@@ -280,6 +269,7 @@
   return [self downloadImageWithURL:url options:0 progress:nil completed:completedBlock];
 }
 
+// 下载的操作
 - (nullable SDWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                    options:(SDWebImageDownloaderOptions)options
                                                   progress:(nullable SDWebImageDownloaderProgressBlock)progressBlock

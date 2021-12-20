@@ -33,6 +33,7 @@
 }
 
 - (nonnull instancetype)init {
+//    预先获取， 这个不是同一个manager ，将会有什么问题么？
     return [self initWithImageManager:[SDWebImageManager new]];
 }
 

@@ -44,32 +44,31 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
 @end
 
 
+// 操作对象
+// 下载的具体操作，看看这个过程要怎么进行处理？ 我们完全可以使用则后悔个来进行处理
 @interface SDWebImageDownloaderOperation : NSOperation <SDWebImageDownloaderOperationInterface, SDWebImageOperation>
 
 /**
  * The request used by the operation's task.
  */
+// 请求投
 @property (strong, nonatomic, readonly, nullable) NSURLRequest *request;
 
 /**
  * The operation's task
  */
+//* 任务
 @property (strong, nonatomic, readonly, nullable) NSURLSessionTask *dataTask;
 
-
+// 是否应该解码图片
 @property (assign, nonatomic) BOOL shouldDecompressImages;
-
-/**
- *  Was used to determine whether the URL connection should consult the credential storage for authenticating the connection.
- *  @deprecated Not used for a couple of versions
- */
-@property (nonatomic, assign) BOOL shouldUseCredentialStorage __deprecated_msg("Property deprecated. Does nothing. Kept only for backwards compatibility");
 
 /**
  * The credential used for authentication challenges in `-URLSession:task:didReceiveChallenge:completionHandler:`.
  *
  * This will be overridden by any shared credentials that exist for the username or password of the request URL, if present.
  */
+//* 验证的处理
 @property (nonatomic, strong, nullable) NSURLCredential *credential;
 
 /**
@@ -98,6 +97,7 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
  *
  *  @return the initialized instance
  */
+//* 喀什请求的的初始化
 - (nonnull instancetype)initWithRequest:(nullable NSURLRequest *)request
                               inSession:(nullable NSURLSession *)session
                                 options:(SDWebImageDownloaderOptions)options NS_DESIGNATED_INITIALIZER;
@@ -113,16 +113,18 @@ FOUNDATION_EXPORT NSString * _Nonnull const SDWebImageDownloadFinishNotification
  *
  *  @return the token to use to cancel this set of handlers
  */
+//* 处理进度回调
 - (nullable id)addHandlersForProgress:(nullable SDWebImageDownloaderProgressBlock)progressBlock
                             completed:(nullable SDWebImageDownloaderCompletedBlock)completedBlock;
 
 /**
  *  Cancels a set of callbacks. Once all callbacks are canceled, the operation is cancelled.
  *
- *  @param token the token representing a set of callbacks to cancel
+ *  @param token the token representing a set of callbacks to cancel token其实就是对应的是一个事务
  *
  *  @return YES if the operation was stopped because this was the last token to be canceled. NO otherwise.
  */
+//*取消
 - (BOOL)cancel:(nullable id)token;
 
 @end

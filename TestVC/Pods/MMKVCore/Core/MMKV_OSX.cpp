@@ -133,7 +133,6 @@ pair<bool, MLockPtr> guardForBackgroundWriting(void *ptr, size_t size) {
 
 #    endif // MMKV_IOS
 
-// 设置对象的，直接设置在m_dic 中， 因为这个m_dic 是在堆中的
 bool MMKV::set(NSObject<NSCoding> *__unsafe_unretained obj, MMKVKey_t key) {
     if (isKeyEmpty(key)) {
         return false;

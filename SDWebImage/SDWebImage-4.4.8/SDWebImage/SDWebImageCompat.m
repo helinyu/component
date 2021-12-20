@@ -17,17 +17,14 @@
     #error SDWebImage need ARC for dispatch object
 #endif
 
+// 有关图片处理的效果， 看看适应的图片
 inline UIImage *SDScaledImageForKey(NSString * _Nullable key, UIImage * _Nullable image) {
     if (!image) {
         return nil;
     }
-    
-#if SD_MAC
-    return image;
-#elif SD_UIKIT || SD_WATCH
+
     if ((image.images).count > 0) {
         NSMutableArray<UIImage *> *scaledImages = [NSMutableArray array];
-
         for (UIImage *tempImage in image.images) {
             [scaledImages addObject:SDScaledImageForKey(key, tempImage)];
         }
@@ -39,11 +36,7 @@ inline UIImage *SDScaledImageForKey(NSString * _Nullable key, UIImage * _Nullabl
         }
         return animatedImage;
     } else {
-#if SD_WATCH
-        if ([[WKInterfaceDevice currentDevice] respondsToSelector:@selector(screenScale)]) {
-#elif SD_UIKIT
         if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
-#endif
             CGFloat scale = 1;
             if (key.length >= 8) {
                 NSRange range = [key rangeOfString:@"@2x."];
@@ -65,7 +58,6 @@ inline UIImage *SDScaledImageForKey(NSString * _Nullable key, UIImage * _Nullabl
         }
         return image;
     }
-#endif
 }
 
 NSString *const SDWebImageErrorDomain = @"SDWebImageErrorDomain";

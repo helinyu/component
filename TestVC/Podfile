@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
+source 'https://github.com/CocoaPods/Specs.git'
 
 target 'TestVC' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -19,6 +20,8 @@ target 'TestVC' do
   pod 'Shimmer'
   pod 'YYDispatchQueuePool' # 队列池
   pod 'LookinServer', :configurations => ['Debug']
+  
+  pod 'YYKit'
   
   target 'TestVCTests' do
     inherit! :search_paths

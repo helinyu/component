@@ -124,6 +124,7 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
     return shouldCancel;
 }
 
+// 重写start进行对应的操作
 - (void)start {
     @synchronized (self) {
         if (self.isCancelled) {
@@ -132,7 +133,6 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
             return;
         }
 
-#if SD_UIKIT
         Class UIApplicationClass = NSClassFromString(@"UIApplication");
         BOOL hasApplication = UIApplicationClass && [UIApplicationClass respondsToSelector:@selector(sharedApplication)];
         if (hasApplication && [self shouldContinueWhenAppEntersBackground]) {
@@ -142,7 +142,6 @@ typedef NSMutableDictionary<NSString *, id> SDCallbacksDictionary;
                 [wself cancel];
             }];
         }
-#endif
         NSURLSession *session = self.unownedSession;
         if (!session) {
             NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -483,10 +482,12 @@ didReceiveResponse:(NSURLResponse *)response
     return SDScaledImageForKey(key, image);
 }
 
+// 进入后台之后是否继续
 - (BOOL)shouldContinueWhenAppEntersBackground {
     return self.options & SDWebImageDownloaderContinueInBackground;
 }
 
+// 出来了失败的回调
 - (void)callCompletionBlocksWithError:(nullable NSError *)error {
     [self callCompletionBlocksWithImage:nil imageData:nil error:error finished:YES];
 }

@@ -156,9 +156,6 @@ void CodedInputData::readData(KeyValueHolder &kvHolder) {
     }
 }
 
-
-// 这里是读取有挂海南的额数值
-// 读取原来是32的内容
 int32_t CodedInputData::readRawVarint32() {
     int8_t tmp = this->readRawByte();
     if (tmp >= 0) {
@@ -216,7 +213,6 @@ int64_t CodedInputData::readRawLittleEndian64() {
            (((int64_t) b7 & 0xff) << 48) | (((int64_t) b8 & 0xff) << 56);
 }
 
-// 读取原始的值
 int8_t CodedInputData::readRawByte() {
     if (m_position == m_size) {
         auto msg = "reach end, m_position: " + to_string(m_position) + ", m_size: " + to_string(m_size);

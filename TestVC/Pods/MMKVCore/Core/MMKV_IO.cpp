@@ -253,9 +253,8 @@ void MMKV::checkDataValid(bool &loadFromFile, bool &needFullWriteback) {
     }
 }
 
-// 检查加载数据
 void MMKV::checkLoadData() {
-    if (m_needLoadFromFile) { // 是否需要从文件加载数据
+    if (m_needLoadFromFile) {
         SCOPED_LOCK(m_sharedProcessLock);
 
         m_needLoadFromFile = false;
@@ -279,7 +278,7 @@ void MMKV::checkLoadData() {
 
         clearMemoryCache();
         loadFromFile();
-        notifyContentChanged(); //数据发生了改变
+        notifyContentChanged();
     } else if (m_metaInfo->m_crcDigest != metaInfo.m_crcDigest) {
         MMKVDebug("[%s] oldCrc %u, newCrc %u, new actualSize %u", m_mmapID.c_str(), m_metaInfo->m_crcDigest,
                   metaInfo.m_crcDigest, metaInfo.m_actualSize);
@@ -291,11 +290,10 @@ void MMKV::checkLoadData() {
             clearMemoryCache();
             loadFromFile();
         } else {
-            partialLoadFromFile(); // 在指定的位置读取数据
+            partialLoadFromFile();
         }
         notifyContentChanged();
     }
-    else {}
 }
 
 constexpr uint32_t ItemSizeHolder = 0x00ffffff;
@@ -465,10 +463,10 @@ bool MMKV::writeActualSize(size_t size, uint32_t crcDigest, const void *iv, bool
 }
 
 MMBuffer MMKV::getDataForKey(MMKVKey_t key) {
-    checkLoadData(); // 检查加载数据
+    checkLoadData();
 #ifndef MMKV_DISABLE_CRYPT
-    if (m_crypter) { // 是否加密
-        auto itr = m_dicCrypt->find(key);// 查找对应的内容
+    if (m_crypter) {
+        auto itr = m_dicCrypt->find(key);
         if (itr != m_dicCrypt->end()) {
             auto basePtr = (uint8_t *) (m_file->getMemory()) + Fixed32Size;
             return itr->second.toMMBuffer(basePtr, m_crypter);
@@ -501,7 +499,7 @@ bool MMKV::setDataForKey(MMBuffer &&data, MMKVKey_t key, bool isDataHolder) {
     }
     SCOPED_LOCK(m_lock);
     SCOPED_LOCK(m_exclusiveProcessLock);
-    checkLoadData();// 其实这个是整理数据
+    checkLoadData();
 
 #ifndef MMKV_DISABLE_CRYPT
     if (m_crypter) {
@@ -544,11 +542,11 @@ bool MMKV::setDataForKey(MMBuffer &&data, MMKVKey_t key, bool isDataHolder) {
                 m_dicCrypt->emplace(key, KeyValueHolderCrypt(move(data)));
             }
         }
-    } else // 上面是加密的处理
+    } else
 #endif // MMKV_DISABLE_CRYPT
     {
         auto itr = m_dic->find(key);
-        if (itr != m_dic->end()) { // 添加数据
+        if (itr != m_dic->end()) {
             auto ret = appendDataWithKey(data, itr->second, isDataHolder);
             if (!ret.first) {
                 return false;
@@ -559,7 +557,7 @@ bool MMKV::setDataForKey(MMBuffer &&data, MMKVKey_t key, bool isDataHolder) {
             if (!ret.first) {
                 return false;
             }
-            m_dic->emplace(key, std::move(ret.second));// 将ret 中的second赋值到key的value, 将有关的值设置在m_dic 中
+            m_dic->emplace(key, std::move(ret.second));
         }
     }
     m_hasFullWriteback = false;
@@ -676,7 +674,7 @@ MMKV::doAppendDataWithKey(const MMBuffer &data, const MMBuffer &keyData, bool is
     m_actualSize += size;
     updateCRCDigest(ptr, size);
 
-    return make_pair(true, KeyValueHolder(originKeyLength, valueLength, offset)); // 设置这个值
+    return make_pair(true, KeyValueHolder(originKeyLength, valueLength, offset));
 }
 
 KVHolderRet_t MMKV::appendDataWithKey(const MMBuffer &data, MMKVKey_t key, bool isDataHolder) {
@@ -689,7 +687,6 @@ KVHolderRet_t MMKV::appendDataWithKey(const MMBuffer &data, MMKVKey_t key, bool 
     return doAppendDataWithKey(data, keyData, isDataHolder, static_cast<uint32_t>(keyData.length()));
 }
 
-// 添加数据， 看看这里是怎么添加的
 KVHolderRet_t MMKV::appendDataWithKey(const MMBuffer &data, const KeyValueHolder &kvHolder, bool isDataHolder) {
     SCOPED_LOCK(m_exclusiveProcessLock);
 
@@ -706,13 +703,12 @@ KVHolderRet_t MMKV::appendDataWithKey(const MMBuffer &data, const KeyValueHolder
         auto size = rawKeySize + valueLength + pbRawVarint32Size(valueLength);
         bool hasEnoughSize = ensureMemorySize(size);
         if (!hasEnoughSize) {
-            return make_pair(false, KeyValueHolder()); // 业务上： 这个将剩余的数值都是置false // 其实这个就是一个k/v 的设置值
+            return make_pair(false, KeyValueHolder());
         }
     }
-    auto basePtr = (uint8_t *) m_file->getMemory() + Fixed32Size; // 有关的内存的指针，以及对齐
+    auto basePtr = (uint8_t *) m_file->getMemory() + Fixed32Size;
     MMBuffer keyData(basePtr + kvHolder.offset, rawKeySize, MMBufferNoCopy);
 
-//     真实的添加数据
     return doAppendDataWithKey(data, keyData, isDataHolder, keyLength);
 }
 
@@ -1078,32 +1074,26 @@ void MMKV::clearAll() {
     loadFromFile();
 }
 
-//     判断这个文件的数据是否有效的
-//     mmapID 应该是映射的对象
 bool MMKV::isFileValid(const string &mmapID, MMKVPath_t *relatePath) {
     MMKVPath_t kvPath = mappedKVPathWithID(mmapID, MMKV_SINGLE_PROCESS, relatePath);
-    if (!isFileExist(kvPath)) { // 如果这个文件不存在，那么这个文件是有效的
+    if (!isFileExist(kvPath)) {
         return true;
     }
 
-//    创建新的文件路径对象
     MMKVPath_t crcPath = crcPathWithID(mmapID, MMKV_SINGLE_PROCESS, relatePath);
     if (!isFileExist(crcPath)) {
         return false;
     }
 
-//     文件
     uint32_t crcFile = 0;
-    
-//     读取路径的所有数据
     MMBuffer *data = readWholeFile(crcPath);
     if (data) {
         if (data->getPtr()) {
             MMKVMetaInfo metaInfo;
             metaInfo.read(data->getPtr());
-            crcFile = metaInfo.m_crcDigest; // 获取到文件的句柄
+            crcFile = metaInfo.m_crcDigest;
         }
-        delete data; // 这里威慑呢么要删除数据
+        delete data;
     } else {
         return false;
     }

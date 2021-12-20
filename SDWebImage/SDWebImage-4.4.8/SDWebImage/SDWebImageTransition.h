@@ -11,6 +11,11 @@
 #if SD_UIKIT || SD_MAC
 #import "SDImageCache.h"
 
+
+//  图片显示和加载的过渡的阶段
+//  有关过渡的动画，我们可以对coreAnimation 的了解， 看看这个内容是怎么进行处理的？
+//  提供了一个基础的类， 这个过程，我们是可以实现有关的内容的；
+
 // This class is used to provide a transition animation after the view category load image finished. Use this on `sd_imageTransition` in UIView+WebCache.h
 // for UIKit(iOS & tvOS), we use `+[UIView transitionWithView:duration:options:animations:completion]` for transition animation.
 // for AppKit(macOS), we use `+[NSAnimationContext runAnimationGroup:completionHandler:]` for transition animation. You can call `+[NSAnimationContext currentContext]` to grab the context during animations block.
