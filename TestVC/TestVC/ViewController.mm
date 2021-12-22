@@ -219,6 +219,31 @@ CGImageRef MyCreateThumbnailImageFromData (NSData * data, int imageSize)
     [super viewDidLoad];
     
     {
+        NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+            NSLog(@"lt - opertaion");
+        }];
+        [operation start];
+        return;
+    }
+    
+    {
+        NSObject *obj = [NSObject new];
+        NSPointerArray *pointerArray = [NSPointerArray weakObjectsPointerArray];
+        [pointerArray addPointer:(__bridge void *)obj];
+        [pointerArray addPointer:(__bridge void *)[NSNull null]];
+        NSLog(@"lt - count ;%d",pointerArray.count);
+        obj = nil;
+        NSLog(@"lt - count ;%d",pointerArray.count);
+        [pointerArray addPointer:NULL];
+        [pointerArray compact];
+        NSLog(@"lt - count ;%d",pointerArray.count);
+        NSLog(@"lt - count ;%d",pointerArray.count);
+        Nil;
+
+        return;
+    }
+    
+    {
         UIImageView *imgView = [UIImageView new];
         imgView.frame = CGRectMake(100.f, 100.f, 100.f, 100.f);
         imgView.backgroundColor = [UIColor redColor];

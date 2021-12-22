@@ -50,7 +50,8 @@
     [self.imageView sd_setImageWithURL:self.imageURL
                       placeholderImage:nil
                                options:SDWebImageProgressiveDownload
-                              progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL *targetURL) {
+                              progress:^(NSInteger receivedSize, NSInteger
+                                         expectedSize, NSURL *targetURL) {
                                   dispatch_async(dispatch_get_main_queue(), ^{
                                       float progress = 0;
                                       if (expectedSize != 0) {

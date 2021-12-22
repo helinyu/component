@@ -9,19 +9,25 @@ target 'TestVC' do
   # Pods for TestVC
   pod 'MMKV'
 
-  pod 'SDWebImage'#,'~>3.8.2'
-  pod 'SDWebImage/WebP'
-  pod 'SDWebImage/GIF'
+#  pod 'SDWebImage'#,'~>3.8.2'
+#  pod 'SDWebImage/WebP'
+#  pod 'SDWebImage/GIF'
   
 #  pod 'SDWebImageYYPlugin'
   
+  pod 'YYModel'
+  pod 'YYCache'
+  pod 'YYImage'
   pod 'YYWebImage'
+  pod 'YYText'
+  pod 'YYKeyboardManager'
+  pod 'YYDispatchQueuePool'
+  pod 'YYAsyncLayer'
+  pod 'YYCategories'
   
   pod 'Shimmer'
-  pod 'YYDispatchQueuePool' # 队列池
   pod 'LookinServer', :configurations => ['Debug']
   
-  pod 'YYKit'
   
   target 'TestVCTests' do
     inherit! :search_paths

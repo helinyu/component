@@ -1,36 +1,21 @@
 PODS:
-  - FLAnimatedImage (1.0.16)
-  - libwebp (1.2.1):
-    - libwebp/demux (= 1.2.1)
-    - libwebp/mux (= 1.2.1)
-    - libwebp/webp (= 1.2.1)
-  - libwebp/demux (1.2.1):
-    - libwebp/webp
-  - libwebp/mux (1.2.1):
-    - libwebp/demux
-  - libwebp/webp (1.2.1)
   - LookinServer (1.0.4)
   - MMKV (1.2.11):
     - MMKVCore (~> 1.2.11)
   - MMKVCore (1.2.11)
-  - SDWebImage (4.4.8):
-    - SDWebImage/Core (= 4.4.8)
-  - SDWebImage/Core (4.4.8)
-  - SDWebImage/GIF (4.4.8):
-    - FLAnimatedImage (~> 1.0)
-    - SDWebImage/Core
-  - SDWebImage/WebP (4.4.8):
-    - libwebp (< 2.0, >= 0.5)
-    - SDWebImage/Core
   - Shimmer (1.0.2)
+  - YYAsyncLayer (1.0)
   - YYCache (1.0.4)
+  - YYCategories (1.0.4):
+    - YYCategories/no-arc (= 1.0.4)
+  - YYCategories/no-arc (1.0.4)
   - YYDispatchQueuePool (1.0)
   - YYImage (1.0.4):
     - YYImage/Core (= 1.0.4)
   - YYImage/Core (1.0.4)
-  - YYKit (1.0.9):
-    - YYKit/no-arc (= 1.0.9)
-  - YYKit/no-arc (1.0.9)
+  - YYKeyboardManager (1.0.1)
+  - YYModel (1.0.4)
+  - YYText (1.0.7)
   - YYWebImage (1.0.5):
     - YYCache
     - YYImage
@@ -38,43 +23,48 @@ PODS:
 DEPENDENCIES:
   - LookinServer
   - MMKV
-  - SDWebImage
-  - SDWebImage/GIF
-  - SDWebImage/WebP
   - Shimmer
+  - YYAsyncLayer
+  - YYCache
+  - YYCategories
   - YYDispatchQueuePool
-  - YYKit
+  - YYImage
+  - YYKeyboardManager
+  - YYModel
+  - YYText
   - YYWebImage
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - FLAnimatedImage
-    - libwebp
     - LookinServer
     - MMKV
     - MMKVCore
-    - SDWebImage
     - Shimmer
+    - YYAsyncLayer
     - YYCache
+    - YYCategories
     - YYDispatchQueuePool
     - YYImage
-    - YYKit
+    - YYKeyboardManager
+    - YYModel
+    - YYText
     - YYWebImage
 
 SPEC CHECKSUMS:
-  FLAnimatedImage: 8f3e854ebf9680b71f0b6e700939687fc4d82b4b
-  libwebp: 98a37e597e40bfdb4c911fc98f2c53d0b12d05fc
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   MMKV: 217b643c181c3d2f71983206ca1972d0a6e99881
   MMKVCore: f9e4f56742fdebbd042f7a273e278927f182cee7
-  SDWebImage: 783af2c3fa36291a250030c4752ee370a9a51d13
   Shimmer: c5374be1c2b0c9e292fb05b339a513cf291cac86
+  YYAsyncLayer: df6b01ebc695c5f6b4c15dd5c23fa3e081eb25c0
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYCategories: 6bcd4314c6661a561410dce4a793379ebd306abd
   YYDispatchQueuePool: 3dfb2274bcc74207688dde8ac6f7bdd46871dd7b
   YYImage: 1e1b62a9997399593e4b9c4ecfbbabbf1d3f3b54
-  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
+  YYKeyboardManager: ff53d2e80d1808567a7f004028bd200d9469a89f
+  YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: ce2f13719983c7762533035b5751ae84094b87c6
+PODFILE CHECKSUM: 7f9bc6bb0ce283ea74223e5874c9d082397c7ee6
 
 COCOAPODS: 1.11.2

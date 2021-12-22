@@ -10,7 +10,6 @@
 		042B54DBE916E24854E374CC /* Pods_TestVCTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5EC2816AEDE1ED7730B8830 /* Pods_TestVCTests.framework */; };
 		0F27E8EDE77462DB528F562C /* Pods_TestVC_TestVCUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA1F205837650F6CD0AE8FB /* Pods_TestVC_TestVCUITests.framework */; };
 		3452FD2B34F89EA14602E1C4 /* Pods_TestVC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF93E68E22E92680134246B4 /* Pods_TestVC.framework */; };
-		D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D42B53F726CBB13E002C3C9D /* SecondViewController.m */; };
 		D4458A5E26EF3D1C009B7500 /* XNBlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A5D26EF3D1C009B7500 /* XNBlockModel.m */; };
 		D4458A8826F4B222009B7500 /* MyWorkerClass.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A8726F4B222009B7500 /* MyWorkerClass.m */; };
 		D4458A8B26F597AE009B7500 /* XNFiveViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4458A8A26F597AE009B7500 /* XNFiveViewViewController.m */; };
@@ -55,6 +54,8 @@
 		D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */; };
 		D4C46A7226CFAEB00056B708 /* Rainbow_1.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */; };
 		D4C46A7326CFAEB00056B708 /* Flowers_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7126CFAEB00056B708 /* Flowers_2.png */; };
+		D4DE3289277322D2003CC634 /* XNWebImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE3288277322D2003CC634 /* XNWebImageOperation.m */; };
+		D4DE328E27732570003CC634 /* XNWebImageDownloadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE328D27732570003CC634 /* XNWebImageDownloadToken.m */; };
 		D4F05D3426E5EBA200800232 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3326E5EBA200800232 /* CanvasView.m */; };
 		D4F05D3726E5EBCC00800232 /* ClothCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3626E5EBCC00800232 /* ClothCanvasView.m */; };
 		D4F05D3A26E5EBDD00800232 /* PaperCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3926E5EBDD00800232 /* PaperCanvasView.m */; };
@@ -106,8 +107,6 @@
 		BBA1F205837650F6CD0AE8FB /* Pods_TestVC_TestVCUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TestVC_TestVCUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88B21B7E7FFB9DA290BA6A8 /* Pods-TestVCTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVCTests.release.xcconfig"; path = "Target Support Files/Pods-TestVCTests/Pods-TestVCTests.release.xcconfig"; sourceTree = "<group>"; };
 		D1CDCF0445AADAED3784DFDB /* Pods-TestVC-TestVCUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TestVC-TestVCUITests.release.xcconfig"; path = "Target Support Files/Pods-TestVC-TestVCUITests/Pods-TestVC-TestVCUITests.release.xcconfig"; sourceTree = "<group>"; };
-		D42B53F626CBB13E002C3C9D /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		D42B53F726CBB13E002C3C9D /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		D4458A5C26EF3D1C009B7500 /* XNBlockModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNBlockModel.h; sourceTree = "<group>"; };
 		D4458A5D26EF3D1C009B7500 /* XNBlockModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNBlockModel.m; sourceTree = "<group>"; };
 		D4458A8626F4B222009B7500 /* MyWorkerClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyWorkerClass.h; sourceTree = "<group>"; };
@@ -189,6 +188,14 @@
 		D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageIOViewController.m; sourceTree = "<group>"; };
 		D4C46A7026CFAEAF0056B708 /* Rainbow_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Rainbow_1.png; sourceTree = "<group>"; };
 		D4C46A7126CFAEB00056B708 /* Flowers_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Flowers_2.png; sourceTree = "<group>"; };
+		D4DE328427731536003CC634 /* XNWebImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImage.h; sourceTree = "<group>"; };
+		D4DE3287277322D2003CC634 /* XNWebImageOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageOperation.h; sourceTree = "<group>"; };
+		D4DE3288277322D2003CC634 /* XNWebImageOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageOperation.m; sourceTree = "<group>"; };
+		D4DE328C27732570003CC634 /* XNWebImageDownloadToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloadToken.h; sourceTree = "<group>"; };
+		D4DE328D27732570003CC634 /* XNWebImageDownloadToken.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDownloadToken.m; sourceTree = "<group>"; };
+		D4DE328F27732645003CC634 /* XNWebImageDownloaderOperationInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderOperationInterface.h; sourceTree = "<group>"; };
+		D4DE329027732820003CC634 /* XNWebImageDownloaderOptionsFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderOptionsFile.h; sourceTree = "<group>"; };
+		D4DE329127732A48003CC634 /* XNWebImageDownloaderBlockFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderBlockFile.h; sourceTree = "<group>"; };
 		D4F05D3226E5EBA200800232 /* CanvasView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasView.h; sourceTree = "<group>"; };
 		D4F05D3326E5EBA200800232 /* CanvasView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasView.m; sourceTree = "<group>"; };
 		D4F05D3526E5EBCC00800232 /* ClothCanvasView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothCanvasView.h; sourceTree = "<group>"; };
@@ -325,6 +332,7 @@
 		D47C80BE26B24E2200880F06 /* TestVC */ = {
 			isa = PBXGroup;
 			children = (
+				D4DE328327731528003CC634 /* WebImage */,
 				D465F87D26FDAC9B00735F80 /* fishhook */,
 				D4FDD4EC26E10511009D3661 /* Parttern */,
 				D4C326CE26D8875E0079FAD3 /* Descorators */,
@@ -340,8 +348,6 @@
 				D44BDB6B2768A60000507D11 /* Snip20211214_8.png */,
 				D4458A8626F4B222009B7500 /* MyWorkerClass.h */,
 				D4458A8726F4B222009B7500 /* MyWorkerClass.m */,
-				D42B53F626CBB13E002C3C9D /* SecondViewController.h */,
-				D42B53F726CBB13E002C3C9D /* SecondViewController.m */,
 				D4C46A6A26CF9FAF0056B708 /* ImageIOViewController.h */,
 				D4C46A6B26CF9FAF0056B708 /* ImageIOViewController.m */,
 				D45B667F26D3BB1900964C86 /* XNThirdViewController.h */,
@@ -455,6 +461,37 @@
 				D4C3271626D887AC0079FAD3 /* UIImage+Transform.m */,
 			);
 			path = Categories;
+			sourceTree = "<group>";
+		};
+		D4DE328327731528003CC634 /* WebImage */ = {
+			isa = PBXGroup;
+			children = (
+				D4DE328B2773245D003CC634 /* Downloader */,
+				D4DE3286277322AD003CC634 /* Operation */,
+				D4DE328427731536003CC634 /* XNWebImage.h */,
+			);
+			path = WebImage;
+			sourceTree = "<group>";
+		};
+		D4DE3286277322AD003CC634 /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				D4DE3287277322D2003CC634 /* XNWebImageOperation.h */,
+				D4DE3288277322D2003CC634 /* XNWebImageOperation.m */,
+			);
+			path = Operation;
+			sourceTree = "<group>";
+		};
+		D4DE328B2773245D003CC634 /* Downloader */ = {
+			isa = PBXGroup;
+			children = (
+				D4DE328C27732570003CC634 /* XNWebImageDownloadToken.h */,
+				D4DE328D27732570003CC634 /* XNWebImageDownloadToken.m */,
+				D4DE328F27732645003CC634 /* XNWebImageDownloaderOperationInterface.h */,
+				D4DE329027732820003CC634 /* XNWebImageDownloaderOptionsFile.h */,
+				D4DE329127732A48003CC634 /* XNWebImageDownloaderBlockFile.h */,
+			);
+			path = Downloader;
 			sourceTree = "<group>";
 		};
 		D4F05D3126E5EB8A00800232 /* Factory */ = {
@@ -873,7 +910,7 @@
 				D4F05DA326E85D7900800232 /* ObjectStructure.m in Sources */,
 				D4BDA75426CD095300858872 /* XNPerson.m in Sources */,
 				D4C3271726D887AC0079FAD3 /* UIImage+Shadow.m in Sources */,
-				D42B53F826CBB13E002C3C9D /* SecondViewController.m in Sources */,
+				D4DE3289277322D2003CC634 /* XNWebImageOperation.m in Sources */,
 				D4F05D9926E8570C00800232 /* Success.m in Sources */,
 				D4458A8B26F597AE009B7500 /* XNFiveViewViewController.m in Sources */,
 				D4C3272A26D8CC000079FAD3 /* LYImageBrowserViewController.m in Sources */,
@@ -883,6 +920,7 @@
 				D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */,
 				D4F05D4A26E6049F00800232 /* BrandingFactory.m in Sources */,
 				D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */,
+				D4DE328E27732570003CC634 /* XNWebImageDownloadToken.m in Sources */,
 				D4F05D3426E5EBA200800232 /* CanvasView.m in Sources */,
 				D4F05D5726E6060F00800232 /* AcmeView.m in Sources */,
 				D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */,
