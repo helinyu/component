@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong, nullable) NSURL *url;
 
-
 /**
  The cancel token taken from `addHandlersForProgress:completed`. This should be readonly and you should not modify
  @note use `-[SDWebImageDownloadToken cancel]` to cancel the token
  */
 // addHandlersForProgress 获得的token
+// 一个下载，就对应一个token，token包括了什么？ url、cancel。downloadOpertion
 @property (nonatomic, strong, nullable) id downloadOperationCancelToken;
 
 @end
