@@ -12,15 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface XNWebImageDownloadToken : NSObject <XNWebImageOperation>
 
-@property (nonatomic, strong, nullable) NSURL *url;
+- (void)cancel; // 取消当前的下载
 
-/**
- The cancel token taken from `addHandlersForProgress:completed`. This should be readonly and you should not modify
- @note use `-[SDWebImageDownloadToken cancel]` to cancel the token
- */
-// addHandlersForProgress 获得的token
-// 一个下载，就对应一个token，token包括了什么？ url、cancel。downloadOpertion
-@property (nonatomic, strong, nullable) id downloadOperationCancelToken;
+@property (nonatomic, strong, nullable, readonly) NSURL *url; // 下载的URL
+
+@property (nonatomic, strong, nullable, readonly) NSURLRequest *request; // url请求
+
+@property (nonatomic, strong, nullable, readonly) NSURLResponse *response; // url响应
+
+// 统计流量
+@property (nonatomic, strong, nullable, readonly) NSURLSessionTaskMetrics *metrics API_AVAILABLE(macosx(10.12), ios(10.0), watchos(3.0), tvos(10.0));
 
 @end
 

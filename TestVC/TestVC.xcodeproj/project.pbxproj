@@ -57,6 +57,14 @@
 		D4C46A7326CFAEB00056B708 /* Flowers_2.png in Resources */ = {isa = PBXBuildFile; fileRef = D4C46A7126CFAEB00056B708 /* Flowers_2.png */; };
 		D4DE3289277322D2003CC634 /* XNWebImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE3288277322D2003CC634 /* XNWebImageOperation.m */; };
 		D4DE328E27732570003CC634 /* XNWebImageDownloadToken.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE328D27732570003CC634 /* XNWebImageDownloadToken.m */; };
+		D4DE329827745F04003CC634 /* XNWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE329727745F04003CC634 /* XNWebImageDownloader.m */; };
+		D4DE329B27745F75003CC634 /* XNWebImageDownloaderConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE329A27745F75003CC634 /* XNWebImageDownloaderConfig.m */; };
+		D4DE329E27746703003CC634 /* XNWebImageDownloaderRequestModifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE329D27746703003CC634 /* XNWebImageDownloaderRequestModifier.m */; };
+		D4DE32A127746AB4003CC634 /* XNWebImageDownloaderResponseModifier.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE32A027746AB4003CC634 /* XNWebImageDownloaderResponseModifier.m */; };
+		D4DE32A427746E0D003CC634 /* XNWebImageDownloaderDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE32A327746E0D003CC634 /* XNWebImageDownloaderDecryptor.m */; };
+		D4DE32A727747EAF003CC634 /* XNImageLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE32A627747EAF003CC634 /* XNImageLoader.m */; };
+		D4DE32A9277494DD003CC634 /* XNWebImageDefine.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE32A8277494DD003CC634 /* XNWebImageDefine.m */; };
+		D4DE32AD2774973F003CC634 /* XNImageCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DE32AC2774973F003CC634 /* XNImageCoder.m */; };
 		D4F05D3426E5EBA200800232 /* CanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3326E5EBA200800232 /* CanvasView.m */; };
 		D4F05D3726E5EBCC00800232 /* ClothCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3626E5EBCC00800232 /* ClothCanvasView.m */; };
 		D4F05D3A26E5EBDD00800232 /* PaperCanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F05D3926E5EBDD00800232 /* PaperCanvasView.m */; };
@@ -196,9 +204,25 @@
 		D4DE3288277322D2003CC634 /* XNWebImageOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageOperation.m; sourceTree = "<group>"; };
 		D4DE328C27732570003CC634 /* XNWebImageDownloadToken.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloadToken.h; sourceTree = "<group>"; };
 		D4DE328D27732570003CC634 /* XNWebImageDownloadToken.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDownloadToken.m; sourceTree = "<group>"; };
-		D4DE328F27732645003CC634 /* XNWebImageDownloaderOperationInterface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderOperationInterface.h; sourceTree = "<group>"; };
-		D4DE329027732820003CC634 /* XNWebImageDownloaderOptionsFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderOptionsFile.h; sourceTree = "<group>"; };
-		D4DE329127732A48003CC634 /* XNWebImageDownloaderBlockFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderBlockFile.h; sourceTree = "<group>"; };
+		D4DE328F27732645003CC634 /* XNWebImageDownloaderOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderOperation.h; sourceTree = "<group>"; };
+		D4DE32922774573E003CC634 /* XNWebImageDownloaderDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderDefine.h; sourceTree = "<group>"; };
+		D4DE329327745B4D003CC634 /* XNWebImageDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDefine.h; sourceTree = "<group>"; };
+		D4DE329527745D34003CC634 /* XNWebImageLoaderDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageLoaderDefine.h; sourceTree = "<group>"; };
+		D4DE329627745F04003CC634 /* XNWebImageDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloader.h; sourceTree = "<group>"; };
+		D4DE329727745F04003CC634 /* XNWebImageDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDownloader.m; sourceTree = "<group>"; };
+		D4DE329927745F75003CC634 /* XNWebImageDownloaderConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderConfig.h; sourceTree = "<group>"; };
+		D4DE329A27745F75003CC634 /* XNWebImageDownloaderConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDownloaderConfig.m; sourceTree = "<group>"; };
+		D4DE329C27746703003CC634 /* XNWebImageDownloaderRequestModifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderRequestModifier.h; sourceTree = "<group>"; };
+		D4DE329D27746703003CC634 /* XNWebImageDownloaderRequestModifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDownloaderRequestModifier.m; sourceTree = "<group>"; };
+		D4DE329F27746AB4003CC634 /* XNWebImageDownloaderResponseModifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderResponseModifier.h; sourceTree = "<group>"; };
+		D4DE32A027746AB4003CC634 /* XNWebImageDownloaderResponseModifier.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDownloaderResponseModifier.m; sourceTree = "<group>"; };
+		D4DE32A227746E0D003CC634 /* XNWebImageDownloaderDecryptor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNWebImageDownloaderDecryptor.h; sourceTree = "<group>"; };
+		D4DE32A327746E0D003CC634 /* XNWebImageDownloaderDecryptor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDownloaderDecryptor.m; sourceTree = "<group>"; };
+		D4DE32A527747EAF003CC634 /* XNImageLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNImageLoader.h; sourceTree = "<group>"; };
+		D4DE32A627747EAF003CC634 /* XNImageLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNImageLoader.m; sourceTree = "<group>"; };
+		D4DE32A8277494DD003CC634 /* XNWebImageDefine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNWebImageDefine.m; sourceTree = "<group>"; };
+		D4DE32AB2774973F003CC634 /* XNImageCoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XNImageCoder.h; sourceTree = "<group>"; };
+		D4DE32AC2774973F003CC634 /* XNImageCoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XNImageCoder.m; sourceTree = "<group>"; };
 		D4F05D3226E5EBA200800232 /* CanvasView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CanvasView.h; sourceTree = "<group>"; };
 		D4F05D3326E5EBA200800232 /* CanvasView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanvasView.m; sourceTree = "<group>"; };
 		D4F05D3526E5EBCC00800232 /* ClothCanvasView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ClothCanvasView.h; sourceTree = "<group>"; };
@@ -469,9 +493,13 @@
 		D4DE328327731528003CC634 /* WebImage */ = {
 			isa = PBXGroup;
 			children = (
+				D4DE32AA27749730003CC634 /* Coder */,
+				D4DE329427745D20003CC634 /* Loader */,
 				D4DE328B2773245D003CC634 /* Downloader */,
 				D4DE3286277322AD003CC634 /* Operation */,
 				D4DE328427731536003CC634 /* XNWebImage.h */,
+				D4DE329327745B4D003CC634 /* XNWebImageDefine.h */,
+				D4DE32A8277494DD003CC634 /* XNWebImageDefine.m */,
 			);
 			path = WebImage;
 			sourceTree = "<group>";
@@ -490,13 +518,41 @@
 		D4DE328B2773245D003CC634 /* Downloader */ = {
 			isa = PBXGroup;
 			children = (
+				D4DE328F27732645003CC634 /* XNWebImageDownloaderOperation.h */,
+				D4DE32922774573E003CC634 /* XNWebImageDownloaderDefine.h */,
 				D4DE328C27732570003CC634 /* XNWebImageDownloadToken.h */,
 				D4DE328D27732570003CC634 /* XNWebImageDownloadToken.m */,
-				D4DE328F27732645003CC634 /* XNWebImageDownloaderOperationInterface.h */,
-				D4DE329027732820003CC634 /* XNWebImageDownloaderOptionsFile.h */,
-				D4DE329127732A48003CC634 /* XNWebImageDownloaderBlockFile.h */,
+				D4DE329927745F75003CC634 /* XNWebImageDownloaderConfig.h */,
+				D4DE329A27745F75003CC634 /* XNWebImageDownloaderConfig.m */,
+				D4DE329C27746703003CC634 /* XNWebImageDownloaderRequestModifier.h */,
+				D4DE329D27746703003CC634 /* XNWebImageDownloaderRequestModifier.m */,
+				D4DE329F27746AB4003CC634 /* XNWebImageDownloaderResponseModifier.h */,
+				D4DE32A027746AB4003CC634 /* XNWebImageDownloaderResponseModifier.m */,
+				D4DE32A227746E0D003CC634 /* XNWebImageDownloaderDecryptor.h */,
+				D4DE32A327746E0D003CC634 /* XNWebImageDownloaderDecryptor.m */,
+				D4DE329627745F04003CC634 /* XNWebImageDownloader.h */,
+				D4DE329727745F04003CC634 /* XNWebImageDownloader.m */,
 			);
 			path = Downloader;
+			sourceTree = "<group>";
+		};
+		D4DE329427745D20003CC634 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				D4DE329527745D34003CC634 /* XNWebImageLoaderDefine.h */,
+				D4DE32A527747EAF003CC634 /* XNImageLoader.h */,
+				D4DE32A627747EAF003CC634 /* XNImageLoader.m */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		D4DE32AA27749730003CC634 /* Coder */ = {
+			isa = PBXGroup;
+			children = (
+				D4DE32AB2774973F003CC634 /* XNImageCoder.h */,
+				D4DE32AC2774973F003CC634 /* XNImageCoder.m */,
+			);
+			path = Coder;
 			sourceTree = "<group>";
 		};
 		D4F05D3126E5EB8A00800232 /* Factory */ = {
@@ -889,6 +945,7 @@
 				D465F88026FDAC9B00735F80 /* fishhook.c in Sources */,
 				D4C3223D26D4C38B0079FAD3 /* HWWeakTimer.m in Sources */,
 				D4F05D9C26E85BB800800232 /* Man.m in Sources */,
+				D4DE329827745F04003CC634 /* XNWebImageDownloader.m in Sources */,
 				D4C3271926D887AC0079FAD3 /* UIImage+Transform.m in Sources */,
 				D4F05D4026E5ECEE00800232 /* PaperCanvasViewGenerator.m in Sources */,
 				D45B667E26D3BA6C00964C86 /* XNLockModel.m in Sources */,
@@ -899,6 +956,7 @@
 				D4FA702E26E1BAAE00F5C3DE /* Vertex.m in Sources */,
 				D4C3223726D4905B0079FAD3 /* NSTimer+Extra.m in Sources */,
 				D4F05D5E26E6064F00800232 /* AcmeToolbar.m in Sources */,
+				D4DE32A727747EAF003CC634 /* XNImageLoader.m in Sources */,
 				D4C46A6C26CF9FAF0056B708 /* ImageIOViewController.m in Sources */,
 				D4F05D3D26E5EC7F00800232 /* CanvasViewGenerator.m in Sources */,
 				D4458A8826F4B222009B7500 /* MyWorkerClass.m in Sources */,
@@ -906,6 +964,8 @@
 				D4F05D5026E6056200800232 /* SierraBrandingFactory.m in Sources */,
 				D4F05D3726E5EBCC00800232 /* ClothCanvasView.m in Sources */,
 				D4C3270C26D8879D0079FAD3 /* UIImage+ImageComponent.m in Sources */,
+				D4DE32A9277494DD003CC634 /* XNWebImageDefine.m in Sources */,
+				D4DE32A127746AB4003CC634 /* XNWebImageDownloaderResponseModifier.m in Sources */,
 				D4F05D6826E606EF00800232 /* SierraView.m in Sources */,
 				D4F05D6E26E6070F00800232 /* SierraToolbar.m in Sources */,
 				D4F05D9F26E85C1D00800232 /* Woman.m in Sources */,
@@ -926,8 +986,11 @@
 				D4C3272D26D8CF070079FAD3 /* LYImageBrowserBaseCell.m in Sources */,
 				D4F05D4A26E6049F00800232 /* BrandingFactory.m in Sources */,
 				D4FA703126E1BC3F00F5C3DE /* Dot.m in Sources */,
+				D4DE32AD2774973F003CC634 /* XNImageCoder.m in Sources */,
 				D4DE328E27732570003CC634 /* XNWebImageDownloadToken.m in Sources */,
+				D4DE32A427746E0D003CC634 /* XNWebImageDownloaderDecryptor.m in Sources */,
 				D4F05D3426E5EBA200800232 /* CanvasView.m in Sources */,
+				D4DE329E27746703003CC634 /* XNWebImageDownloaderRequestModifier.m in Sources */,
 				D4F05D5726E6060F00800232 /* AcmeView.m in Sources */,
 				D4C3270E26D8879D0079FAD3 /* ImageShadowFilter.m in Sources */,
 				D47C80C426B24E2200880F06 /* SceneDelegate.m in Sources */,
@@ -944,6 +1007,7 @@
 				D4F05D4D26E6055100800232 /* AcmeBrandingFactory.m in Sources */,
 				D4C3271826D887AC0079FAD3 /* UIImage+BaseFilter.m in Sources */,
 				D4C3271C26D887BD0079FAD3 /* DecoratorViewController.m in Sources */,
+				D4DE329B27745F75003CC634 /* XNWebImageDownloaderConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
