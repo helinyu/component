@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "XNWebImageLoaderDefine.h"
 #import "XNWebImageDefine.h"
+#import "XNWebImageOperation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

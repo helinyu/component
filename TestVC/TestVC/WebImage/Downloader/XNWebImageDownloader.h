@@ -50,15 +50,14 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSString *)valueForHTTPHeaderField:(nullable NSString *)field;
 
 // 下载的方法
-
+// url: 下载的URL
+//
 - (nullable XNWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                  completed:(nullable XNWebImageDownloaderCompletedBlock)completedBlock;
-
 - (nullable XNWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                    options:(XNWebImageDownloaderOptions)options
                                                   progress:(nullable XNWebImageDownloaderProgressBlock)progressBlock
                                                  completed:(nullable XNWebImageDownloaderCompletedBlock)completedBlock;
-
 - (nullable XNWebImageDownloadToken *)downloadImageWithURL:(nullable NSURL *)url
                                                    options:(XNWebImageDownloaderOptions)options
                                                    context:(nullable XNWebImageContext *)context

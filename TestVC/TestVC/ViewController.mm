@@ -7,7 +7,6 @@
 
 #import "ViewController.h"
 #import <MMKV/MMKV.h>
-#import "SecondViewController.h"
 #import "XNPerson.h"
 #import "ImageIOViewController.h"
 #import <libkern/OSAtomic.h>
@@ -25,7 +24,6 @@
 #include <stdio.h>
 #import "XNFiveViewViewController.h"
 
-#import <SDWebImage/SDImageCache.h>
 #import <ImageIO/ImageIO.h>
 
 @interface ViewController ()<NSPortDelegate>
@@ -255,16 +253,6 @@ CGImageRef MyCreateThumbnailImageFromData (NSData * data, int imageSize)
         CGFloat nativeScale  = [UIScreen mainScreen].nativeScale;
         NSLog(@"lt -  ");
         return;
-    }
-    
-    {
-        SDImageCache *cache = [SDImageCache sharedImageCache];
-        UIImage *image = [UIImage imageNamed:@"Snip20211214_8.png"];
-        [cache storeImage:image forKey:@"hahha" completion:^{
-            NSLog(@"");
-        }];
-        return;
-    
     }
     
     {
@@ -622,8 +610,7 @@ CGImageRef MyCreateThumbnailImageFromData (NSData * data, int imageSize)
 }
 
 - (void)onTap {
-    SecondViewController *vc = [SecondViewController new];
-    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)onTap1 {
