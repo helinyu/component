@@ -101,7 +101,7 @@ static void _initializeSwiftRefcounting() {
     void *const token = dlopen("/usr/lib/swift/libswiftCore.dylib", RTLD_LAZY | RTLD_LOCAL);
     ASSERT(token);
     swiftRetain.store((id(*)(id))dlsym(token, "swift_retain"), memory_order_relaxed);
-    ASSERT(swiftRetain.load(memory_order_relaxed));
+//    ASSERT(swiftRetain.load(memory_order_relaxed));
     swiftRelease.store((void(*)(id))dlsym(token, "swift_release"), memory_order_relaxed);
     ASSERT(swiftRelease.load(memory_order_relaxed));
     dlclose(token);
@@ -1838,8 +1838,8 @@ __attribute__((aligned(16), flatten, noinline))
 id
 objc_autorelease(id obj)
 {
-    if (obj->isTaggedPointerOrNil()) return obj;
-    return obj->autorelease();
+    if (obj->isTaggedPointerOrNil()) return obj; // 判断是否是这种类型的，如果是，就不用处理了
+    return obj->autorelease(); // 否则对相关释放
 }
 
 

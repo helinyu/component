@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (4.0.1):
+    - AFNetworking/NSURLSession (= 4.0.1)
+    - AFNetworking/Reachability (= 4.0.1)
+    - AFNetworking/Security (= 4.0.1)
+    - AFNetworking/Serialization (= 4.0.1)
+    - AFNetworking/UIKit (= 4.0.1)
+  - AFNetworking/NSURLSession (4.0.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (4.0.1)
+  - AFNetworking/Security (4.0.1)
+  - AFNetworking/Serialization (4.0.1)
+  - AFNetworking/UIKit (4.0.1):
+    - AFNetworking/NSURLSession
   - LookinServer (1.0.4)
   - MMKV (1.2.11):
     - MMKVCore (~> 1.2.11)
@@ -21,6 +36,7 @@ PODS:
     - YYImage
 
 DEPENDENCIES:
+  - AFNetworking
   - LookinServer
   - MMKV
   - Shimmer
@@ -36,6 +52,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - AFNetworking
     - LookinServer
     - MMKV
     - MMKVCore
@@ -51,6 +68,7 @@ SPEC REPOS:
     - YYWebImage
 
 SPEC CHECKSUMS:
+  AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   LookinServer: 743c1681771d0a8dcc38825325a080c3186404a5
   MMKV: 217b643c181c3d2f71983206ca1972d0a6e99881
   MMKVCore: f9e4f56742fdebbd042f7a273e278927f182cee7
@@ -65,6 +83,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   YYWebImage: 5f7f36aee2ae293f016d418c7d6ba05c4863e928
 
-PODFILE CHECKSUM: 7f9bc6bb0ce283ea74223e5874c9d082397c7ee6
+PODFILE CHECKSUM: 4fba69c1a330cc59c1900f3cfd83ba9654b83029
 
 COCOAPODS: 1.11.2

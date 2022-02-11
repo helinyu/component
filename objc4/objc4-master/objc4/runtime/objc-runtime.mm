@@ -679,6 +679,7 @@ void objc_setEnumerationMutationHandler(void (*handler)(id)) {
 * Associative Reference Support
 **********************************************************************/
 
+// 通过key获取有关的值
 id
 objc_getAssociatedObject(id object, const void *key)
 {
@@ -688,26 +689,27 @@ objc_getAssociatedObject(id object, const void *key)
 typedef void (*objc_hook_setAssociatedObject)(id _Nonnull object, const void * _Nonnull key,
                                               id _Nullable value, objc_AssociationPolicy policy);
 
+// 这个把柄没有实现什么交换
 void
 objc_setHook_setAssociatedObject(objc_hook_setAssociatedObject _Nonnull newValue,
                                  objc_hook_setAssociatedObject _Nullable * _Nonnull outOldValue) {
   // See objc_object::setHasAssociatedObjects() for a replacement
 }
 
+// 设置方法
 void
 objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy)
 {
     _object_set_associative_reference(object, key, value, policy);
 }
 
+// 移除
 void objc_removeAssociatedObjects(id object) 
 {
     if (object && object->hasAssociatedObjects()) {
         _object_remove_assocations(object, /*deallocating*/false);
     }
 }
-
-
 
 #if SUPPORT_GC_COMPAT
 

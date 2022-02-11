@@ -104,6 +104,10 @@ static SEL search_builtins(const char *name)
 static SEL __sel_registerName(const char *name, bool shouldLock, bool copy) 
 {
     SEL result = 0;
+    
+    if (name == "x") {
+        printf("name ");
+    }
 
     if (shouldLock) selLock.assertUnlocked();
     else selLock.assertLocked();

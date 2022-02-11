@@ -1530,10 +1530,19 @@ static void methodizeClass(Class cls, Class previously)
     // Debug: sanity-check all SELs; log method list contents
     for (const auto& meth : rw->methods()) {
         if (PrintConnecting) {
-            _objc_inform("METHOD %c[%s %s]", isMeta ? '+' : '-', 
+            _objc_inform("METHOD %c[%s %s]", isMeta ? '+' : '-',
                          cls->nameForLogging(), sel_getName(meth.name()));
         }
-        ASSERT(sel_registerName(sel_getName(meth.name())) == meth.name());
+        SEL selctor = sel_registerName(sel_getName(meth.name()));
+        SEL sel = meth.name();
+        bool flag = selctor == sel;
+        if (!flag) {
+            printf("");
+        }
+        else {
+            printf("lt - %@",meth.name());
+        }
+        ASSERT(flag);
     }
 #endif
 }

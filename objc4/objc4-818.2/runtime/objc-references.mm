@@ -66,13 +66,14 @@ public:
     inline uintptr_t policy() const { return _policy; }
     inline id value() const { return _value; }
 
+    //     获取值
     inline void acquireValue() {
         if (_value) {
             switch (_policy & 0xFF) {
             case OBJC_ASSOCIATION_SETTER_RETAIN:
-                _value = objc_retain(_value);
+                _value = objc_retain(_value); // 这个是强引用
                 break;
-            case OBJC_ASSOCIATION_SETTER_COPY:
+            case OBJC_ASSOCIATION_SETTER_COPY: // setter拷贝
                 _value = ((id(*)(id, SEL))objc_msgSend)(_value, @selector(copy));
                 break;
             }
@@ -162,23 +163,24 @@ _object_set_associative_reference(id object, const void *key, id value, uintptr_
     // This code used to work when nil was passed for object and key. Some code
     // probably relies on that to not crash. Check and handle it explicitly.
     // rdar://problem/44094390
-    if (!object && !value) return;
+    if (!object && !value) return; // 关联对象和值都不存在的时候
 
-    if (object->getIsa()->forbidsAssociatedObjects())
+    if (object->getIsa()->forbidsAssociatedObjects()) // 判断是否禁止关联对象
         _objc_fatal("objc_setAssociatedObject called on instance (%p) of class %s which does not allow associated objects", object, object_getClassName(object));
 
-    DisguisedPtr<objc_object> disguised{(objc_object *)object};
-    ObjcAssociation association{policy, value};
+//     objc_object objc对象 ， DisguisedPtr 伪装指针对象 ， 它们都是什么？ 这个需要来了解一下
+    DisguisedPtr<objc_object> disguised{(objc_object *)object}; // 初始化一个伪装对象
+    ObjcAssociation association{policy, value}; // 通过策略和值初始化对象
 
     // retain the new value (if any) outside the lock.
-    association.acquireValue();
+    association.acquireValue(); // 这里处理了什么？ 增加引用计数器在锁的外面
 
-    bool isFirstAssociation = false;
+    bool isFirstAssociation = false; // 是否第一次关联
     {
-        AssociationsManager manager;
-        AssociationsHashMap &associations(manager.get());
+        AssociationsManager manager; // 管理对象
+        AssociationsHashMap &associations(manager.get()); // hash映射
 
-        if (value) {
+        if (value) { // 如果有值 ， 处理
             auto refs_result = associations.try_emplace(disguised, ObjectAssociationMap{});
             if (refs_result.second) {
                 /* it's the first association we make */
@@ -191,7 +193,7 @@ _object_set_associative_reference(id object, const void *key, id value, uintptr_
             if (!result.second) {
                 association.swap(result.first->second);
             }
-        } else {
+        } else { // 没有值的时候出来
             auto refs_it = associations.find(disguised);
             if (refs_it != associations.end()) {
                 auto &refs = refs_it->second;
@@ -213,10 +215,10 @@ _object_set_associative_reference(id object, const void *key, id value, uintptr_
     // has one, and this may trigger +initialize which might do
     // arbitrary stuff, including setting more associated objects.
     if (isFirstAssociation)
-        object->setHasAssociatedObjects();
+        object->setHasAssociatedObjects(); // 如果是第一次关联， 这个就要设置关联对象
 
     // release the old value (outside of the lock).
-    association.releaseHeldValue();
+    association.releaseHeldValue(); // 移除就的值
 }
 
 // Unlike setting/getting an associated reference,

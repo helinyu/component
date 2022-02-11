@@ -762,7 +762,7 @@ class DenseMap : public DenseMapBase<DenseMap<KeyT, ValueT, ValueInfoT, KeyInfoT
   BucketT *Buckets;
   unsigned NumEntries;
   unsigned NumTombstones;
-  unsigned NumBuckets;
+  unsigned NumBuckets; // 有关的
 
 public:
   /// Create a DenseMap wth an optional \p InitialReserve that guarantee that

@@ -25,6 +25,7 @@ target 'TestVC' do
   pod 'YYAsyncLayer'
   pod 'YYCategories'
   
+  pod 'AFNetworking'
   pod 'Shimmer'
   pod 'LookinServer', :configurations => ['Debug']
   

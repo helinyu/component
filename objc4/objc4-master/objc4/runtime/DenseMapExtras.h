@@ -34,6 +34,9 @@ namespace objc {
 // pointer to some globals because of the extra indirection.
 //
 // ExplicitInit / LazyInit wrap doing it the hard way.
+
+// 实现了明确加载和懒加载的处理
+// 按照我的理解，是定义一个这样的标量，当时代码看起来像是定义一个数组
 template <typename Type>
 class ExplicitInit {
     alignas(Type) uint8_t _storage[sizeof(Type)];
@@ -59,7 +62,7 @@ public:
     Type *get(bool allowCreate, Ts &&... Args) {
         if (!_didInit) {
             if (!allowCreate) {
-                return nullptr;
+                return nullptr; // 返回空指针
             }
             new (_storage) Type(std::forward<Ts>(Args)...);
             _didInit = true;
@@ -70,7 +73,8 @@ public:
 
 // Convenience class for Dense Maps & Sets
 template <typename Key, typename Value>
-class ExplicitInitDenseMap : public ExplicitInit<DenseMap<Key, Value>> { };
+class ExplicitInitDenseMap : public ExplicitInit<DenseMap<Key, Value>> { }; // 稠密类的清楚的初始化
+// 初始化： key/value 的类型， 稠密映射
 
 template <typename Key, typename Value>
 class LazyInitDenseMap : public LazyInit<DenseMap<Key, Value>> { };

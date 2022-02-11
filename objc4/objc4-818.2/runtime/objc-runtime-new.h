@@ -1994,7 +1994,7 @@ struct objc_class : objc_object {
     }
 
 
-    bool forbidsAssociatedObjects() {
+    bool forbidsAssociatedObjects() { // 判断是否禁止关联对象
         return (data()->flags & RW_FORBIDS_ASSOCIATED_OBJECTS);
     }
 
