@@ -606,7 +606,7 @@ struct PointerModifierNop {
 **********************************************************************/
 template <typename Element, typename List, uint32_t FlagMask, typename PointerModifier = PointerModifierNop>
 struct entsize_list_tt {
-    uint32_t entsizeAndFlags;
+    uint32_t entsizeAndFlags; // 大小和标记
     uint32_t count;
 
     uint32_t entsize() const {
@@ -1337,22 +1337,22 @@ class list_array_tt {
             return &list;
         }
     }
-
+// mlists, mcount
     void attachLists(List* const * addedLists, uint32_t addedCount) {
         if (addedCount == 0) return;
 
-        if (hasArray()) {
+        if (hasArray()) { // 这里进行了处理
             // many lists -> many lists
             uint32_t oldCount = array()->count;
             uint32_t newCount = oldCount + addedCount;
-            array_t *newArray = (array_t *)malloc(array_t::byteSize(newCount));
+            array_t *newArray = (array_t *)malloc(array_t::byteSize(newCount)); // 重新分配内存
             newArray->count = newCount;
             array()->count = newCount;
 
             for (int i = oldCount - 1; i >= 0; i--)
-                newArray->lists[i + addedCount] = array()->lists[i];
+                newArray->lists[i + addedCount] = array()->lists[i]; // 将之前的内容往后面拷贝
             for (unsigned i = 0; i < addedCount; i++)
-                newArray->lists[i] = addedLists[i];
+                newArray->lists[i] = addedLists[i]; // 将新的内容放在前面
             free(array());
             setArray(newArray);
             validate();
@@ -1445,7 +1445,7 @@ class protocol_array_t :
     protocol_array_t(protocol_list_t *l) : Super(l) { }
 };
 
-struct class_rw_ext_t {
+struct class_rw_ext_t { // 这个是一个什么样的接口，额外的结构
     DECLARE_AUTHED_PTR_TEMPLATE(class_ro_t)
     class_ro_t_authed_ptr<const class_ro_t> ro;
     method_array_t methods;
@@ -1517,10 +1517,10 @@ public:
 
     class_rw_ext_t *extAllocIfNeeded() {
         auto v = get_ro_or_rwe();
-        if (fastpath(v.is<class_rw_ext_t *>())) {
+        if (fastpath(v.is<class_rw_ext_t *>())) { // 这个直接就返回了
             return v.get<class_rw_ext_t *>(&ro_or_rw_ext);
         } else {
-            return extAlloc(v.get<const class_ro_t *>(&ro_or_rw_ext));
+            return extAlloc(v.get<const class_ro_t *>(&ro_or_rw_ext)); // 额外分配内存
         }
     }
 

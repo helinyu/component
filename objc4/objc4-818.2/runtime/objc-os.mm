@@ -451,19 +451,20 @@ void objc_addLoadImageFunc(objc_func_loadImage _Nonnull func) {
 #include "objc-file-old.h"
 #endif
 
+// 非锁映射镜像
 void 
 map_images_nolock(unsigned mhCount, const char * const mhPaths[],
                   const struct mach_header * const mhdrs[])
 {
-    static bool firstTime = YES;
-    header_info *hList[mhCount];
-    uint32_t hCount;
-    size_t selrefCount = 0;
+    static bool firstTime = YES; // 第一个时间
+    header_info *hList[mhCount]; // 头部信息
+    uint32_t hCount; // 数目
+    size_t selrefCount = 0; //
 
     // Perform first-time initialization if necessary.
     // This function is called before ordinary library initializers. 
     // fixme defer initialization until an objc-using image is found?
-    if (firstTime) {
+    if (firstTime) { // 在lib初始化之前，这个方法会被调用， 第一次需要进行初始化
         preopt_init();
     }
 
@@ -473,7 +474,7 @@ map_images_nolock(unsigned mhCount, const char * const mhPaths[],
 
 
     // Find all images with Objective-C metadata.
-    hCount = 0;
+    hCount = 0; // 头部的数目
 
     // Count classes. Size various table based on the total.
     int totalClasses = 0;
@@ -481,29 +482,29 @@ map_images_nolock(unsigned mhCount, const char * const mhPaths[],
     {
         uint32_t i = mhCount;
         while (i--) {
-            const headerType *mhdr = (const headerType *)mhdrs[i];
+            const headerType *mhdr = (const headerType *)mhdrs[i]; // 头部类型
 
-            auto hi = addHeader(mhdr, mhPaths[i], totalClasses, unoptimizedTotalClasses);
+            auto hi = addHeader(mhdr, mhPaths[i], totalClasses, unoptimizedTotalClasses); // 添加头部
             if (!hi) {
                 // no objc data in this entry
                 continue;
             }
             
-            if (mhdr->filetype == MH_EXECUTE) {
+            if (mhdr->filetype == MH_EXECUTE) { // 可执行的
                 // Size some data structures based on main executable's size
 #if __OBJC2__
                 // If dyld3 optimized the main executable, then there shouldn't
                 // be any selrefs needed in the dynamic map so we can just init
                 // to a 0 sized map
-                if ( !hi->hasPreoptimizedSelectors() ) {
+                if ( !hi->hasPreoptimizedSelectors() ) { // 有优化的selectors
                   size_t count;
-                  _getObjc2SelectorRefs(hi, &count);
+                  _getObjc2SelectorRefs(hi, &count); // selector的索引
                   selrefCount += count;
-                  _getObjc2MessageRefs(hi, &count);
+                  _getObjc2MessageRefs(hi, &count); // 信息的索引
                   selrefCount += count;
                 }
 #else
-                _getObjcSelectorRefs(hi, &selrefCount);
+                _getObjcSelectorRefs(hi, &selrefCount); // 获取selector的索引
 #endif
                 
 #if SUPPORT_GC_COMPAT
@@ -519,7 +520,7 @@ map_images_nolock(unsigned mhCount, const char * const mhPaths[],
             }
             
             hList[hCount++] = hi;
-            
+            // 打印映射
             if (PrintImages) {
                 _objc_inform("IMAGES: loading image for %s%s%s%s%s\n", 
                              hi->fname(),
@@ -538,8 +539,8 @@ map_images_nolock(unsigned mhCount, const char * const mhPaths[],
     // executable does not contain Objective-C code but Objective-C 
     // is dynamically loaded later.
     if (firstTime) {
-        sel_init(selrefCount);
-        arr_init();
+        sel_init(selrefCount); // selctor初始化
+        arr_init(); //数组初始化
 
 #if SUPPORT_GC_COMPAT
         // Reject any GC images linked to the main executable.
@@ -592,7 +593,7 @@ map_images_nolock(unsigned mhCount, const char * const mhPaths[],
 
     }
 
-    if (hCount > 0) {
+    if (hCount > 0) { // 读取映射的内容
         _read_images(hList, hCount, totalClasses, unoptimizedTotalClasses);
     }
 
@@ -654,18 +655,20 @@ unmap_image_nolock(const struct mach_header *mh)
 * libc calls _objc_init() before dyld would call our static constructors, 
 * so we have to do it ourselves.
 **********************************************************************/
+// 
 static void static_init()
 {
     size_t count;
     auto inits = getLibobjcInitializers(&_mh_dylib_header, &count);
     for (size_t i = 0; i < count; i++) {
         inits[i]();
-    }
+    } // Libobjc 库的初始化
     auto offsets = getLibobjcInitializerOffsets(&_mh_dylib_header, &count);
     for (size_t i = 0; i < count; i++) {
         UnsignedInitializer init(offsets[i]);
         init();
     }
+//    getLibobjcInitializerOffsets 的初始化
 }
 
 
@@ -918,6 +921,8 @@ void _objc_atfork_child()
 * Bootstrap initialization. Registers our image notifier with dyld.
 * Called by libSystem BEFORE library initialization time
 **********************************************************************/
+// 启动初始化， 使用dyld注册我们的映射通知
+// 调用libSystem 在library初始化的时间
 
 void _objc_init(void)
 {
@@ -926,17 +931,17 @@ void _objc_init(void)
     initialized = true;
     
     // fixme defer initialization until an objc-using image is found?
-    environ_init();
-    tls_init();
-    static_init();
-    runtime_init();
-    exception_init();
+    environ_init(); // 环境初始化
+    tls_init(); // 线程的初始化
+    static_init(); // 静态的初始化
+    runtime_init(); // 运行时的初始化
+    exception_init(); // 异常初始化
 #if __OBJC2__
-    cache_t::init();
+    cache_t::init(); // 缓存的初始化
 #endif
-    _imp_implementationWithBlock_init();
-
-    _dyld_objc_notify_register(&map_images, load_images, unmap_image);
+    _imp_implementationWithBlock_init(); // 实现模块的初始化
+// objc 注册映射的加载的回调
+    _dyld_objc_notify_register(&map_images, load_images, unmap_image); //驻车通知回调
 
 #if __OBJC2__
     didCallDyldNotifyRegister = true;

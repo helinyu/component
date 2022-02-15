@@ -97,7 +97,7 @@ public:
     }
 
     template <typename T>
-    bool is() const {
+    bool is() const { // 处理数目的内容
         using Ty = typename PointerUnionTypeSelector<T1 *, T, IsPT1,
             PointerUnionTypeSelector<T2 *, T, IsPT2,
             UNION_DOESNT_CONTAIN_TYPE<T>>>::Return;

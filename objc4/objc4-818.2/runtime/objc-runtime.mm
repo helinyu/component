@@ -369,6 +369,8 @@ void environ_init(void)
     if (issetugid()) {
         // All environment variables are silently ignored when setuid or setgid
         // This includes OBJC_HELP and OBJC_PRINT_OPTIONS themselves.
+        // 所有的环境变量是静态忽略的当setuid或setgid
+        // 这个包括OBJC_HELP 和 OBJC_PRINT_OPTIONS 它们自己
         return;
     } 
 
@@ -379,12 +381,13 @@ void environ_init(void)
 //    if (!dyld_program_sdk_at_least(dyld_fall_2020_os_versions))
 //        DisableAutoreleaseCoalescingLRU = true;
 
-    bool PrintHelp = false;
-    bool PrintOptions = false;
-    bool maybeMallocDebugging = false;
+    bool PrintHelp = false; // 打印帮助
+    bool PrintOptions = false; // 打印选项
+    bool maybeMallocDebugging = false; // 可能分配的调试
 
     // Scan environ[] directly instead of calling getenv() a lot.
     // This optimizes the case where none are set.
+    // 环境变量的处理
     for (char **p = *_NSGetEnviron(); *p != nil; p++) {
         if (0 == strncmp(*p, "Malloc", 6)  ||  0 == strncmp(*p, "DYLD", 4)  ||  
             0 == strncmp(*p, "NSZombiesEnabled", 16))
@@ -426,6 +429,7 @@ void environ_init(void)
     // Special case: enable some autorelease pool debugging
     // when some malloc debugging is enabled 
     // and OBJC_DEBUG_POOL_ALLOCATION is not set to something other than NO.
+    // 可能分配的调试
     if (maybeMallocDebugging) {
         const char *insert = getenv("DYLD_INSERT_LIBRARIES");
         const char *zombie = getenv("NSZombiesEnabled");
@@ -446,6 +450,7 @@ void environ_init(void)
 //    }
 
     // Print OBJC_HELP and OBJC_PRINT_OPTIONS output.
+    // 打印帮助和选项
     if (PrintHelp  ||  PrintOptions) {
         if (PrintHelp) {
             _objc_inform("Objective-C runtime debugging. Set variable=YES to enable.");
@@ -550,8 +555,12 @@ void _objc_pthread_destroyspecific(void *arg)
 void tls_init(void)
 {
 #if SUPPORT_DIRECT_THREAD_KEYS
+//    /* setup destructor function for static key as it is not created with pthread_key_create() */
+// 创建析构函数给静态key，当它不是通过pthread_key_create() 创建的
+//    _objc_pthread_destroyspecific 销毁函数
     pthread_key_init_np(TLS_DIRECT_KEY, &_objc_pthread_destroyspecific);
 #else
+//    pthread_key_create() 通过这个来创建线程的key
     _objc_pthread_key = tls_create(&_objc_pthread_destroyspecific);
 #endif
 }

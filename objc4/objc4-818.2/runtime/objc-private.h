@@ -402,18 +402,18 @@ typedef struct header_info {
 private:
     // Note, this is no longer a pointer, but instead an offset to a pointer
     // from this location.
-    intptr_t mhdr_offset;
+    intptr_t mhdr_offset; // mhdr 偏移距离
 
     // Note, this is no longer a pointer, but instead an offset to a pointer
     // from this location.
-    intptr_t info_offset;
+    intptr_t info_offset; // info 偏移距离
 
     // Offset from this location to the non-lazy class list
-    intptr_t nlclslist_offset;
-    uintptr_t nlclslist_count;
+    intptr_t nlclslist_offset; // nlclslist 类 偏移距离
+    uintptr_t nlclslist_count; //
 
     // Offset from this location to the non-lazy category list
-    intptr_t nlcatlist_offset;
+    intptr_t nlcatlist_offset; // category 的偏移距离
     uintptr_t nlcatlist_count;
 
     // Offset from this location to the category list
@@ -539,7 +539,7 @@ private:
     // Images in the shared cache will have an empty array here while those
     // allocated at run time will allocate a single entry.
     header_info_rw rw_data[];
-} header_info;
+} header_info; // 头部的信息
 
 extern header_info *FirstHeader;
 extern header_info *LastHeader;

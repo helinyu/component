@@ -292,6 +292,8 @@ category_t * const *header_info::nlcatlist(size_t *outCount) const
     return NULL;
 #endif
 }
+、
+
 
 category_t * const *header_info::catlist(size_t *outCount) const
 {
@@ -507,13 +509,13 @@ header_info_rw *getPreoptimizedHeaderRW(const struct header_info *const hdr)
     return &hinfoRW->headers[index];
 }
 
-
+// 属性的初始化
 void preopt_init(void)
 {
     // Get the memory region occupied by the shared cache.
     size_t length;
     const uintptr_t start = (uintptr_t)_dyld_get_shared_cache_range(&length);
-
+// 共享缓存的范围以及有关的长度
     if (start) {
         objc::dataSegmentsRanges.setSharedCacheRange(start, start + length);
     }

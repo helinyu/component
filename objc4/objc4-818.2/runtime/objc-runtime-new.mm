@@ -59,6 +59,8 @@ struct locstamped_category_t {
     category_t *cat;
     struct header_info *hi;
 };
+
+// 枚举的集中类型
 enum {
     ATTACH_CLASS               = 1 << 0,
     ATTACH_METACLASS           = 1 << 1,
@@ -987,6 +989,7 @@ public:
 } // namespace scanner
 
 // AWZ methods: +alloc / +allocWithZone:
+// 这个不知道是什么扫描
 struct AWZScanner : scanner::Mixin<AWZScanner, AWZ, PrintCustomAWZ, scanner::Scope::Classes> {
     static bool isCustom(Class cls) {
         return cls->hasCustomAWZ();
@@ -1254,7 +1257,7 @@ static bool isBundleClass(Class cls)
     return cls->data()->ro()->flags & RO_FROM_BUNDLE;
 }
 
-
+// 修复方法队列， 力买买买那是怎么实现的？
 static void 
 fixupMethodList(method_list_t *mlist, bool bundleCopy, bool sort)
 {
@@ -1290,13 +1293,14 @@ fixupMethodList(method_list_t *mlist, bool bundleCopy, bool sort)
 }
 
 
+// 准备方法列表
 static void 
 prepareMethodLists(Class cls, method_list_t **addedLists, int addedCount,
                    bool baseMethods, bool methodsFromBundle, const char *why)
 {
     runtimeLock.assertLocked();
 
-    if (addedCount == 0) return;
+    if (addedCount == 0) return; // 没有添加
 
     // There exist RR/AWZ/Core special cases for some class's base methods.
     // But this code should never need to scan base methods for RR/AWZ/Core:
@@ -1304,28 +1308,29 @@ prepareMethodLists(Class cls, method_list_t **addedLists, int addedCount,
     // Therefore we need not handle any special cases here.
     if (baseMethods) {
         ASSERT(cls->hasCustomAWZ() && cls->hasCustomRR() && cls->hasCustomCore());
-    } else if (cls->cache.isConstantOptimizedCache()) {
-        cls->setDisallowPreoptCachesRecursively(why);
-    } else if (cls->allowsPreoptInlinedSels()) {
+    } else if (cls->cache.isConstantOptimizedCache()) { // 是否有缓存优化
+        cls->setDisallowPreoptCachesRecursively(why); // 设置是否允许递归缓存
+    } else if (cls->allowsPreoptInlinedSels()) { //
 #if CONFIG_USE_PREOPT_CACHES
         SEL *sels = (SEL *)objc_opt_offsets[OBJC_OPT_INLINED_METHODS_START];
         SEL *sels_end = (SEL *)objc_opt_offsets[OBJC_OPT_INLINED_METHODS_END];
         if (method_lists_contains_any(addedLists, addedLists + addedCount, sels, sels_end - sels)) {
+            // 是否包含了这些方法，在列表中 ， 如果是， 是否有递归的处理
             cls->setDisallowPreoptInlinedSelsRecursively(why);
         }
 #endif
     }
 
     // Add method lists to array.
-    // Reallocate un-fixed method lists.
+    // Reallocate un-fixed method lists. 重新分配没有修复的类表
     // The new methods are PREPENDED to the method list array.
-
+    // 重新分配需要修复的队列 （这里完全没有看到队列呀）
     for (int i = 0; i < addedCount; i++) {
         method_list_t *mlist = addedLists[i];
         ASSERT(mlist);
 
         // Fixup selectors if necessary
-        if (!mlist->isFixedUp()) {
+        if (!mlist->isFixedUp()) { // 修复补充
             fixupMethodList(mlist, methodsFromBundle, true/*sort*/);
         }
     }
@@ -1333,10 +1338,10 @@ prepareMethodLists(Class cls, method_list_t **addedLists, int addedCount,
     // If the class is initialized, then scan for method implementations
     // tracked by the class's flags. If it's not initialized yet,
     // then objc_class::setInitialized() will take care of it.
-    if (cls->isInitialized()) {
-        objc::AWZScanner::scanAddedMethodLists(cls, addedLists, addedCount);
-        objc::RRScanner::scanAddedMethodLists(cls, addedLists, addedCount);
-        objc::CoreScanner::scanAddedMethodLists(cls, addedLists, addedCount);
+    if (cls->isInitialized()) { // 已经初始化
+        objc::AWZScanner::scanAddedMethodLists(cls, addedLists, addedCount); // AWZ 扫描
+        objc::RRScanner::scanAddedMethodLists(cls, addedLists, addedCount); // RR扫描
+        objc::CoreScanner::scanAddedMethodLists(cls, addedLists, addedCount); // 核心扫描
     }
 }
 
@@ -1401,7 +1406,7 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
      * lists, so the final result is in the expected order.
      */
     constexpr uint32_t ATTACH_BUFSIZ = 64;
-    method_list_t   *mlists[ATTACH_BUFSIZ];
+    method_list_t   *mlists[ATTACH_BUFSIZ]; // 定义了64行，每个列都是一个指针，很可能是指向数组的地址
     property_list_t *proplists[ATTACH_BUFSIZ];
     protocol_list_t *protolists[ATTACH_BUFSIZ];
 
@@ -1409,25 +1414,28 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
     uint32_t propcount = 0;
     uint32_t protocount = 0;
     bool fromBundle = NO;
-    bool isMeta = (flags & ATTACH_METACLASS);
-    auto rwe = cls->data()->extAllocIfNeeded();
+    bool isMeta = (flags & ATTACH_METACLASS); // 是否是元类
+    auto rwe = cls->data()->extAllocIfNeeded(); // 额外分配内存如果需要
 
     for (uint32_t i = 0; i < cats_count; i++) {
         auto& entry = cats_list[i];
 
         method_list_t *mlist = entry.cat->methodsForMeta(isMeta);
+//         看出来是怎么扩充了没有？
         if (mlist) {
-            if (mcount == ATTACH_BUFSIZ) {
-                prepareMethodLists(cls, mlists, mcount, NO, fromBundle, __func__);
-                rwe->methods.attachLists(mlists, mcount);
+            if (mcount == ATTACH_BUFSIZ) { // 需要额外扩充这个数目
+                prepareMethodLists(cls, mlists, mcount, NO, fromBundle, __func__); // 排序的修复
+                
+                //  将所有分类的对象方法附加到类对象方法里面
+                rwe->methods.attachLists(mlists, mcount); //  这里扩展了内存
                 mcount = 0;
             }
-            mlists[ATTACH_BUFSIZ - ++mcount] = mlist;
-            fromBundle |= entry.hi->isBundle();
+            mlists[ATTACH_BUFSIZ - ++mcount] = mlist;//从后面开始添加 （所以，后面添加的就是在前面）
+            fromBundle |= entry.hi->isBundle(); // 为什么有fromBundle的判断
         }
 
         property_list_t *proplist =
-            entry.cat->propertiesForMeta(isMeta, entry.hi);
+            entry.cat->propertiesForMeta(isMeta, entry.hi); // 属性列表
         if (proplist) {
             if (propcount == ATTACH_BUFSIZ) {
                 rwe->properties.attachLists(proplists, propcount);
@@ -1436,7 +1444,7 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
             proplists[ATTACH_BUFSIZ - ++propcount] = proplist;
         }
 
-        protocol_list_t *protolist = entry.cat->protocolsForMeta(isMeta);
+        protocol_list_t *protolist = entry.cat->protocolsForMeta(isMeta); // 接口列表
         if (protolist) {
             if (protocount == ATTACH_BUFSIZ) {
                 rwe->protocols.attachLists(protolists, protocount);
@@ -1446,7 +1454,8 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
         }
     }
 
-    if (mcount > 0) {
+//     添加没有到64个数目的
+    if (mcount > 0) { // 方法列表
         prepareMethodLists(cls, mlists + ATTACH_BUFSIZ - mcount, mcount,
                            NO, fromBundle, __func__);
         rwe->methods.attachLists(mlists + ATTACH_BUFSIZ - mcount, mcount);
@@ -1460,7 +1469,6 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
     }
 
     rwe->properties.attachLists(proplists + ATTACH_BUFSIZ - propcount, propcount);
-
     rwe->protocols.attachLists(protolists + ATTACH_BUFSIZ - protocount, protocount);
 }
 
@@ -3121,12 +3129,12 @@ map_images(unsigned count, const char * const paths[],
            const struct mach_header * const mhdrs[])
 {
     mutex_locker_t lock(runtimeLock);
-    return map_images_nolock(count, paths, mhdrs);
+    return map_images_nolock(count, paths, mhdrs); // 映射镜像
 }
 
-
+// 加载categories
 static void load_categories_nolock(header_info *hi) {
-    bool hasClassProperties = hi->info()->hasCategoryClassProperties();
+    bool hasClassProperties = hi->info()->hasCategoryClassProperties(); // 有分类属性
 
     size_t count;
     auto processCatlist = [&](category_t * const *catlist) {
@@ -3194,6 +3202,7 @@ static void load_categories_nolock(header_info *hi) {
     processCatlist(hi->catlist2(&count));
 }
 
+// 加载所有的额categories
 static void loadAllCategories() {
     mutex_locker_t lock(runtimeLock);
 
@@ -3216,7 +3225,7 @@ load_images(const char *path __unused, const struct mach_header *mh)
 {
     if (!didInitialAttachCategories && didCallDyldNotifyRegister) {
         didInitialAttachCategories = true;
-        loadAllCategories();
+        loadAllCategories(); // 加载categories的内容
     }
 
     // Return without taking locks if there are no +load methods here.
@@ -3231,7 +3240,7 @@ load_images(const char *path __unused, const struct mach_header *mh)
     }
 
     // Call +load methods (without runtimeLock - re-entrant)
-    call_load_methods();
+    call_load_methods(); // 调用load方法
 }
 
 
@@ -3499,17 +3508,18 @@ readProtocol(protocol_t *newproto, Class protocol_class,
 *
 * Locking: runtimeLock acquired by map_images
 **********************************************************************/
+// 读取映射的内容
 void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int unoptimizedTotalClasses)
 {
-    header_info *hi;
-    uint32_t hIndex;
-    size_t count;
-    size_t i;
-    Class *resolvedFutureClasses = nil;
-    size_t resolvedFutureClassCount = 0;
-    static bool doneOnce;
-    bool launchTime = NO;
-    TimeLogger ts(PrintImageTimes);
+    header_info *hi; // 头部信息
+    uint32_t hIndex; // 头部索引
+    size_t count; // 数目
+    size_t i; //
+    Class *resolvedFutureClasses = nil; // 解决为了来类指针
+    size_t resolvedFutureClassCount = 0; // 解决未来类的数目
+    static bool doneOnce; // 处理一次的标记
+    bool launchTime = NO; // 启动时间
+    TimeLogger ts(PrintImageTimes); // 记录的日志
 
     runtimeLock.assertLocked();
 
@@ -3525,7 +3535,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
 #if SUPPORT_NONPOINTER_ISA
         // Disable non-pointer isa under some conditions.
 
-# if SUPPORT_INDEXED_ISA
+# if SUPPORT_INDEXED_ISA // 处理以前就的swift版本
         // Disable nonpointer isa if any image contains old Swift code
         for (EACH_HEADER) {
             if (hi->info()->containsSwift()  &&
@@ -3570,12 +3580,12 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
 # endif
 
 #endif
-
+        // 取消taggedPointers 的数据结构
         if (DisableTaggedPointers) {
             disableTaggedPointers();
         }
         
-        initializeTaggedPointerObfuscator();
+        initializeTaggedPointerObfuscator(); // 初始化taggedPointer内容
 
         if (PrintConnecting) {
             _objc_inform("CLASS: found %d classes during launch", totalClasses);
@@ -3588,11 +3598,13 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
             (isPreoptimized() ? unoptimizedTotalClasses : totalClasses) * 4 / 3;
         gdb_objc_realized_classes =
             NXCreateMapTable(NXStrValueMapPrototype, namedClassesSize);
+//         gdb的oc实现类
 
         ts.log("IMAGE TIMES: first time tasks");
     }
 
     // Fix up @selector references
+//     处理selector的索引
     static size_t UnfixedSelectors;
     {
         mutex_locker_t lock(selLock);
@@ -3684,7 +3696,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
     ts.log("IMAGE TIMES: fix up objc_msgSend_fixup");
 #endif
 
-
+// 接口的处理
     // Discover protocols. Fix up protocol refs.
     for (EACH_HEADER) {
         extern objc_class OBJC_CLASS_$_Protocol;
@@ -3740,9 +3752,9 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
     // attachment has been done. For categories present at startup,
     // discovery is deferred until the first load_images call after
     // the call to _dyld_objc_notify_register completes. rdar://problem/53119145
-    if (didInitialAttachCategories) {
+    if (didInitialAttachCategories) { // 已经初始化attachCategories
         for (EACH_HEADER) {
-            load_categories_nolock(hi);
+            load_categories_nolock(hi); // 加载当前读的categories
         }
     }
 
@@ -3755,6 +3767,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
     // +load handled by prepare_load_methods()
 
     // Realize non-lazy classes (for +load methods and static instances)
+    //
     for (EACH_HEADER) {
         classref_t const *classlist = hi->nlclslist(&count);
         for (i = 0; i < count; i++) {
@@ -3780,7 +3793,7 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
     ts.log("IMAGE TIMES: realize non-lazy classes");
 
     // Realize newly-resolved future classes, in case CF manipulates them
-    if (resolvedFutureClasses) {
+    if (resolvedFutureClasses) { // 处理未来的类
         for (i = 0; i < resolvedFutureClassCount; i++) {
             Class cls = resolvedFutureClasses[i];
             if (cls->isSwiftStable()) {
@@ -3794,17 +3807,18 @@ void _read_images(header_info **hList, uint32_t hCount, int totalClasses, int un
 
     ts.log("IMAGE TIMES: realize future classes");
 
-    if (DebugNonFragileIvars) {
-        realizeAllClasses();
+    if (DebugNonFragileIvars) { // 调试不容脆的ivars
+        realizeAllClasses(); // 实现所有的类
     }
 
 
     // Print preoptimization statistics
+//     预优化的静态数据
     if (PrintPreopt) {
-        static unsigned int PreoptTotalMethodLists;
-        static unsigned int PreoptOptimizedMethodLists;
-        static unsigned int PreoptTotalClasses;
-        static unsigned int PreoptOptimizedClasses;
+        static unsigned int PreoptTotalMethodLists; // 所有的方法列表
+        static unsigned int PreoptOptimizedMethodLists; // 优的方法列表
+        static unsigned int PreoptTotalClasses; // 所有的类
+        static unsigned int PreoptOptimizedClasses; // 优化的类
 
         for (EACH_HEADER) {
             if (hi->hasPreoptimizedSelectors()) {
@@ -8518,10 +8532,11 @@ Class class_setSuperclass(Class cls, Class newSuper)
     return setSuperclass(cls, newSuper);
 }
 
+// 运行时的初始化
 void runtime_init(void)
 {
-    objc::unattachedCategories.init(32);
-    objc::allocatedClasses.init();
+    objc::unattachedCategories.init(32); // unattachedCategories 初始化 unattached 独立的
+    objc::allocatedClasses.init(); // 分配类的初始化
 }
 
 // __OBJC2__

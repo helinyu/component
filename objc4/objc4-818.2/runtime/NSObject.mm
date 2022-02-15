@@ -2199,9 +2199,9 @@ objc_objectptr_t objc_unretainedPointer(id object) { return object; }
 
 void arr_init(void) 
 {
-    AutoreleasePoolPage::init();
-    SideTablesMap.init();
-    _objc_associations_init();
+    AutoreleasePoolPage::init(); // 初始化autopage
+    SideTablesMap.init(); // 初始化一个sideMap
+    _objc_associations_init(); // 初始化关联的单例
 }
 
 
