@@ -224,12 +224,7 @@ static void call_class_loads(void)
 *
 * Called only by call_load_methods().
 **********************************************************************/
-<<<<<<< HEAD
 static bool call_category_loads(void) // 分类的load加载方法
-=======
-// 看看category的load方法是如何执行的
-static bool call_category_loads(void)
->>>>>>> a5e54a7ff99c00981f548b075ebecd20044c2f1f
 {
     int i, shift;
     bool new_categories_added = NO;
