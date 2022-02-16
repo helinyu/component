@@ -18,4 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface NSObject (a)
+
+@property (nonatomic, copy) NSString *name;
+
+- (void)aaaa;
+
+@end
+
+
 NS_ASSUME_NONNULL_END
