@@ -31,6 +31,7 @@
 
 typedef void(*load_method_t)(id, SEL);
 
+// 可加载的另类， 看一下这个method是啥
 struct loadable_class {
     Class cls;  // may be nil
     IMP method;
@@ -181,6 +182,8 @@ void remove_category_from_loadable_list(Category cat)
 *
 * Called only by call_load_methods().
 **********************************************************************/
+
+//
 static void call_class_loads(void)
 {
     int i;
@@ -195,13 +198,13 @@ static void call_class_loads(void)
     // Call all +loads for the detached list.
     for (i = 0; i < used; i++) {
         Class cls = classes[i].cls;
-        load_method_t load_method = (load_method_t)classes[i].method;
-        if (!cls) continue; 
+        if (!cls) continue;
+        load_method_t load_method = (load_method_t)classes[i].method; // load_method 执行的方法
 
         if (PrintLoading) {
             _objc_inform("LOAD: +[%s load]\n", cls->nameForLogging());
         }
-        (*load_method)(cls, @selector(load));
+        (*load_method)(cls, @selector(load)); // 调用这个方法
     }
     
     // Destroy the detached list.
@@ -221,7 +224,12 @@ static void call_class_loads(void)
 *
 * Called only by call_load_methods().
 **********************************************************************/
+<<<<<<< HEAD
 static bool call_category_loads(void) // 分类的load加载方法
+=======
+// 看看category的load方法是如何执行的
+static bool call_category_loads(void)
+>>>>>>> a5e54a7ff99c00981f548b075ebecd20044c2f1f
 {
     int i, shift;
     bool new_categories_added = NO;
@@ -349,12 +357,12 @@ void call_load_methods(void)
 
     do {
         // 1. Repeatedly call class +loads until there aren't any more
-        while (loadable_classes_used > 0) {
-            call_class_loads();
+        while (loadable_classes_used > 0) {// 执行load方法
+            call_class_loads(); // 继承也是一个类，当然会调用+load方法
         }
 
         // 2. Call category +loads ONCE
-        more_categories = call_category_loads();
+        more_categories = call_category_loads(); //调用category的load方法
 
         // 3. Run more +loads if there are classes OR more untried categories
     } while (loadable_classes_used > 0  ||  more_categories);

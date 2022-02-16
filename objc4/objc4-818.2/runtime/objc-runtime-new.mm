@@ -1421,10 +1421,9 @@ attachCategories(Class cls, const locstamped_category_t *cats_list, uint32_t cat
         auto& entry = cats_list[i];
 
         method_list_t *mlist = entry.cat->methodsForMeta(isMeta);
-//         看出来是怎么扩充了没有？
         if (mlist) {
             if (mcount == ATTACH_BUFSIZ) { // 需要额外扩充这个数目
-                prepareMethodLists(cls, mlists, mcount, NO, fromBundle, __func__); // 排序的修复
+                prepareMethodLists(cls, mlists, mcount, NO, fromBundle, __func__); // 为什么要做这个处理？
                 
                 //  将所有分类的对象方法附加到类对象方法里面
                 rwe->methods.attachLists(mlists, mcount); //  这里扩展了内存
