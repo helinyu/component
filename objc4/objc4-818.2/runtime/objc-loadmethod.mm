@@ -41,11 +41,11 @@ struct loadable_category {
     IMP method;
 };
 
-
+// 加载的类， 这个将会用于调用+load方法
 // List of classes that need +load called (pending superclass +load)
 // This list always has superclasses first because of the way it is constructed
 static struct loadable_class *loadable_classes = nil;
-static int loadable_classes_used = 0;
+static int loadable_classes_used = 0;//可以加载的类使用
 static int loadable_classes_allocated = 0;
 
 // List of categories that need +load called (pending parent class +load)
@@ -93,7 +93,7 @@ void add_class_to_loadable_list(Class cls)
 * to its class. Schedule this category for +load after its parent class
 * becomes connected and has its own +load method called.
 **********************************************************************/
-void add_category_to_loadable_list(Category cat)
+void add_category_to_loadable_list(Category cat) // 添加分类到loadable列表中
 {
     IMP method;
 
@@ -221,11 +221,11 @@ static void call_class_loads(void)
 *
 * Called only by call_load_methods().
 **********************************************************************/
-static bool call_category_loads(void)
+static bool call_category_loads(void) // 分类的load加载方法
 {
     int i, shift;
     bool new_categories_added = NO;
-    
+// 初始化列表
     // Detach current loadable list.
     struct loadable_category *cats = loadable_categories;
     int used = loadable_categories_used;

@@ -1929,7 +1929,7 @@ callAlloc(Class cls, bool checkNil, bool allocWithZone=false)
 #if __OBJC2__
     if (slowpath(checkNil && !cls)) return nil;
     if (fastpath(!cls->ISA()->hasCustomAWZ())) {
-        return _objc_rootAllocWithZone(cls, nil);
+        return _objc_rootAllocWithZone(cls, nil); // meta生成的内容， 所以，这个是root
     }
 #endif
 
@@ -2543,7 +2543,7 @@ __attribute__((objc_nonlazy_class))
     return _objc_rootRetainCount(self);
 }
 
-+ (id)alloc {
++ (id)alloc { // 创建一个对象
     return _objc_rootAlloc(self);
 }
 

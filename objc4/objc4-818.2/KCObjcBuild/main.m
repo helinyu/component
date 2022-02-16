@@ -13,14 +13,13 @@
 
 #import <Foundation/Foundation.h>
 
+
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
 
         NSLog(@"Hello, World!");
-        NSObject *objc = [[NSObject alloc] init];
-        if ([objc conformsToProtocol:NSProtocolFromString(@"XNTestProtocol")]) {
-            NSLog(@"lt - objc");
-        }
+        
+        NSLog(@"lt - end");
         
     }
     return 0;

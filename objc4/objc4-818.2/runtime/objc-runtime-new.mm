@@ -6460,7 +6460,7 @@ IMP lookUpImpOrForward(id inst, SEL sel, Class cls, int behavior)
     //
     // The only codepath calling into this without having performed some
     // kind of cache lookup is class_getInstanceMethod().
-
+    //看一下方法的查找过程
     for (unsigned attempts = unreasonableClassCount();;) {
         if (curClass->cache.isConstantOptimizedCache(/* strict */true)) {
 #if CONFIG_USE_PREOPT_CACHES
