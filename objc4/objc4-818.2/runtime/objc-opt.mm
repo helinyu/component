@@ -292,7 +292,6 @@ category_t * const *header_info::nlcatlist(size_t *outCount) const
     return NULL;
 #endif
 }
-、
 
 
 category_t * const *header_info::catlist(size_t *outCount) const
