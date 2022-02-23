@@ -141,9 +141,9 @@ enum HaveOld { DontHaveOld = false, DoHaveOld = true };
 enum HaveNew { DontHaveNew = false, DoHaveNew = true };
 
 struct SideTable {
-    spinlock_t slock;
-    RefcountMap refcnts;
-    weak_table_t weak_table;
+    spinlock_t slock; // 里面使用来了自旋锁
+    RefcountMap refcnts; // 引用的数量映射
+    weak_table_t weak_table; // 弱引用表
 
     SideTable() {
         memset(&weak_table, 0, sizeof(weak_table));
@@ -416,7 +416,7 @@ id
 objc_storeWeak(id *location, id newObj)
 {
     return storeWeak<DoHaveOld, DoHaveNew, DoCrashIfDeallocating>
-        (location, (objc_object *)newObj);
+        (location, (objc_object *)newObj); // 调用的storeweak 的内容
 }
 
 
@@ -463,7 +463,7 @@ objc_initWeak(id *location, id newObj)
     }
 
     return storeWeak<DontHaveOld, DoHaveNew, DoCrashIfDeallocating>
-        (location, (objc_object*)newObj);
+        (location, (objc_object*)newObj); // 创建了一个这样的东西
 }
 
 id

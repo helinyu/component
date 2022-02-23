@@ -1015,6 +1015,7 @@ static inline uint32_t ptr_hash(uint32_t key)
     return key;
 }
 #endif
+// 查看一下为什么使用这个hash算法？ 这个算法有什么不一样的地方？
 
 /*
   Higher-quality hash function. This is measurably slower in some workloads.

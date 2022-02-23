@@ -1,0 +1,41 @@
+# Copyright (c) Microsoft Corporation.
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+import os
+import site
+site.addsitedir("@STL_TEST_UTILS_DIR@")
+site.addsitedir(os.path.join("@LIBCXX_SOURCE_DIR@", "utils"))
+import stl.test.config
+import stl.test.features
+import stl.test.file_parsing
+import stl.test.format
+import stl.test.params
+
+config.envlst_path      = '@LIBCXX_ENVLST@'
+config.name             = 'libc++'
+config.suffixes         = ['[.]pass[.]cpp$', '[.]fail[.]cpp$']
+config.test_exec_root   = '@LIBCXX_TEST_OUTPUT_DIR@'
+config.test_format      = stl.test.format.LibcxxTestFormat()
+config.test_source_root = '@LIBCXX_SOURCE_DIR@/test'
+
+lit_config.expected_results = getattr(lit_config, 'expected_results', dict())
+lit_config.include_dirs     = getattr(lit_config, 'include_dirs', dict())
+lit_config.library_dirs     = getattr(lit_config, 'library_dirs', dict())
+lit_config.test_subdirs     = getattr(lit_config, 'test_subdirs', dict())
+
+lit_config.expected_results[config.name] = stl.test.file_parsing.parse_result_file('@LIBCXX_EXPECTED_RESULTS@')
+lit_config.include_dirs[config.name]     = ['@STL_TESTED_HEADERS_DIR@', '@LIBCXX_SOURCE_DIR@/test/support']
+lit_config.library_dirs[config.name]     = ['@CMAKE_LIBRARY_OUTPUT_DIRECTORY@', '@TOOLSET_LIB@']
+lit_config.test_subdirs[config.name]     = ['@LIBCXX_SOURCE_DIR@/test/std']
+
+lit_config.cxx_runtime = '@CMAKE_RUNTIME_OUTPUT_DIRECTORY@'
+lit_config.target_arch = '@VCLIBS_TARGET_ARCHITECTURE@'
+lit_config.build_only  = '@TESTS_BUILD_ONLY@'.lower() in ['1', 'true', 'on']
+
+# Add parameters and features to the config
+stl.test.config.configure(
+    stl.test.params.getDefaultParameters(config, lit_config),
+    stl.test.features.getDefaultFeatures(config, lit_config),
+    config,
+    lit_config
+)

@@ -800,7 +800,7 @@ class mutex_tt : nocopy_t {
     void forceReset() {
         lockdebug_mutex_unlock(this);
 
-        bzero(&mLock, sizeof(mLock));
+        bzero(&mLock, sizeof(mLock)); // 清空
         mLock = os_unfair_lock OS_UNFAIR_LOCK_INIT;
     }
 

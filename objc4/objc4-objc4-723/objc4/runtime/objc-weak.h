@@ -68,44 +68,53 @@ typedef DisguisedPtr<objc_object *> weak_referrer_t;
  * If out_of_line_ness != REFERRERS_OUT_OF_LINE then the set
  * is instead a small inline array.
  */
-#define WEAK_INLINE_COUNT 4
+#define WEAK_INLINE_COUNT 4 // 简单的只有4个的时候，使用line array 来处理引用。
 
 // out_of_line_ness field overlaps with the low two bits of inline_referrers[1].
 // inline_referrers[1] is a DisguisedPtr of a pointer-aligned address.
 // The low two bits of a pointer-aligned DisguisedPtr will always be 0b00
 // (disguised nil or 0x80..00) or 0b11 (any other address).
 // Therefore out_of_line_ness == 0b10 is used to mark the out-of-line state.
-#define REFERRERS_OUT_OF_LINE 2
+#define REFERRERS_OUT_OF_LINE 2 //
 
+//  上面的两个定义，判断如果数目大于等于4就用数组的方式， 0~3， 就使用简单的方式
+
+// 这个的大小就是40个字节， 5个字段
+// *** 存储了一个对象的弱引用的数据结构
 struct weak_entry_t {
-    DisguisedPtr<objc_object> referent;
+    DisguisedPtr<objc_object> referent; //对象被弱引用的地址
     union {
         struct {
-            weak_referrer_t *referrers;
-            uintptr_t        out_of_line_ness : 2;
-            uintptr_t        num_refs : PTR_MINUS_2;
-            uintptr_t        mask;
-            uintptr_t        max_hash_displacement;
-        };
+            weak_referrer_t *referrers; // hash数组地址，uintptr_t referrers[] 这样的一个数组
+            uintptr_t        out_of_line_ness : 2; // 0~3
+            uintptr_t        num_refs : PTR_MINUS_2; // 索引1 , 引用的数目
+            uintptr_t        mask; // 索引2
+            uintptr_t        max_hash_displacement; // 索引3
+        }; // 4个uintptr_t 的内存大小
         struct {
             // out_of_line_ness field is low bits of inline_referrers[1]
-            weak_referrer_t  inline_referrers[WEAK_INLINE_COUNT];
+            // low bits of 低字段
+            weak_referrer_t  inline_referrers[WEAK_INLINE_COUNT]; // 4数据以内
+//             这个为什么不会污染了out_of_line_ness这个字段？ 因为我们的地址最啥好的32bit的环境下， 是4个字节， 所以前面低位的两个bit都会是0的。
+//             这个时候 out_of_line_ness 获取处理来的都是0.
         };
-    };
+    }; // 40个字节
 
-    bool out_of_line() {
+    bool out_of_line() { // 是否在范围内
         return (out_of_line_ness == REFERRERS_OUT_OF_LINE);
     }
 
     weak_entry_t& operator=(const weak_entry_t& other) {
-        memcpy(this, &other, sizeof(other));
+        memcpy(this, &other, sizeof(other)); // 拷贝
         return *this;
     }
 
+//  构建一个对象的时候， 将内容放到referrers中
+//   objc_object， 有关的oc对象的内容。
     weak_entry_t(objc_object *newReferent, objc_object **newReferrer)
         : referent(newReferent)
     {
-        inline_referrers[0] = newReferrer;
+        inline_referrers[0] = newReferrer; // 这个设置是什么意思？
         for (int i = 1; i < WEAK_INLINE_COUNT; i++) {
             inline_referrers[i] = nil;
         }
@@ -116,22 +125,27 @@ struct weak_entry_t {
  * The global weak references table. Stores object ids as keys,
  * and weak_entry_t structs as their values.
  */
+//* keys 完全没有看到在哪里。 是否是对应的key？
 struct weak_table_t {
-    weak_entry_t *weak_entries;
+    weak_entry_t *weak_entries; // 这个是一个数组之后怎？
     size_t    num_entries;
     uintptr_t mask;
     uintptr_t max_hash_displacement;
 };
 
 /// Adds an (object, weak pointer) pair to the weak table.
-id weak_register_no_lock(weak_table_t *weak_table, id referent, 
+// weak注册
+id weak_register_no_lock(weak_table_t *weak_table, id referent,
                          id *referrer, bool crashIfDeallocating);
 
+
 /// Removes an (object, weak pointer) pair from the weak table.
+/// 移除weak注册
 void weak_unregister_no_lock(weak_table_t *weak_table, id referent, id *referrer);
 
 #if DEBUG
 /// Returns true if an object is weakly referenced somewhere.
+// Debug 环境下判断weak是否注册了在weakTable里面
 bool weak_is_registered_no_lock(weak_table_t *weak_table, id referent);
 #endif
 

@@ -1,0 +1,16 @@
+# Copyright (c) Microsoft Corporation.
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+# Disable CRLF-mapping for all files.
+* -text
+
+# Ensure GitHub detects our C++ code as C++ code.
+/stl/inc/** linguist-language=C++
+/stl/src/** linguist-language=C++
+*.h linguist-language=C++
+
+# Ensure GitHub detects lit.cfg and lit.local.cfg as Python instead of HAProxy.
+*.cfg linguist-language=Python
+
+# Ensure GitHub detects our Perl legacy test harness code as Perl code instead of Raku.
+*.pl linguist-language=Perl
