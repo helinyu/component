@@ -38,10 +38,10 @@
 #define LLVM_UNLIKELY slowpath
 #define LLVM_LIKELY fastpath
 
-namespace objc {
+namespace objc { // objc 域
+namespace detail { // detail 的域
 
-namespace detail {
-
+#pragma mark -- pair的内容
 // We extend a pair to allow users to override the bucket type with their own
 // implementation without requiring two members.
 template <typename KeyT, typename ValueT>
@@ -52,14 +52,16 @@ struct DenseMapPair : public std::pair<KeyT, ValueT> {
   // NOTE: This default constructor is declared with '{}' rather than
   //       '= default' to work around a separate bug in clang-3.8. This can
   //       also go when we switch to inheriting constructors.
-  DenseMapPair() {}
+  DenseMapPair() {} // 兼容旧的版本
 
+//   直接的引用关系
   DenseMapPair(const KeyT &Key, const ValueT &Value)
       : std::pair<KeyT, ValueT>(Key, Value) {}
 
   DenseMapPair(KeyT &&Key, ValueT &&Value)
       : std::pair<KeyT, ValueT>(std::move(Key), std::move(Value)) {}
 
+//   直接keyValue
   template <typename AltKeyT, typename AltValueT>
   DenseMapPair(AltKeyT &&AltKey, AltValueT &&AltValue,
                typename std::enable_if<
@@ -67,13 +69,16 @@ struct DenseMapPair : public std::pair<KeyT, ValueT> {
                    std::is_convertible<AltValueT, ValueT>::value>::type * = 0)
       : std::pair<KeyT, ValueT>(std::forward<AltKeyT>(AltKey),
                                 std::forward<AltValueT>(AltValue)) {}
+//   暂时理解： type * = 0 ， 初始化默认为0
 
+//   pair相关
   template <typename AltPairT>
   DenseMapPair(AltPairT &&AltPair,
                typename std::enable_if<std::is_convertible<
                    AltPairT, std::pair<KeyT, ValueT>>::value>::type * = 0)
       : std::pair<KeyT, ValueT>(std::forward<AltPairT>(AltPair)) {}
 
+//   获取值
   KeyT &getFirst() { return std::pair<KeyT, ValueT>::first; }
   const KeyT &getFirst() const { return std::pair<KeyT, ValueT>::first; }
   ValueT &getSecond() { return std::pair<KeyT, ValueT>::second; }
@@ -82,6 +87,8 @@ struct DenseMapPair : public std::pair<KeyT, ValueT> {
 
 } // end namespace detail
 
+// 这里算是一个类的声明吧
+// DenseMap 的迭代器
 template <
     typename KeyT, typename ValueT,
     typename ValueInfoT = DenseMapValueInfo<ValueT>,
@@ -92,28 +99,44 @@ class DenseMapIterator;
 
 // ValueInfoT is used by the refcount table.
 // A key/value pair with value==0 is not required to be stored 
-//   in the refcount table; it could correctly be erased instead.
+//   in the refcount table;  value=0的时候不会被存储到refcount 表中
+//it could correctly be erased instead. 它会被正确移除
+
 // For performance, we do keep zero values in the table when the 
-//   true refcount decreases to 1: this makes any future retain faster.
+//   true refcount decreases to 1: this makes any future retain faster. // 我们保留零值在引用表中，这个将会在未来retaind额时候更加快。
+
 // For memory size, we allow rehashes and table insertions to 
 //   remove a zero value as if it were a tombstone.
+// 对于内存大小，我们可以重新映射去移除零值当它是一个僵尸的时候
+
+// 不太明白这一块的意思，引用表在零的时候删除与否？
+//  DerivedT：  衍生 为什么需要这样的一个东西、？
+// keyT: key的累心
+// valueT : value 的累心
+// valueInfoT : 用于引用表
+// keyIntoT :
+// BucketT
+
+#pragma mark -- 基础映射类
+
 template <typename DerivedT, typename KeyT, typename ValueT,
           typename ValueInfoT, typename KeyInfoT, typename BucketT>
 class DenseMapBase {
   template <typename T>
-  using const_arg_type_t = typename const_pointer_or_const_ref<T>::type;
+  using const_arg_type_t = typename const_pointer_or_const_ref<T>::type; // 定义了T* 指针类型
 
 public:
   using size_type = unsigned;
   using key_type = KeyT;
   using mapped_type = ValueT;
-  using value_type = BucketT;
+  using value_type = BucketT; // 这个是pair类型， bucket应该是空间
 
-  using iterator = DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, BucketT>;
+  using iterator = DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, BucketT>; // 变量迭代器
   using const_iterator =
-      DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, BucketT, true>;
+      DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, BucketT, true>; // 常量迭代器
 
-  inline iterator begin() {
+// 可修改和不可修改的begin() /end() 方法
+  inline iterator begin() { // 开始的迭代器
     // When the map is empty, avoid the overhead of advancing/retreating past
     // empty buckets.
     if (empty())
@@ -121,7 +144,7 @@ public:
     return makeIterator(getBuckets(), getBucketsEnd());
   }
   inline iterator end() {
-    return makeIterator(getBucketsEnd(), getBucketsEnd(), true);
+    return makeIterator(getBucketsEnd(), getBucketsEnd(), true); // 最后元素的迭代器
   }
   inline const_iterator begin() const {
     if (empty())
@@ -132,6 +155,7 @@ public:
     return makeConstIterator(getBucketsEnd(), getBucketsEnd(), true);
   }
 
+// 是否为空的
   bool empty() const {
     return getNumEntries() == 0;
   }
@@ -141,17 +165,18 @@ public:
   /// before resizing again.
   void reserve(size_type NumEntries) {
     auto NumBuckets = getMinBucketToReserveForEntries(NumEntries);
-    if (NumBuckets > getNumBuckets())
-      grow(NumBuckets);
+    if (NumBuckets > getNumBuckets()) // 最小的空间 > 当前的空间
+      grow(NumBuckets); // 增加到当前最小的空间
   }
 
   void clear() {
-    if (getNumEntries() == 0 && getNumTombstones() == 0) return;
+    if (getNumEntries() == 0 && getNumTombstones() == 0) return; //
 
     // If the capacity of the array is huge, and the # elements used is small,
     // shrink the array.
+//     实例的4倍小于总体空间， 瘦身这个空间
     if (getNumEntries() * 4 < getNumBuckets() && getNumBuckets() > MIN_BUCKETS) {
-      shrink_and_clear();
+      shrink_and_clear(); // 缩小hash表
       return;
     }
 
@@ -160,7 +185,7 @@ public:
         is_trivially_copyable<ValueT>::value) {
       // Use a simpler loop when these are trivial types.
       for (BucketT *P = getBuckets(), *E = getBucketsEnd(); P != E; ++P)
-        P->getFirst() = EmptyKey;
+        P->getFirst() = EmptyKey; // 清空所有的key，key为空
     } else {
       unsigned NumEntries = getNumEntries();
     for (BucketT *P = getBuckets(), *E = getBucketsEnd(); P != E; ++P) {
@@ -202,6 +227,7 @@ public:
   /// The DenseMapInfo is responsible for supplying methods
   /// getHashValue(LookupKeyT) and isEqual(LookupKeyT, KeyT) for each key
   /// type used.
+  /// 和 DenseMapInfo 的内用一起查找的
   template<class LookupKeyT>
   iterator find_as(const LookupKeyT &Val) {
     BucketT *TheBucket;
@@ -218,7 +244,7 @@ public:
   }
 
   /// lookup - Return the entry for the specified key, or a default
-  /// constructed value if no such entry exists.
+  /// constructed value if no such entry exists. 通过key来查找
   ValueT lookup(const_arg_type_t<KeyT> Val) const {
     const BucketT *TheBucket;
     if (LookupBucketFor(Val, TheBucket))
@@ -237,7 +263,7 @@ public:
   // If the key is already in the map, it returns false and doesn't update the
   // value.
   std::pair<iterator, bool> insert(std::pair<KeyT, ValueT> &&KV) {
-    return try_emplace(std::move(KV.first), std::move(KV.second));
+    return try_emplace(std::move(KV.first), std::move(KV.second)); // 插入
   }
 
   // Inserts key,value pair into the map if the key isn't already in the map.
@@ -308,6 +334,7 @@ public:
 
   // Clear if empty.
   // Shrink if at least 15/16 empty and larger than MIN_COMPACT.
+//   变化空间
   void compact() {
     if (getNumEntries() == 0) {
       shrink_and_clear();
@@ -319,6 +346,7 @@ public:
     }
   }
 
+//  擦除通过值、迭代器
   bool erase(const KeyT &Val) {
     BucketT *TheBucket;
     if (!LookupBucketFor(Val, TheBucket))
@@ -327,7 +355,7 @@ public:
     TheBucket->getSecond().~ValueT();
     TheBucket->getFirst() = getTombstoneKey();
     decrementNumEntries();
-    incrementNumTombstones();
+    incrementNumTombstones(); // 没有命中的
     compact();
     return true;
   }
@@ -340,6 +368,7 @@ public:
     compact();
   }
 
+  //   查找和构建
   value_type& FindAndConstruct(const KeyT &Key) {
     BucketT *TheBucket;
     if (LookupBucketFor(Key, TheBucket))
@@ -400,18 +429,19 @@ protected:
            "# initial buckets must be a power of two!");
     const KeyT EmptyKey = getEmptyKey();
     for (BucketT *B = getBuckets(), *E = getBucketsEnd(); B != E; ++B)
-      ::new (&B->getFirst()) KeyT(EmptyKey);
+      ::new (&B->getFirst()) KeyT(EmptyKey); // key设置为 -1空
   }
 
   /// Returns the number of buckets to allocate to ensure that the DenseMap can
   /// accommodate \p NumEntries without need to grow().
+  /// 获取一个最小的散列表
   unsigned getMinBucketToReserveForEntries(unsigned NumEntries) {
     // Ensure that "NumEntries * 4 < NumBuckets * 3"
     if (NumEntries == 0)
       return 0;
     // +1 is required because of the strict equality.
     // For example if NumEntries is 48, we need to return 401.
-    return NextPowerOf2(NumEntries * 4 / 3 + 1);
+    return NextPowerOf2(NumEntries * 4 / 3 + 1); // 需要最少的空间
   }
 
   void moveFromOldBuckets(BucketT *OldBucketsBegin, BucketT *OldBucketsEnd) {
@@ -497,7 +527,7 @@ private:
   }
 
   unsigned getNumEntries() const {
-    return static_cast<const DerivedT *>(this)->getNumEntries();
+    return static_cast<const DerivedT *>(this)->getNumEntries(); // 当前内容数目
   }
 
   void setNumEntries(unsigned Num) {
@@ -529,7 +559,7 @@ private:
   }
 
   const BucketT *getBuckets() const {
-    return static_cast<const DerivedT *>(this)->getBuckets();
+    return static_cast<const DerivedT *>(this)->getBuckets(); // 当前的内容
   }
 
   BucketT *getBuckets() {
@@ -541,7 +571,7 @@ private:
   }
 
   BucketT *getBucketsEnd() {
-    return getBuckets() + getNumBuckets();
+    return getBuckets() + getNumBuckets(); // 获取最后的bucket
   }
 
   const BucketT *getBucketsEnd() const {
@@ -549,7 +579,7 @@ private:
   }
 
   void grow(unsigned AtLeast) {
-    static_cast<DerivedT *>(this)->grow(AtLeast);
+    static_cast<DerivedT *>(this)->grow(AtLeast); // 增加最小的大小
   }
 
   void shrink_and_clear() {
@@ -563,6 +593,7 @@ private:
 
     TheBucket->getFirst() = std::forward<KeyArg>(Key);
     ::new (&TheBucket->getSecond()) ValueT(std::forward<ValueArgs>(Values)...);
+//     找到这个空间，在这里设置
     return TheBucket;
   }
 
@@ -656,33 +687,33 @@ private:
            !KeyInfoT::isEqual(Val, TombstoneKey) &&
            "Empty/Tombstone value shouldn't be inserted into map!");
 
-    unsigned BucketNo = getHashValue(Val) & (NumBuckets-1);
+    unsigned BucketNo = getHashValue(Val) & (NumBuckets-1); //NumBuckets 这个是2的n次方， 所以，这个是求余在这个范围内
     unsigned ProbeAmt = 1;
     while (true) {
-      const BucketT *ThisBucket = BucketsPtr + BucketNo;
+      const BucketT *ThisBucket = BucketsPtr + BucketNo; // 索引+ 距离
       // Found Val's bucket?  If so, return it.
       if (LLVM_LIKELY(KeyInfoT::isEqual(Val, ThisBucket->getFirst()))) {
         FoundBucket = ThisBucket;
-        return true;
+        return true; // 找到
       }
 
       // If we found an empty bucket, the key doesn't exist in the set.
-      // Insert it and return the default value.
+      // Insert it and return the default value. 当前的位置是空的
       if (LLVM_LIKELY(KeyInfoT::isEqual(ThisBucket->getFirst(), EmptyKey))) {
         // If we've already seen a tombstone while probing, fill it in instead
         // of the empty bucket we eventually probed to.
-        FoundBucket = FoundTombstone ? FoundTombstone : ThisBucket;
+        FoundBucket = FoundTombstone ? FoundTombstone : ThisBucket;  // 么有找到
         return false;
       }
 
       // If this is a tombstone, remember it.  If Val ends up not in the map, we
       // prefer to return it than something that would require more probing.
-      // Ditto for zero values.
+      // Ditto for zero values. 是个墓碑，怎么处理？
       if (KeyInfoT::isEqual(ThisBucket->getFirst(), TombstoneKey) &&
           !FoundTombstone)
         FoundTombstone = ThisBucket;  // Remember the first tombstone found.
       if (ValueInfoT::isPurgeable(ThisBucket->getSecond())  &&  !FoundTombstone)
-        FoundTombstone = ThisBucket;
+        FoundTombstone = ThisBucket;  // valueInfoT 中查找
 
       // Otherwise, it's a hash collision or a tombstone, continue quadratic
       // probing.
@@ -694,6 +725,7 @@ private:
     }
   }
 
+//   const 的查找
   template <typename LookupKeyT>
   bool LookupBucketFor(const LookupKeyT &Val, BucketT *&FoundBucket) {
     const BucketT *ConstFoundBucket;
@@ -746,6 +778,8 @@ bool operator!=(
     const DenseMapBase<DerivedT, KeyT, ValueT, ValueInfoT, KeyInfoT, BucketT> &RHS) {
   return !(LHS == RHS);
 }
+
+#pragma mark -- DenseMap
 
 template <typename KeyT, typename ValueT,
           typename ValueInfoT = DenseMapValueInfo<ValueT>,
@@ -908,6 +942,10 @@ private:
   }
 };
 
+
+#pragma mark -- SmallDenseMap
+
+//默认inline 的方式是4个
 template <typename KeyT, typename ValueT, unsigned InlineBuckets = 4,
           typename ValueInfoT = DenseMapValueInfo<ValueT>,
           typename KeyInfoT = DenseMapInfo<KeyT>,
@@ -926,17 +964,18 @@ class SmallDenseMap
                 "InlineBuckets must be a power of 2.");
 
   unsigned Small : 1;
-  unsigned NumEntries : 31;
+  unsigned NumEntries : 31; // 31bit
   unsigned NumTombstones;
 
   struct LargeRep {
-    BucketT *Buckets;
-    unsigned NumBuckets;
+    BucketT *Buckets; // 这个是一个数组
+    unsigned NumBuckets; // 数量
   };
 
   /// A "union" of an inline bucket array and the struct representing
   /// a large bucket. This union will be discriminated by the 'Small' bit.
   AlignedCharArrayUnion<BucketT[InlineBuckets], LargeRep> storage;
+//             4个是数组， 然后其他的是使用指针的方式
 
 public:
   explicit SmallDenseMap(unsigned NumInitBuckets = 0) {
@@ -1070,7 +1109,7 @@ public:
     this->BaseT::initEmpty();
   }
 
-  void grow(unsigned AtLeast) {
+  void grow(unsigned AtLeast) { // 扩展
     if (AtLeast >= InlineBuckets)
       AtLeast = std::max<unsigned>(MIN_BUCKETS, NextPowerOf2(AtLeast));
 
@@ -1216,34 +1255,37 @@ private:
   }
 };
 
+#pragma mark -- 迭代器
+
 template <typename KeyT, typename ValueT, typename ValueInfoT,
           typename KeyInfoT, typename Bucket, bool IsConst>
 class DenseMapIterator {
   friend class DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, Bucket, true>;
   friend class DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, Bucket, false>;
 
-  using ConstIterator = DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, Bucket, true>;
+  using ConstIterator = DenseMapIterator<KeyT, ValueT, ValueInfoT, KeyInfoT, Bucket, true>; // 常量的迭代器
 
 public:
-  using difference_type = ptrdiff_t;
+  using difference_type = ptrdiff_t; // 不同的指针类型
   using value_type =
-      typename std::conditional<IsConst, const Bucket, Bucket>::type;
-  using pointer = value_type *;
-  using reference = value_type &;
-  using iterator_category = std::forward_iterator_tag;
+      typename std::conditional<IsConst, const Bucket, Bucket>::type; // 判断是不是常量类型
+  using pointer = value_type *; // 指针
+  using reference = value_type &; // 引用
+  using iterator_category = std::forward_iterator_tag; //  能够读写的迭代器
 
 private:
   pointer Ptr = nullptr;
   pointer End = nullptr;
+//   定义了两个指针
 
 public:
-  DenseMapIterator() = default;
+  DenseMapIterator() = default; // 默认空构造函数
 
   DenseMapIterator(pointer Pos, pointer E,
                    bool NoAdvance = false)
       : Ptr(Pos), End(E) {
-    if (NoAdvance) return;
-    AdvancePastEmptyBuckets();
+    if (NoAdvance) return; // 没有优化
+    AdvancePastEmptyBuckets(); // 默认是fallse， 优化，经过空的buckets
   }
 
   // Converting ctor from non-const iterators to const iterators. SFINAE'd out
@@ -1269,6 +1311,7 @@ public:
     return Ptr != RHS.Ptr;
   }
 
+//   迭代器++的方式，前+ ， 后加
   inline DenseMapIterator& operator++() {  // Preincrement
     ++Ptr;
     AdvancePastEmptyBuckets();
@@ -1279,7 +1322,7 @@ public:
   }
 
 private:
-  void AdvancePastEmptyBuckets() {
+  void AdvancePastEmptyBuckets() { // 为什么要去掉空的区域？
     ASSERT(Ptr <= End);
     const KeyT Empty = KeyInfoT::getEmptyKey();
     const KeyT Tombstone = KeyInfoT::getTombstoneKey();
@@ -1289,6 +1332,7 @@ private:
       ++Ptr;
   }
 
+// 这个是从后面还会到End的
   void RetreatPastEmptyBuckets() {
     ASSERT(Ptr >= End);
     const KeyT Empty = KeyInfoT::getEmptyKey();

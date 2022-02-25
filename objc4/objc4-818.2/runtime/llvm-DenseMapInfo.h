@@ -31,24 +31,24 @@ struct DenseMapInfo {
 
 // Provide DenseMapInfo for all pointers.
 template<typename T>
-struct DenseMapInfo<T*> {
-  static inline T* getEmptyKey() {
+struct DenseMapInfo<T*> { // T是指针类型
+  static inline T* getEmptyKey() { //空的key都是 *t = -1
     uintptr_t Val = static_cast<uintptr_t>(-1);
     return reinterpret_cast<T*>(Val);
   }
-  static inline T* getTombstoneKey() {
+  static inline T* getTombstoneKey() { // 这个设置为-2
     uintptr_t Val = static_cast<uintptr_t>(-2);
     return reinterpret_cast<T*>(Val);
   }
   static unsigned getHashValue(const T *PtrVal) {
-      return ptr_hash((uintptr_t)PtrVal);
+      return ptr_hash((uintptr_t)PtrVal); // 求地址的hash值
   }
-  static bool isEqual(const T *LHS, const T *RHS) { return LHS == RHS; }
+  static bool isEqual(const T *LHS, const T *RHS) { return LHS == RHS; } // 判断是否相等（地址）
 };
 
 // Provide DenseMapInfo for disguised pointers.
 template<typename T>
-struct DenseMapInfo<DisguisedPtr<T>> {
+struct DenseMapInfo<DisguisedPtr<T>> { // 值类型的
   static inline DisguisedPtr<T> getEmptyKey() {
     return DisguisedPtr<T>((T*)(uintptr_t)-1);
   }
@@ -64,7 +64,8 @@ struct DenseMapInfo<DisguisedPtr<T>> {
 };
 
 // Provide DenseMapInfo for cstrings.
-template<> struct DenseMapInfo<const char*> {
+// 字符数组 —— c字符串
+template<> struct DenseMapInfo<const char*> { //const char *类型，用于字符串
   static inline const char* getEmptyKey() { 
     return reinterpret_cast<const char *>((intptr_t)-1); 
   }
@@ -78,18 +79,19 @@ template<> struct DenseMapInfo<const char*> {
     if (LHS == RHS) {
       return true;
     }
-    if (LHS == getEmptyKey() || RHS == getEmptyKey()) {
+    if (LHS == getEmptyKey() || RHS == getEmptyKey()) { // 都是为空是不相等的
       return false;
     }
-    if (LHS == getTombstoneKey() || RHS == getTombstoneKey()) {
+    if (LHS == getTombstoneKey() || RHS == getTombstoneKey()) { // 这个是啥？
       return false;
     }
-    return 0 == strcmp(LHS, RHS);
+    return 0 == strcmp(LHS, RHS); // 比较字符串
   }
 };
 
 // Provide DenseMapInfo for chars.
-template<> struct DenseMapInfo<char> {
+// 给字符提供一个map info
+template<> struct DenseMapInfo<char> { //
   static inline char getEmptyKey() { return ~0; }
   static inline char getTombstoneKey() { return ~0 - 1; }
   static unsigned getHashValue(const char& Val) { return Val * 37U; }
@@ -171,6 +173,7 @@ template<> struct DenseMapInfo<long long> {
 };
 
 // Provide DenseMapInfo for all pairs whose members have info.
+// 对于pair蕾西新功能的处理
 template<typename T, typename U>
 struct DenseMapInfo<std::pair<T, U> > {
   typedef std::pair<T, U> Pair;
@@ -185,6 +188,8 @@ struct DenseMapInfo<std::pair<T, U> > {
     return std::make_pair(FirstInfo::getTombstoneKey(),
                           SecondInfo::getTombstoneKey());
   }
+  
+// 这个算法应该是测试过的，为什么要这么算？ 我也不知道
   static unsigned getHashValue(const Pair& PairVal) {
     uint64_t key = (uint64_t)FirstInfo::getHashValue(PairVal.first) << 32
           | (uint64_t)SecondInfo::getHashValue(PairVal.second);

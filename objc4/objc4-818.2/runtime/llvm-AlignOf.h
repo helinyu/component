@@ -23,8 +23,8 @@ namespace objc {
 
 template <typename T>
 struct AlignmentCalcImpl {
-  char x;
-  T t;
+  char x; // char
+  T t; // 定义一个累心
 private:
   AlignmentCalcImpl() {} // Never instantiate.
 };
@@ -39,8 +39,10 @@ private:
 template <typename T>
 struct AlignOf {
   enum { Alignment =
-         static_cast<unsigned int>(sizeof(AlignmentCalcImpl<T>) - sizeof(T)) };
+         static_cast<unsigned int>(sizeof(AlignmentCalcImpl<T>) - sizeof(T)) }; // 就是一个char的大小
 
+//  用来枚举是大于2个字节对齐还是小于2个字节对齐？
+//   定义了集中对齐的枚举方式
   enum { Alignment_GreaterEqual_2Bytes = Alignment >= 2 ? 1 : 0 };
   enum { Alignment_GreaterEqual_4Bytes = Alignment >= 4 ? 1 : 0 };
   enum { Alignment_GreaterEqual_8Bytes = Alignment >= 8 ? 1 : 0 };
@@ -110,7 +112,7 @@ LLVM_ALIGNEDCHARARRAY_TEMPLATE_ALIGNMENT(8192);
 // alignments because __declspec(align(...)) doesn't actually work when it is
 // a member of a by-value function argument in MSVC, even if the alignment
 // request is something reasonably like 8-byte or 16-byte.
-template <> struct AlignedCharArrayImpl<1> { char aligned; };
+template <> struct AlignedCharArrayImpl<1> { char aligned; }; // char是一个字节对齐
 template <> struct AlignedCharArrayImpl<2> { short aligned; };
 template <> struct AlignedCharArrayImpl<4> { int aligned; };
 template <> struct AlignedCharArrayImpl<8> { double aligned; };
@@ -142,7 +144,7 @@ LLVM_ALIGNEDCHARARRAY_TEMPLATE_ALIGNMENT(8192);
 /// than four types can be added at the cost of more boiler plate.
 template <typename T1,
           typename T2 = char, typename T3 = char, typename T4 = char>
-union AlignedCharArrayUnion {
+union AlignedCharArrayUnion { // charArray 的联合实现， 不知道这个怎么用，感觉就是一个char[]的大小
 private:
   class AlignerImpl {
     T1 t1; T2 t2; T3 t3; T4 t4;
